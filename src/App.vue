@@ -268,30 +268,33 @@ onUnmounted(() => {
     >
       <div class="max-w-6xl mx-auto px-4 py-3">
         <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-4">
+          <div class="flex items-center space-x-2 sm:space-x-4">
             <div class="text-lg font-bold">Majestad</div>
             <div class="hidden md:block text-sm text-[#E8E2D6]">
               Combo 2 pares por apenas R$ 349,90
             </div>
           </div>
           
-          <div class="flex items-center space-x-4">
-            <div class="text-right">
+          <div class="flex items-center space-x-2 sm:space-x-4">
+            <div class="text-right hidden sm:block">
               <div class="text-sm text-[#E8E2D6]">Economia de 60%</div>
               <div class="text-lg font-bold text-[#C8AE7D]">R$ 349,90</div>
+            </div>
+            <div class="text-right sm:hidden">
+              <div class="text-sm font-bold text-[#C8AE7D]">R$ 349,90</div>
             </div>
             
             <button 
               :disabled="!isSelectionComplete"
               @click="addToCart"
               :class="[
-                'px-6 py-2 rounded-full font-semibold transition-all duration-300',
+                'px-4 sm:px-6 py-2 rounded-full font-semibold transition-all duration-300 text-sm sm:text-base',
                 isSelectionComplete 
                   ? 'bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] text-[#0B0B0C] hover:shadow-lg' 
                   : 'bg-gray-600 text-gray-400 cursor-not-allowed'
               ]"
             >
-              {{ isSelectionComplete ? 'Garantir' : 'Selecione os pares' }}
+              {{ isSelectionComplete ? 'Garantir' : 'Selecionar' }}
             </button>
           </div>
         </div>
@@ -309,7 +312,7 @@ onUnmounted(() => {
         <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#E8E2D6]/3 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
       
-      <div class="relative z-10 max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
+      <div class="relative z-10 max-w-7xl mx-auto px-4 pt-8 sm:pt-12 grid lg:grid-cols-2 gap-4 lg:gap-6 items-center">
         <!-- Content -->
         <div class="text-center lg:text-left">
           <!-- Selo de Oferta -->
@@ -317,12 +320,12 @@ onUnmounted(() => {
             🔥 OFERTA LIMITADA • 60% OFF
           </div>
           
-          <h1 class="text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight">
+          <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight">
              Sofisticação que <br>
              <span class="text-[#C8AE7D]">transforma</span> seu estilo
            </h1>
            
-           <p class="text-xl md:text-2xl text-[#E8E2D6] mb-8 leading-relaxed font-light">
+           <p class="text-lg sm:text-xl md:text-2xl text-[#E8E2D6] mb-8 leading-relaxed font-light">
              Atemporal. Sofisticado. <span class="text-[#C8AE7D] font-semibold">Feito para você.</span>
            </p>
           
@@ -380,10 +383,10 @@ onUnmounted(() => {
     <section id="selector" class="py-20 px-4 bg-gradient-to-b from-[#1a1a1a] to-[#0B0B0C]">
       <div class="max-w-6xl mx-auto">
         <div class="text-center mb-12">
-          <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-6">
             Escolha seus <span class="text-[#C8AE7D]">2 pares</span>
           </h2>
-          <p class="text-xl text-[#E8E2D6] max-w-2xl mx-auto mb-8">
+          <p class="text-lg sm:text-xl text-[#E8E2D6] max-w-2xl mx-auto mb-8">
             Monte sua combinação perfeita e economize 60%
           </p>
           
@@ -410,11 +413,11 @@ onUnmounted(() => {
           </div>
 
           <!-- Grid Principal -->
-          <div class="grid lg:grid-cols-3 gap-8 mb-12">
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
             <!-- Par 1 -->
             <div class="bg-gradient-to-br from-[#C8AE7D]/5 to-[#E8E2D6]/5 backdrop-blur-sm border border-[#C8AE7D]/20 rounded-2xl overflow-hidden">
               <!-- Header do Par -->
-              <div class="bg-gradient-to-r from-[#C8AE7D]/20 to-[#E8E2D6]/20 px-6 py-4 border-b border-[#C8AE7D]/20">
+              <div class="bg-gradient-to-r from-[#C8AE7D]/20 to-[#E8E2D6]/20 px-4 sm:px-6 py-4 border-b border-[#C8AE7D]/20">
                 <div class="flex items-center justify-between">
                   <div class="flex items-center">
                     <span class="bg-[#C8AE7D] text-[#0B0B0C] w-6 h-6 rounded-full inline-flex items-center justify-center text-sm font-bold mr-3">1</span>
@@ -427,7 +430,7 @@ onUnmounted(() => {
               </div>
 
               <!-- Conteúdo do Par -->
-              <div class="p-6">
+              <div class="p-4 sm:p-6">
                 <!-- Preview da Imagem -->
                 <div class="mb-6">
                   <div class="aspect-square bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 rounded-xl border border-[#C8AE7D]/20 overflow-hidden">
@@ -459,7 +462,7 @@ onUnmounted(() => {
                       :key="'pair1-' + color.id"
                       @click="selectColor(1, color)"
                       :class="[
-                        'relative w-12 h-12 rounded-lg border-2 transition-all duration-300 hover:scale-110 overflow-hidden',
+                        'relative w-10 h-10 sm:w-12 sm:h-12 rounded-lg border-2 transition-all duration-300 hover:scale-110 overflow-hidden',
                         selectedPairs.first.color?.id === color.id 
                           ? 'border-[#C8AE7D] ring-2 ring-[#C8AE7D]/30' 
                           : 'border-[#E8E2D6]/30 hover:border-[#C8AE7D]/50'
@@ -482,13 +485,13 @@ onUnmounted(() => {
                 <!-- Seleção de Tamanhos -->
                 <div>
                   <h4 class="text-sm font-semibold mb-3 text-[#E8E2D6] uppercase tracking-wide">Numeração</h4>
-                  <div class="grid grid-cols-3 gap-2">
+                  <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     <button 
                       v-for="size in sizes" 
                       :key="'pair1-' + size.size"
                       @click="selectSize(1, size.size)"
                       :class="[
-                        'py-2 px-3 rounded-lg border text-sm font-medium transition-all duration-300 hover:scale-105',
+                        'py-2 px-2 sm:px-3 rounded-lg border text-xs sm:text-sm font-medium transition-all duration-300 hover:scale-105',
                         selectedPairs.first.size === size.size 
                           ? 'border-[#C8AE7D] bg-[#C8AE7D] text-[#0B0B0C]' 
                           : 'border-[#E8E2D6]/30 text-[#E8E2D6] hover:border-[#C8AE7D]/50'
@@ -505,7 +508,7 @@ onUnmounted(() => {
             <!-- Par 2 -->
             <div class="bg-gradient-to-br from-[#C8AE7D]/5 to-[#E8E2D6]/5 backdrop-blur-sm border border-[#C8AE7D]/20 rounded-2xl overflow-hidden">
               <!-- Header do Par -->
-              <div class="bg-gradient-to-r from-[#C8AE7D]/20 to-[#E8E2D6]/20 px-6 py-4 border-b border-[#C8AE7D]/20">
+              <div class="bg-gradient-to-r from-[#C8AE7D]/20 to-[#E8E2D6]/20 px-4 sm:px-6 py-4 border-b border-[#C8AE7D]/20">
                 <div class="flex items-center justify-between">
                   <div class="flex items-center">
                     <span class="bg-[#C8AE7D] text-[#0B0B0C] w-6 h-6 rounded-full inline-flex items-center justify-center text-sm font-bold mr-3">2</span>
@@ -518,7 +521,7 @@ onUnmounted(() => {
               </div>
 
               <!-- Conteúdo do Par -->
-              <div class="p-6">
+              <div class="p-4 sm:p-6">
                 <!-- Preview da Imagem -->
                 <div class="mb-6">
                   <div class="aspect-square bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 rounded-xl border border-[#C8AE7D]/20 overflow-hidden">
@@ -550,7 +553,7 @@ onUnmounted(() => {
                       :key="'pair2-' + color.id"
                       @click="selectColor(2, color)"
                       :class="[
-                        'relative w-12 h-12 rounded-lg border-2 transition-all duration-300 hover:scale-110 overflow-hidden',
+                        'relative w-10 h-10 sm:w-12 sm:h-12 rounded-lg border-2 transition-all duration-300 hover:scale-110 overflow-hidden',
                         selectedPairs.second.color?.id === color.id 
                           ? 'border-[#C8AE7D] ring-2 ring-[#C8AE7D]/30' 
                           : 'border-[#E8E2D6]/30 hover:border-[#C8AE7D]/50'
@@ -573,13 +576,13 @@ onUnmounted(() => {
                 <!-- Seleção de Tamanhos -->
                 <div>
                   <h4 class="text-sm font-semibold mb-3 text-[#E8E2D6] uppercase tracking-wide">Numeração</h4>
-                  <div class="grid grid-cols-3 gap-2">
+                  <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     <button 
                       v-for="size in sizes" 
                       :key="'pair2-' + size.size"
                       @click="selectSize(2, size.size)"
                       :class="[
-                        'py-2 px-3 rounded-lg border text-sm font-medium transition-all duration-300 hover:scale-105',
+                        'py-2 px-2 sm:px-3 rounded-lg border text-xs sm:text-sm font-medium transition-all duration-300 hover:scale-105',
                         selectedPairs.second.size === size.size 
                           ? 'border-[#C8AE7D] bg-[#C8AE7D] text-[#0B0B0C]' 
                           : 'border-[#E8E2D6]/30 text-[#E8E2D6] hover:border-[#C8AE7D]/50'
@@ -596,7 +599,7 @@ onUnmounted(() => {
             <!-- Resumo e CTA -->
             <div class="bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 backdrop-blur-sm border border-[#C8AE7D]/20 rounded-2xl overflow-hidden">
               <!-- Header do Resumo -->
-              <div class="bg-gradient-to-r from-[#C8AE7D]/20 to-[#E8E2D6]/20 px-6 py-4 border-b border-[#C8AE7D]/20">
+              <div class="bg-gradient-to-r from-[#C8AE7D]/20 to-[#E8E2D6]/20 px-4 sm:px-6 py-4 border-b border-[#C8AE7D]/20">
                 <div class="flex items-center">
                   <svg class="w-5 h-5 text-[#C8AE7D] mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
@@ -606,7 +609,7 @@ onUnmounted(() => {
               </div>
 
               <!-- Conteúdo do Resumo -->
-              <div class="p-6">
+              <div class="p-4 sm:p-6">
                 <!-- Lista de Seleções -->
                 <div class="space-y-4 mb-6">
                   <div class="flex items-center justify-between py-3 px-4 bg-[#C8AE7D]/5 rounded-lg border border-[#C8AE7D]/10">
@@ -746,7 +749,7 @@ onUnmounted(() => {
         </div>
         
         <!-- Galeria Principal -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-12">
           <!-- Imagem Principal Grande -->
           <div class="md:col-span-2 lg:col-span-2 group cursor-pointer">
             <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-[16/10]">
@@ -897,54 +900,56 @@ onUnmounted(() => {
           </h2>
           
           <!-- Estatísticas -->
-          <div class="flex justify-center items-center gap-8 mb-12">
+          <div class="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 mb-12">
             <div class="text-center">
               <div class="flex items-center justify-center mb-2">
-                <div class="flex text-yellow-400 text-2xl">
+                <div class="flex text-yellow-400 text-xl sm:text-2xl">
                   <span v-for="i in 5" :key="i">★</span>
                 </div>
-                <span class="ml-2 text-3xl font-bold text-[#C8AE7D]">4.9</span>
+                <span class="ml-2 text-2xl sm:text-3xl font-bold text-[#C8AE7D]">4.9</span>
               </div>
-              <p class="text-[#E8E2D6]">Avaliação média</p>
+              <p class="text-[#E8E2D6] text-sm sm:text-base">Avaliação média</p>
             </div>
             
-            <div class="w-px h-16 bg-[#2A2A2A]"></div>
+            <div class="hidden sm:block w-px h-16 bg-[#2A2A2A]"></div>
+            <div class="block sm:hidden w-16 h-px bg-[#2A2A2A]"></div>
             
             <div class="text-center">
-              <div class="text-3xl font-bold text-[#C8AE7D] mb-2">98%</div>
-              <p class="text-[#E8E2D6]">Recomendam</p>
+              <div class="text-2xl sm:text-3xl font-bold text-[#C8AE7D] mb-2">98%</div>
+              <p class="text-[#E8E2D6] text-sm sm:text-base">Recomendam</p>
             </div>
             
-            <div class="w-px h-16 bg-[#2A2A2A]"></div>
+            <div class="hidden sm:block w-px h-16 bg-[#2A2A2A]"></div>
+            <div class="block sm:hidden w-16 h-px bg-[#2A2A2A]"></div>
             
             <div class="text-center">
-              <div class="text-3xl font-bold text-[#C8AE7D] mb-2">2.847</div>
-              <p class="text-[#E8E2D6]">Clientes satisfeitas</p>
+              <div class="text-2xl sm:text-3xl font-bold text-[#C8AE7D] mb-2">2.847</div>
+              <p class="text-[#E8E2D6] text-sm sm:text-base">Clientes satisfeitas</p>
             </div>
           </div>
         </div>
         
         <!-- Carrossel de Depoimentos -->
-        <div class="grid md:grid-cols-3 gap-8 mb-16">
-          <div v-for="(testimonial, index) in testimonials" :key="index" class="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-6">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-16">
+          <div v-for="(testimonial, index) in testimonials" :key="index" class="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-4 sm:p-6">
             <div class="flex items-center mb-4">
-              <div class="flex text-yellow-400 text-lg mr-3">
+              <div class="flex text-yellow-400 text-base sm:text-lg mr-3">
                 <span v-for="i in 5" :key="i">★</span>
               </div>
-              <span class="text-[#C8AE7D] font-semibold">5.0</span>
+              <span class="text-[#C8AE7D] font-semibold text-sm sm:text-base">5.0</span>
             </div>
             
-            <p class="text-[#E8E2D6] mb-6 leading-relaxed italic">
+            <p class="text-[#E8E2D6] mb-4 sm:mb-6 leading-relaxed italic text-sm sm:text-base">
               "{{ testimonial.text }}"
             </p>
             
             <div class="flex items-center">
-              <div class="w-12 h-12 bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] rounded-full flex items-center justify-center mr-4">
-                <span class="text-[#0B0B0C] font-bold text-lg">{{ testimonial.name.charAt(0) }}</span>
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] rounded-full flex items-center justify-center mr-3 sm:mr-4">
+                <span class="text-[#0B0B0C] font-bold text-base sm:text-lg">{{ testimonial.name.charAt(0) }}</span>
               </div>
               <div>
-                <div class="font-semibold">{{ testimonial.name }}</div>
-                <div class="text-sm text-[#E8E2D6]">Cliente verificada</div>
+                <div class="font-semibold text-sm sm:text-base">{{ testimonial.name }}</div>
+                <div class="text-xs sm:text-sm text-[#E8E2D6]">Cliente verificada</div>
               </div>
             </div>
           </div>
@@ -1660,9 +1665,9 @@ onUnmounted(() => {
         </div>
         
         <!-- Dica de Styling -->
-        <div class="mt-12 bg-gradient-to-r from-[#C8AE7D]/10 to-[#E8E2D6]/10 border border-[#C8AE7D]/20 rounded-3xl p-8 text-center">
-          <h3 class="text-2xl font-bold mb-4 text-[#C8AE7D]">Dica de Styling</h3>
-          <p class="text-[#E8E2D6] text-lg leading-relaxed max-w-3xl mx-auto">
+        <div class="mt-12 bg-gradient-to-r from-[#C8AE7D]/10 to-[#E8E2D6]/10 border border-[#C8AE7D]/20 rounded-3xl p-6 sm:p-8 text-center">
+          <h3 class="text-xl sm:text-2xl font-bold mb-4 text-[#C8AE7D]">Dica de Styling</h3>
+          <p class="text-[#E8E2D6] text-base sm:text-lg leading-relaxed max-w-3xl mx-auto">
             O Majestad foi criado para ser versátil. Combine com peças básicas para um look casual ou com trajes formais para ocasiões especiais. 
             <strong class="text-[#C8AE7D]">A elegância está nos detalhes.</strong>
           </p>
@@ -1674,44 +1679,44 @@ onUnmounted(() => {
     <section class="py-20 px-4">
       <div class="max-w-6xl mx-auto">
         <div class="text-center mb-16">
-          <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-6">
             Reconhecimento e <span class="text-[#C8AE7D]">Autoridade</span>
           </h2>
-          <p class="text-xl text-[#E8E2D6] max-w-3xl mx-auto">
+          <p class="text-lg sm:text-xl text-[#E8E2D6] max-w-3xl mx-auto">
             A confiança de milhares de clientes e o reconhecimento da mídia especializada
           </p>
         </div>
         
         <!-- Números de Autoridade -->
-        <div class="grid md:grid-cols-4 gap-8 mb-16">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-16">
           <div class="text-center">
-            <div class="text-4xl md:text-5xl font-bold text-[#C8AE7D] mb-2">15.000+</div>
+            <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#C8AE7D] mb-2">15.000+</div>
             <p class="text-[#E8E2D6] font-medium">Clientes Satisfeitos</p>
           </div>
           
           <div class="text-center">
-            <div class="text-4xl md:text-5xl font-bold text-[#C8AE7D] mb-2">4.9/5</div>
+            <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#C8AE7D] mb-2">4.9/5</div>
             <p class="text-[#E8E2D6] font-medium">Avaliação Média</p>
           </div>
           
           <div class="text-center">
-            <div class="text-4xl md:text-5xl font-bold text-[#C8AE7D] mb-2">98%</div>
+            <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#C8AE7D] mb-2">98%</div>
             <p class="text-[#E8E2D6] font-medium">Recomendam</p>
           </div>
           
           <div class="text-center">
-            <div class="text-4xl md:text-5xl font-bold text-[#C8AE7D] mb-2">3</div>
+            <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#C8AE7D] mb-2">3</div>
             <p class="text-[#E8E2D6] font-medium">Anos no Mercado</p>
           </div>
         </div>
         
         <!-- Selos "Visto em" -->
-        <div class="bg-[#C8AE7D]/10 border border-[#C8AE7D]/20 rounded-3xl p-8">
-          <h3 class="text-2xl font-bold mb-8 text-center text-[#C8AE7D]">Visto em</h3>
+        <div class="bg-[#C8AE7D]/10 border border-[#C8AE7D]/20 rounded-3xl p-6 sm:p-8">
+          <h3 class="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 text-center text-[#C8AE7D]">Visto em</h3>
           
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 items-center">
             <div class="text-center opacity-70 hover:opacity-100 transition-opacity duration-300">
-              <div class="bg-[#E8E2D6]/10 rounded-2xl p-6 mb-3">
+              <div class="bg-[#E8E2D6]/10 rounded-2xl p-4 sm:p-6 mb-3">
                 <div class="text-2xl font-bold text-[#E8E2D6]">VOGUE</div>
               </div>
               <p class="text-sm text-[#E8E2D6]">"Tendência em calçados"</p>

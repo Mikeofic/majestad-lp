@@ -70,7 +70,7 @@ const sizes = [
 ]
 
 const galleryImages = [
-  '/sandalia-branca.png',
+  '/pé-salto-branco.png',
   'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800',
   'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800',
   'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=800'
@@ -751,7 +751,7 @@ onUnmounted(() => {
           <div class="md:col-span-2 lg:col-span-2 group cursor-pointer">
             <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-[16/10]">
               <img 
-                src="/sandalia-branca.png"
+                src="/pé-salto-branco.png"
                 alt="Sapato Majestad Preto Ônix - Vista Principal"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
@@ -768,7 +768,7 @@ onUnmounted(() => {
           <div class="group cursor-pointer">
             <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-[4/5]">
               <img 
-                src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=400&h=500&fit=crop"
+                src="/DSC03084.jpg"
                 alt="Sapato Majestad Branco Pérola"
                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 loading="lazy"
@@ -783,13 +783,13 @@ onUnmounted(() => {
         </div>
         
         <!-- Galeria Secundária -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
           <div class="group cursor-pointer">
             <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-square">
               <img 
-                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=300&fit=crop"
+                src="/pe-salto-preto.png"
                 alt="Detalhe do acabamento"
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                class="w-full h-full object-cover object-bottom group-hover:scale-110 transition-transform duration-500"
                 loading="lazy"
               >
               <div class="absolute inset-0 bg-[#0B0B0C]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -799,9 +799,9 @@ onUnmounted(() => {
           <div class="group cursor-pointer">
             <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-square">
               <img 
-                src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=300&h=300&fit=crop"
+                src="/DSC02989.png"
                 alt="Vista lateral"
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                class="w-full h-full object-cover object-bottom group-hover:scale-110 transition-transform duration-500"
                 loading="lazy"
               >
               <div class="absolute inset-0 bg-[#0B0B0C]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -811,21 +811,9 @@ onUnmounted(() => {
           <div class="group cursor-pointer">
             <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-square">
               <img 
-                src="/sandalia-branca.png"
+                src="/DSC03116.png"
                 alt="Detalhe da palmilha"
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                loading="lazy"
-              >
-              <div class="absolute inset-0 bg-[#0B0B0C]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-          </div>
-          
-          <div class="group cursor-pointer">
-            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-square">
-              <img 
-                src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=300&h=300&fit=crop"
-                alt="Vista traseira"
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                class="w-full h-full object-cover object-bottom group-hover:scale-110 transition-transform duration-500"
                 loading="lazy"
               >
               <div class="absolute inset-0 bg-[#0B0B0C]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

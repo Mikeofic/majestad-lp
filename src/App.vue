@@ -47,13 +47,13 @@ const colors = [
     id: 'black',
     name: 'Preto Ônix',
     hex: '#000000',
-    image: '/sandalia-branca.png'
+    image: '/pé-salto-branco.png'
   },
   {
     id: 'white',
     name: 'Branco Pérola',
     hex: '#FFFFFF',
-    image: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=400'
+    image: '/pe-salto-preto.png'
   }
 ]
 

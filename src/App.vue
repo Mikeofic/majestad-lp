@@ -1335,9 +1335,9 @@ onUnmounted(() => {
               <div class="absolute inset-0 bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] rounded-3xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-500"></div>
               <div class="relative bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 rounded-3xl p-8 border border-[#C8AE7D]/20">
                 <img 
-                  src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=400&fit=crop"
+                  src="/DSC03095.jpg?w=600&h=400&fit=crop"
                   alt="Embalagem Premium Majestad"
-                  class="w-full h-80 object-cover rounded-2xl mb-6"
+                  class="w-full h-80 object-cover object-center rounded-2xl mb-6"
                   loading="lazy"
                 >
                 <div class="text-center">

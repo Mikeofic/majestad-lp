@@ -47,7 +47,7 @@ const colors = [
     id: 'black',
     name: 'Preto Ônix',
     hex: '#000000',
-    image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400'
+    image: '/sandalia-branca.png'
   },
   {
     id: 'white',
@@ -70,7 +70,7 @@ const sizes = [
 ]
 
 const galleryImages = [
-  'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800',
+  '/sandalia-branca.png',
   'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800',
   'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800',
   'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=800'
@@ -356,9 +356,9 @@ onUnmounted(() => {
         <div class="relative">
           <div class="relative z-10">
             <img 
-              src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&h=600&fit=crop" 
-              alt="Sapato Majestad" 
-              class="w-full max-w-md mx-auto transform hover:scale-105 transition-transform duration-500 filter drop-shadow-2xl"
+              src="/sandalia-branca.png" 
+              alt="Sandália Majestad" 
+              class="w-full max-w-2xl mx-auto transform hover:scale-105 transition-transform duration-500 filter drop-shadow-2xl"
             />
           </div>
           
@@ -751,7 +751,7 @@ onUnmounted(() => {
           <div class="md:col-span-2 lg:col-span-2 group cursor-pointer">
             <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-[16/10]">
               <img 
-                src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=600&fit=crop"
+                src="/sandalia-branca.png"
                 alt="Sapato Majestad Preto Ônix - Vista Principal"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
@@ -811,7 +811,7 @@ onUnmounted(() => {
           <div class="group cursor-pointer">
             <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-square">
               <img 
-                src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=300&h=300&fit=crop"
+                src="/sandalia-branca.png"
                 alt="Detalhe da palmilha"
                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 loading="lazy"

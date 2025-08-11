@@ -1596,7 +1596,7 @@ onUnmounted(() => {
           <div class="group">
             <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-[3/4] mb-6">
               <img 
-                src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=400&h=600&fit=crop"
+                src="/casual.png"
                 alt="Look Casual Elegante"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
@@ -1618,7 +1618,7 @@ onUnmounted(() => {
           <div class="group">
             <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-[3/4] mb-6">
               <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop"
+                src="/noite.png"
                 alt="Look Noite Formal"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
@@ -1628,8 +1628,8 @@ onUnmounted(() => {
                 <h3 class="text-xl font-bold mb-2 text-white">Noite Formal</h3>
                 <p class="text-[#E8E2D6] text-sm mb-4">Elegância máxima para eventos especiais</p>
                 <div class="flex flex-wrap gap-2">
-                  <span class="bg-[#C8AE7D]/20 text-[#C8AE7D] px-3 py-1 rounded-full text-xs font-medium">Terno</span>
-                  <span class="bg-[#C8AE7D]/20 text-[#C8AE7D] px-3 py-1 rounded-full text-xs font-medium">Gravata</span>
+                  <span class="bg-[#C8AE7D]/20 text-[#C8AE7D] px-3 py-1 rounded-full text-xs font-medium">Vestido longo</span>
+                  <span class="bg-[#C8AE7D]/20 text-[#C8AE7D] px-3 py-1 rounded-full text-xs font-medium">Calça</span>
                   <span class="bg-[#C8AE7D]/20 text-[#C8AE7D] px-3 py-1 rounded-full text-xs font-medium">Social</span>
                 </div>
               </div>
@@ -1640,19 +1640,19 @@ onUnmounted(() => {
           <div class="group">
             <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-[3/4] mb-6">
               <img 
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=600&fit=crop"
+                src="/1.png"
                 alt="Look Evento de Dia"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
               >
               <div class="absolute inset-0 bg-gradient-to-t from-[#0B0B0C]/60 to-transparent"></div>
               <div class="absolute bottom-6 left-6 right-6">
-                <h3 class="text-xl font-bold mb-2 text-white">Evento de Dia</h3>
+                <h3 class="text-xl font-bold mb-2 text-white">Relação apimentada</h3>
                 <p class="text-[#E8E2D6] text-sm mb-4">Versatilidade para qualquer ocasião</p>
                 <div class="flex flex-wrap gap-2">
-                  <span class="bg-[#C8AE7D]/20 text-[#C8AE7D] px-3 py-1 rounded-full text-xs font-medium">Chino</span>
-                  <span class="bg-[#C8AE7D]/20 text-[#C8AE7D] px-3 py-1 rounded-full text-xs font-medium">Polo</span>
-                  <span class="bg-[#C8AE7D]/20 text-[#C8AE7D] px-3 py-1 rounded-full text-xs font-medium">Casual</span>
+                  <span class="bg-[#C8AE7D]/20 text-[#C8AE7D] px-3 py-1 rounded-full text-xs font-medium">Vestido</span>
+                  <span class="bg-[#C8AE7D]/20 text-[#C8AE7D] px-3 py-1 rounded-full text-xs font-medium">Shorts</span>
+                  <span class="bg-[#C8AE7D]/20 text-[#C8AE7D] px-3 py-1 rounded-full text-xs font-medium">Sexy</span>
                 </div>
               </div>
             </div>
@@ -1765,11 +1765,13 @@ onUnmounted(() => {
           <div class="bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 rounded-3xl p-6 text-center">
             <div class="w-16 h-16 bg-[#C8AE7D] rounded-full flex items-center justify-center mx-auto mb-4">
               <svg class="w-8 h-8 text-[#0B0B0C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 1v6m0 0V1m0 6l4-4M8 8l4-4m0 0v6m0 0l4 4M8 16l4-4m0 0l4 4M8 16l4 4m4-4l-4 4m0 0l-4-4m4 4v6m0-6l4 4"></path>
+                <rect x="3" y="11" width="18" height="10" rx="2" ry="2"></rect>
+                <circle cx="12" cy="16" r="1"></circle>
               </svg>
             </div>
-            <h4 class="font-bold text-lg mb-2">Reclame Aqui</h4>
-            <p class="text-[#E8E2D6] text-sm">Nota 9.2 em atendimento</p>
+            <h4 class="font-bold text-lg mb-2">Pagamento Seguro</h4>
+            <p class="text-[#E8E2D6] text-sm">SSL 256 bits e criptografia</p>
           </div>
         </div>
       </div>

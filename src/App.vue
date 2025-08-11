@@ -142,7 +142,6 @@ const selectColor = (pairNumber: number, color: Color) => {
       'color': color.id
     })
   }
-  console.log(`Color selected: ${color.name} for pair ${pairNumber}`)
 }
 
 const selectSize = (pairNumber: number, size: number) => {
@@ -161,7 +160,6 @@ const selectSize = (pairNumber: number, size: number) => {
       'size': size
     })
   }
-  console.log(`Size selected: ${size} for pair ${pairNumber}`)
 }
 
 const selectColorPair1 = (color: Color) => selectColor(1, color)
@@ -181,7 +179,6 @@ const scrollToSelector = () => {
       'cta_location': 'hero'
     })
   }
-  console.log('CTA clicked: Scroll to selector')
 }
 
 const addToCart = () => {
@@ -200,11 +197,7 @@ const addToCart = () => {
       })
     }
     
-    console.log('Added to cart:', {
-      pair1: selectedPairs.first,
-      pair2: selectedPairs.second,
-      price: 349.90
-    })
+    // Cart data prepared for checkout
     
     // Redirect to WhatsApp
     window.open('https://wa.me/5511999999999?text=Olá! Quero garantir meu combo 2 pares por R$ 349,90', '_blank')
@@ -234,10 +227,12 @@ const handlePurchase = () => {
       })
     }
     
-    // Aqui você implementaria a lógica de compra
-    alert(`Combo selecionado:\nPar 1: ${selectedPairs.first.color?.name} - Tamanho ${selectedPairs.first.size}\nPar 2: ${selectedPairs.second.color?.name} - Tamanho ${selectedPairs.second.size}`)
+    // Redirect to WhatsApp with selection details
+    const message = `Olá! Quero garantir meu combo 2 pares por R$ 349,90:\nPar 1: ${selectedPairs.first.color?.name} - Tamanho ${selectedPairs.first.size}\nPar 2: ${selectedPairs.second.color?.name} - Tamanho ${selectedPairs.second.size}`
+    window.open(`https://wa.me/5511999999999?text=${encodeURIComponent(message)}`, '_blank')
   } else {
-    alert('Por favor, selecione cor e tamanho para ambos os pares.')
+    // Show validation message - could be replaced with a toast notification
+    console.warn('Seleção incompleta: Por favor, selecione cor e tamanho para ambos os pares.')
   }
 }
 
@@ -400,136 +395,304 @@ onUnmounted(() => {
           </div>
         </div>
         
-        <!-- Seletor de Pares -->
-        <div class="grid lg:grid-cols-2 gap-8 mb-16">
-          <!-- Par 1 -->
-          <div class="bg-gradient-to-r from-[#C8AE7D]/5 to-[#E8E2D6]/5 backdrop-blur-sm border border-[#C8AE7D]/20 rounded-3xl p-8">
-            <div class="text-center mb-8">
-              <h3 class="text-2xl font-bold mb-2">
-                <span class="bg-[#C8AE7D] text-[#0B0B0C] w-8 h-8 rounded-full inline-flex items-center justify-center mr-3 text-lg font-bold">1</span>
-                Primeiro par
-              </h3>
-              <p class="text-[#E8E2D6]">Escolha cor e tamanho</p>
+        <!-- Seletor de Pares - Layout Inspirado Michael Kors -->
+        <div class="max-w-5xl mx-auto">
+          <!-- Header da Seleção -->
+          <div class="text-center mb-12">
+            <div class="inline-flex items-center bg-[#C8AE7D]/10 border border-[#C8AE7D]/30 rounded-full px-6 py-2 mb-4">
+              <svg class="w-5 h-5 text-[#C8AE7D] mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span class="text-[#C8AE7D] font-semibold text-sm">COMBO PERSONALIZADO</span>
             </div>
-            
-            <!-- Cores Par 1 -->
-            <div class="mb-8">
-              <h4 class="text-lg font-semibold mb-4 text-[#E8E2D6]">Cor:</h4>
-              <div class="flex gap-4 justify-center">
-                <button 
-                  v-for="color in colors" 
-                  :key="'pair1-' + color.id"
-                  @click="selectColor(1, color)"
-                  :class="[
-                    'relative flex flex-col items-center p-4 rounded-2xl border-2 transition-all duration-300 hover:scale-105',
-                    selectedPairs.first.color?.id === color.id 
-                      ? 'border-[#C8AE7D] bg-[#C8AE7D]/10' 
-                      : 'border-[#E8E2D6]/20 hover:border-[#C8AE7D]/50'
-                  ]"
-                >
-                  <div 
-                    :class="[
-                      'w-12 h-12 rounded-full mb-3 border-4',
-                      color.id === 'black' ? 'bg-black border-gray-600' : 'bg-white border-gray-300'
-                    ]"
-                  ></div>
-                  <span class="font-medium text-sm">{{ color.name }}</span>
-                  
-                  <div v-if="selectedPairs.first.color?.id === color.id" class="absolute top-2 right-2">
-                    <div class="w-5 h-5 bg-[#C8AE7D] rounded-full flex items-center justify-center">
-                      <svg class="w-3 h-3 text-[#0B0B0C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
-                    </div>
-                  </div>
-                </button>
-              </div>
-            </div>
-            
-            <!-- Tamanhos Par 1 -->
-            <div class="mb-6">
-              <h4 class="text-lg font-semibold mb-4 text-[#E8E2D6]">Numeração:</h4>
-              <div class="grid grid-cols-4 gap-3">
-                <button 
-                  v-for="size in sizes" 
-                  :key="'pair1-' + size.size"
-                  @click="selectSize(1, size.size)"
-                  :class="[
-                    'py-3 px-4 rounded-xl border-2 font-semibold transition-all duration-300 hover:scale-105',
-                    selectedPairs.first.size === size.size 
-                      ? 'border-[#C8AE7D] bg-[#C8AE7D] text-[#0B0B0C]' 
-                      : 'border-[#E8E2D6]/20 hover:border-[#C8AE7D]/50'
-                  ]"
-                >
-                  {{ size.size }}
-                  <div v-if="isLowStock(size.size)" class="text-xs mt-1 text-yellow-400">{{ getSizeStock(size.size) }} rest.</div>
-                </button>
-              </div>
-            </div>
+            <h3 class="text-2xl font-bold text-[#E8E2D6] mb-2">Monte sua combinação perfeita</h3>
+            <p class="text-[#E8E2D6]/70">Selecione cor e tamanho para cada par</p>
           </div>
-          
-          <!-- Par 2 -->
-          <div class="bg-gradient-to-r from-[#C8AE7D]/5 to-[#E8E2D6]/5 backdrop-blur-sm border border-[#C8AE7D]/20 rounded-3xl p-8">
-            <div class="text-center mb-8">
-              <h3 class="text-2xl font-bold mb-2">
-                <span class="bg-[#C8AE7D] text-[#0B0B0C] w-8 h-8 rounded-full inline-flex items-center justify-center mr-3 text-lg font-bold">2</span>
-                Segundo par
-              </h3>
-              <p class="text-[#E8E2D6]">Escolha cor e tamanho</p>
+
+          <!-- Grid Principal -->
+          <div class="grid lg:grid-cols-3 gap-8 mb-12">
+            <!-- Par 1 -->
+            <div class="bg-gradient-to-br from-[#C8AE7D]/5 to-[#E8E2D6]/5 backdrop-blur-sm border border-[#C8AE7D]/20 rounded-2xl overflow-hidden">
+              <!-- Header do Par -->
+              <div class="bg-gradient-to-r from-[#C8AE7D]/20 to-[#E8E2D6]/20 px-6 py-4 border-b border-[#C8AE7D]/20">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center">
+                    <span class="bg-[#C8AE7D] text-[#0B0B0C] w-6 h-6 rounded-full inline-flex items-center justify-center text-sm font-bold mr-3">1</span>
+                    <span class="font-semibold text-[#E8E2D6]">Primeiro Par</span>
+                  </div>
+                  <div v-if="selectedPairs.first.color && selectedPairs.first.size" class="text-[#C8AE7D] text-sm font-medium">
+                    ✓ Selecionado
+                  </div>
+                </div>
+              </div>
+
+              <!-- Conteúdo do Par -->
+              <div class="p-6">
+                <!-- Preview da Imagem -->
+                <div class="mb-6">
+                  <div class="aspect-square bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 rounded-xl border border-[#C8AE7D]/20 overflow-hidden">
+                    <img 
+                      v-if="selectedPairs.first.color"
+                      :src="selectedPairs.first.color.image"
+                      :alt="selectedPairs.first.color.name"
+                      class="w-full h-full object-cover transition-all duration-500"
+                    />
+                    <div v-else class="w-full h-full flex flex-col items-center justify-center text-[#E8E2D6]/40">
+                      <svg class="w-12 h-12 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                      </svg>
+                      <span class="text-xs">Selecione uma cor</span>
+                    </div>
+                  </div>
+                  <div v-if="selectedPairs.first.color" class="mt-3 text-center">
+                    <p class="text-[#C8AE7D] font-semibold">{{ selectedPairs.first.color.name }}</p>
+                    <p v-if="selectedPairs.first.size" class="text-[#E8E2D6]/70 text-sm">Tamanho {{ selectedPairs.first.size }}</p>
+                  </div>
+                </div>
+
+                <!-- Seleção de Cores -->
+                <div class="mb-6">
+                  <h4 class="text-sm font-semibold mb-3 text-[#E8E2D6] uppercase tracking-wide">Cores</h4>
+                  <div class="flex gap-3">
+                    <button 
+                      v-for="color in colors" 
+                      :key="'pair1-' + color.id"
+                      @click="selectColor(1, color)"
+                      :class="[
+                        'relative w-12 h-12 rounded-lg border-2 transition-all duration-300 hover:scale-110 overflow-hidden',
+                        selectedPairs.first.color?.id === color.id 
+                          ? 'border-[#C8AE7D] ring-2 ring-[#C8AE7D]/30' 
+                          : 'border-[#E8E2D6]/30 hover:border-[#C8AE7D]/50'
+                      ]"
+                    >
+                      <img 
+                        :src="color.image"
+                        :alt="color.name"
+                        class="w-full h-full object-cover"
+                      />
+                      <div v-if="selectedPairs.first.color?.id === color.id" class="absolute inset-0 bg-[#C8AE7D]/20 flex items-center justify-center">
+                        <svg class="w-4 h-4 text-[#C8AE7D]" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Seleção de Tamanhos -->
+                <div>
+                  <h4 class="text-sm font-semibold mb-3 text-[#E8E2D6] uppercase tracking-wide">Numeração</h4>
+                  <div class="grid grid-cols-3 gap-2">
+                    <button 
+                      v-for="size in sizes" 
+                      :key="'pair1-' + size.size"
+                      @click="selectSize(1, size.size)"
+                      :class="[
+                        'py-2 px-3 rounded-lg border text-sm font-medium transition-all duration-300 hover:scale-105',
+                        selectedPairs.first.size === size.size 
+                          ? 'border-[#C8AE7D] bg-[#C8AE7D] text-[#0B0B0C]' 
+                          : 'border-[#E8E2D6]/30 text-[#E8E2D6] hover:border-[#C8AE7D]/50'
+                      ]"
+                    >
+                      {{ size.size }}
+                      <div v-if="isLowStock(size.size)" class="text-xs mt-0.5 text-yellow-400">{{ getSizeStock(size.size) }} rest.</div>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
-            
-            <!-- Cores Par 2 -->
-            <div class="mb-8">
-              <h4 class="text-lg font-semibold mb-4 text-[#E8E2D6]">Cor:</h4>
-              <div class="flex gap-4 justify-center">
-                <button 
-                  v-for="color in colors" 
-                  :key="'pair2-' + color.id"
-                  @click="selectColor(2, color)"
-                  :class="[
-                    'relative flex flex-col items-center p-4 rounded-2xl border-2 transition-all duration-300 hover:scale-105',
-                    selectedPairs.second.color?.id === color.id 
-                      ? 'border-[#C8AE7D] bg-[#C8AE7D]/10' 
-                      : 'border-[#E8E2D6]/20 hover:border-[#C8AE7D]/50'
-                  ]"
-                >
-                  <div 
-                    :class="[
-                      'w-12 h-12 rounded-full mb-3 border-4',
-                      color.id === 'black' ? 'bg-black border-gray-600' : 'bg-white border-gray-300'
-                    ]"
-                  ></div>
-                  <span class="font-medium text-sm">{{ color.name }}</span>
-                  
-                  <div v-if="selectedPairs.second.color?.id === color.id" class="absolute top-2 right-2">
-                    <div class="w-5 h-5 bg-[#C8AE7D] rounded-full flex items-center justify-center">
-                      <svg class="w-3 h-3 text-[#0B0B0C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+
+            <!-- Par 2 -->
+            <div class="bg-gradient-to-br from-[#C8AE7D]/5 to-[#E8E2D6]/5 backdrop-blur-sm border border-[#C8AE7D]/20 rounded-2xl overflow-hidden">
+              <!-- Header do Par -->
+              <div class="bg-gradient-to-r from-[#C8AE7D]/20 to-[#E8E2D6]/20 px-6 py-4 border-b border-[#C8AE7D]/20">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center">
+                    <span class="bg-[#C8AE7D] text-[#0B0B0C] w-6 h-6 rounded-full inline-flex items-center justify-center text-sm font-bold mr-3">2</span>
+                    <span class="font-semibold text-[#E8E2D6]">Segundo Par</span>
+                  </div>
+                  <div v-if="selectedPairs.second.color && selectedPairs.second.size" class="text-[#C8AE7D] text-sm font-medium">
+                    ✓ Selecionado
+                  </div>
+                </div>
+              </div>
+
+              <!-- Conteúdo do Par -->
+              <div class="p-6">
+                <!-- Preview da Imagem -->
+                <div class="mb-6">
+                  <div class="aspect-square bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 rounded-xl border border-[#C8AE7D]/20 overflow-hidden">
+                    <img 
+                      v-if="selectedPairs.second.color"
+                      :src="selectedPairs.second.color.image"
+                      :alt="selectedPairs.second.color.name"
+                      class="w-full h-full object-cover transition-all duration-500"
+                    />
+                    <div v-else class="w-full h-full flex flex-col items-center justify-center text-[#E8E2D6]/40">
+                      <svg class="w-12 h-12 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                      </svg>
+                      <span class="text-xs">Selecione uma cor</span>
+                    </div>
+                  </div>
+                  <div v-if="selectedPairs.second.color" class="mt-3 text-center">
+                    <p class="text-[#C8AE7D] font-semibold">{{ selectedPairs.second.color.name }}</p>
+                    <p v-if="selectedPairs.second.size" class="text-[#E8E2D6]/70 text-sm">Tamanho {{ selectedPairs.second.size }}</p>
+                  </div>
+                </div>
+
+                <!-- Seleção de Cores -->
+                <div class="mb-6">
+                  <h4 class="text-sm font-semibold mb-3 text-[#E8E2D6] uppercase tracking-wide">Cores</h4>
+                  <div class="flex gap-3">
+                    <button 
+                      v-for="color in colors" 
+                      :key="'pair2-' + color.id"
+                      @click="selectColor(2, color)"
+                      :class="[
+                        'relative w-12 h-12 rounded-lg border-2 transition-all duration-300 hover:scale-110 overflow-hidden',
+                        selectedPairs.second.color?.id === color.id 
+                          ? 'border-[#C8AE7D] ring-2 ring-[#C8AE7D]/30' 
+                          : 'border-[#E8E2D6]/30 hover:border-[#C8AE7D]/50'
+                      ]"
+                    >
+                      <img 
+                        :src="color.image"
+                        :alt="color.name"
+                        class="w-full h-full object-cover"
+                      />
+                      <div v-if="selectedPairs.second.color?.id === color.id" class="absolute inset-0 bg-[#C8AE7D]/20 flex items-center justify-center">
+                        <svg class="w-4 h-4 text-[#C8AE7D]" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Seleção de Tamanhos -->
+                <div>
+                  <h4 class="text-sm font-semibold mb-3 text-[#E8E2D6] uppercase tracking-wide">Numeração</h4>
+                  <div class="grid grid-cols-3 gap-2">
+                    <button 
+                      v-for="size in sizes" 
+                      :key="'pair2-' + size.size"
+                      @click="selectSize(2, size.size)"
+                      :class="[
+                        'py-2 px-3 rounded-lg border text-sm font-medium transition-all duration-300 hover:scale-105',
+                        selectedPairs.second.size === size.size 
+                          ? 'border-[#C8AE7D] bg-[#C8AE7D] text-[#0B0B0C]' 
+                          : 'border-[#E8E2D6]/30 text-[#E8E2D6] hover:border-[#C8AE7D]/50'
+                      ]"
+                    >
+                      {{ size.size }}
+                      <div v-if="isLowStock(size.size)" class="text-xs mt-0.5 text-yellow-400">{{ getSizeStock(size.size) }} rest.</div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Resumo e CTA -->
+            <div class="bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 backdrop-blur-sm border border-[#C8AE7D]/20 rounded-2xl overflow-hidden">
+              <!-- Header do Resumo -->
+              <div class="bg-gradient-to-r from-[#C8AE7D]/20 to-[#E8E2D6]/20 px-6 py-4 border-b border-[#C8AE7D]/20">
+                <div class="flex items-center">
+                  <svg class="w-5 h-5 text-[#C8AE7D] mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+                  </svg>
+                  <span class="font-semibold text-[#E8E2D6]">Resumo do Combo</span>
+                </div>
+              </div>
+
+              <!-- Conteúdo do Resumo -->
+              <div class="p-6">
+                <!-- Lista de Seleções -->
+                <div class="space-y-4 mb-6">
+                  <div class="flex items-center justify-between py-3 px-4 bg-[#C8AE7D]/5 rounded-lg border border-[#C8AE7D]/10">
+                    <div class="flex items-center">
+                      <span class="bg-[#C8AE7D] text-[#0B0B0C] w-5 h-5 rounded-full inline-flex items-center justify-center text-xs font-bold mr-3">1</span>
+                      <div>
+                        <p class="text-[#E8E2D6] font-medium text-sm">
+                          {{ selectedPairs.first.color ? selectedPairs.first.color.name : 'Cor não selecionada' }}
+                        </p>
+                        <p class="text-[#E8E2D6]/60 text-xs">
+                          {{ selectedPairs.first.size ? `Tamanho ${selectedPairs.first.size}` : 'Tamanho não selecionado' }}
+                        </p>
+                      </div>
+                    </div>
+                    <div v-if="selectedPairs.first.color && selectedPairs.first.size" class="text-[#C8AE7D]">
+                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                       </svg>
                     </div>
                   </div>
-                </button>
-              </div>
-            </div>
-            
-            <!-- Tamanhos Par 2 -->
-            <div class="mb-6">
-              <h4 class="text-lg font-semibold mb-4 text-[#E8E2D6]">Numeração:</h4>
-              <div class="grid grid-cols-4 gap-3">
+
+                  <div class="flex items-center justify-between py-3 px-4 bg-[#C8AE7D]/5 rounded-lg border border-[#C8AE7D]/10">
+                    <div class="flex items-center">
+                      <span class="bg-[#C8AE7D] text-[#0B0B0C] w-5 h-5 rounded-full inline-flex items-center justify-center text-xs font-bold mr-3">2</span>
+                      <div>
+                        <p class="text-[#E8E2D6] font-medium text-sm">
+                          {{ selectedPairs.second.color ? selectedPairs.second.color.name : 'Cor não selecionada' }}
+                        </p>
+                        <p class="text-[#E8E2D6]/60 text-xs">
+                          {{ selectedPairs.second.size ? `Tamanho ${selectedPairs.second.size}` : 'Tamanho não selecionado' }}
+                        </p>
+                      </div>
+                    </div>
+                    <div v-if="selectedPairs.second.color && selectedPairs.second.size" class="text-[#C8AE7D]">
+                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Preço -->
+                <div class="text-center mb-6">
+                  <div class="text-sm text-[#E8E2D6]/60 line-through mb-1">De R$ 875,80</div>
+                  <div class="text-3xl font-bold text-[#C8AE7D] mb-2">R$ 349,90</div>
+                  <div class="text-sm text-green-400 font-medium">Economia de 60%</div>
+                </div>
+
+                <!-- Botão de Compra -->
                 <button 
-                  v-for="size in sizes" 
-                  :key="'pair2-' + size.size"
-                  @click="selectSize(2, size.size)"
+                  :disabled="!isSelectionComplete"
+                  @click="addToCart"
                   :class="[
-                    'py-3 px-4 rounded-xl border-2 font-semibold transition-all duration-300 hover:scale-105',
-                    selectedPairs.second.size === size.size 
-                      ? 'border-[#C8AE7D] bg-[#C8AE7D] text-[#0B0B0C]' 
-                      : 'border-[#E8E2D6]/20 hover:border-[#C8AE7D]/50'
+                    'w-full py-4 rounded-xl text-lg font-semibold transition-all duration-300 flex items-center justify-center',
+                    isSelectionComplete 
+                      ? 'bg-gradient-to-r from-[#C8AE7D] to-[#E8AE7D] text-[#0B0B0C] hover:shadow-2xl hover:scale-105' 
+                      : 'bg-[#E8E2D6]/20 text-[#E8E2D6]/50 cursor-not-allowed border border-[#E8E2D6]/20'
                   ]"
                 >
-                  {{ size.size }}
-                  <div v-if="isLowStock(size.size)" class="text-xs mt-1 text-yellow-400">{{ getSizeStock(size.size) }} rest.</div>
+                  <svg v-if="isSelectionComplete" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
+                  </svg>
+                  {{ isSelectionComplete ? 'Garantir meu Combo' : 'Selecione os 2 pares' }}
                 </button>
+
+                <!-- Benefícios -->
+                <div class="mt-4 space-y-2">
+                  <div class="flex items-center text-xs text-[#E8E2D6]/70">
+                    <svg class="w-3 h-3 text-[#C8AE7D] mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    Frete grátis para todo o Brasil
+                  </div>
+                  <div class="flex items-center text-xs text-[#E8E2D6]/70">
+                    <svg class="w-3 h-3 text-[#C8AE7D] mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    30 dias para troca gratuita
+                  </div>
+                  <div class="flex items-center text-xs text-[#E8E2D6]/70">
+                    <svg class="w-3 h-3 text-[#C8AE7D] mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    6 meses de garantia
+                  </div>
+                </div>
               </div>
             </div>
           </div>

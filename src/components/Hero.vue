@@ -70,13 +70,13 @@
         
         <!-- Image/Visual -->
         <div class="relative">
-          <div class="aspect-w-4 aspect-h-3 rounded-2xl overflow-hidden bg-gradient-to-br from-primary-200 to-primary-300">
-            <!-- Placeholder para imagem do hero -->
-            <div class="flex items-center justify-center">
-              <svg class="w-32 h-32 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-              </svg>
-            </div>
+          <div class="aspect-w-4 aspect-h-3 rounded-2xl overflow-hidden bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 flex items-center justify-center">
+            <!-- Imagem da sandália -->
+            <img 
+              src="/sandalia-hero.svg" 
+              alt="Sandália Majestad" 
+              class="w-80 h-80 object-contain drop-shadow-2xl transform hover:scale-105 transition-transform duration-500"
+            />
           </div>
           
           <!-- Floating elements -->

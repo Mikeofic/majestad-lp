@@ -811,41 +811,7 @@ onUnmounted(() => {
           </div>
         </div>
         
-        <!-- Resumo da Seleção e CTA -->
-        <div class="max-w-2xl mx-auto">
-          <div class="bg-gradient-to-r from-[#C8AE7D]/10 to-[#E8E2D6]/10 backdrop-blur-sm border border-[#C8AE7D]/20 rounded-3xl p-8">
-            <h3 class="text-2xl font-bold text-center mb-6">Resumo do seu combo</h3>
-            
-            <div class="space-y-4 mb-8">
-              <div class="space-y-2 text-[#E8E2D6] mb-6">
-                <div v-if="selectedPairs.first.color && selectedPairs.first.size">
-                  1º par: {{ selectedPairs.first.color?.name }} - Tamanho {{ selectedPairs.first.size }}
-                </div>
-                <div v-if="selectedPairs.second.color && selectedPairs.second.size">
-                  2º par: {{ selectedPairs.second.color?.name }} - Tamanho {{ selectedPairs.second.size }}
-                </div>
-              </div>
-              <div class="text-3xl font-bold text-[#C8AE7D] mb-2">{{ priceText }}</div>
-              <div v-if="quantityMode === 'combo'" class="text-sm text-[#E8E2D6] line-through mb-4">De R$ 594</div>
-              
-              <button 
-                :disabled="!isSelectionComplete"
-                @click="addToCart"
-                :class="[
-                  'w-full py-4 rounded-full text-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2',
-                  isSelectionComplete 
-                    ? 'bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] text-[#0B0B0C] hover:shadow-2xl hover:scale-105' 
-                    : 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                ]"
-              >
-                {{ isSelectionComplete ? (quantityMode === 'single' ? 'Garantir meu Par' : 'Garantir meu Combo') : (quantityMode === 'single' ? 'Selecione cor e tamanho' : 'Selecione cor e tamanho dos 2 pares') }}
-                <svg v-if="isSelectionComplete" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
+
       </div>
     </section>
 

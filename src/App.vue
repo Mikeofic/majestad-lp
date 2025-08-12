@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
-import YampiProducts from './components/YampiProducts.vue'
 
 // Tipos
 interface Color {
@@ -60,7 +59,7 @@ const colors = [
 ]
 
 // Estoque por variação (cor + tamanho) - Dados reais da API Yampi
-const stockByVariation = {
+const stockByVariation: Record<string, number> = {
   'black-34': 1,
   'black-35': 3,
   'black-36': 9,
@@ -248,7 +247,7 @@ const scrollToSelector = () => {
 
 // Mapeamento de produtos para tokens da Yampi
 // Baseado na estrutura: cor_tamanho -> token
-const productTokens = {
+const productTokens: Record<string, string> = {
   // Sandália Branca
   'white_34': 'H6W70L06YQ',
   'white_35': 'KTRWNW6VET', 
@@ -269,7 +268,7 @@ const productTokens = {
 }
 
 // Função para obter token do produto
-const getProductToken = (color: string, size: number) => {
+const getProductToken = (color: string, size: number): string | null => {
   const key = `${color}_${size}`
   return productTokens[key] || null
 }

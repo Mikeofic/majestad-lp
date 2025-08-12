@@ -16,9 +16,39 @@ h1, h2, h3, h4, h5, h6 {
   box-sizing: border-box;
 }
 
+/* Critical rendering optimizations */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optimize font loading */
+@font-face {
+  font-family: 'Inter';
+  font-display: swap;
+  font-weight: 300 700;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-display: swap;
+  font-weight: 400 700;
+}
+
 img {
   max-width: 100%;
   height: auto;
+  display: block;
+}
+
+/* Prevent layout shift for images */
+img[width][height] {
+  aspect-ratio: attr(width) / attr(height);
+}
+
+/* Optimize for Core Web Vitals */
+.hero-image {
+  content-visibility: auto;
+  contain-intrinsic-size: 800px 600px;
 }
 
 /* Reduce motion for users who prefer it */

@@ -102,12 +102,21 @@
     <!-- Performance Optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Critical CSS inline for faster rendering -->
+    <style>
+      /* Critical above-the-fold styles */
+      body { margin: 0; font-family: system-ui, -apple-system, sans-serif; }
+      #app { min-height: 100vh; }
+      .hero-image { aspect-ratio: 4/3; max-width: 100%; height: auto; }
+    </style>
+    
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"></noscript>
     
     <!-- Preload critical images -->
+    <link rel="preload" href="/sandalia-branca.webp" as="image" type="image/webp" fetchpriority="high">
     <link rel="preload" href="/sandalia-hero.webp" as="image" type="image/webp">
-    <link rel="preload" href="/sandalia-branca.webp" as="image" type="image/webp">
     
     <!-- DNS Prefetch for external resources -->
     <link rel="dns-prefetch" href="//images.unsplash.com">
@@ -115,6 +124,10 @@
     <!-- Resource Hints -->
     <link rel="prefetch" href="/pé-salto-branco.webp">
     <link rel="prefetch" href="/pe-salto-preto.webp">
+    
+    <!-- Optimize resource loading -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
   </head>
   <body>
     <div id="app"></div>

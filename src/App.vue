@@ -418,7 +418,7 @@ onUnmounted(() => {
             <img 
                 src="/sandalia-branca.webp" 
                 alt="Sandália Majestad" 
-                class="w-full max-w-2xl mx-auto transform hover:scale-105 transition-transform duration-500 filter drop-shadow-2xl"
+                class="hero-image w-full max-w-2xl mx-auto transform hover:scale-105 transition-transform duration-500 filter drop-shadow-2xl"
                 loading="eager"
                 fetchpriority="high"
                 width="800"

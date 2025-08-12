@@ -41,6 +41,14 @@ const openFaq = ref<number | null>(null)
 const showStickyBar = ref(false)
 const currentImageIndex = ref(0)
 
+// 3D Product Viewer
+const rotationX = ref(0)
+const rotationY = ref(0)
+const isDragging = ref(false)
+const lastMouseX = ref(0)
+const lastMouseY = ref(0)
+const productViewer = ref<HTMLElement | null>(null)
+
 // Dados
 const colors = [
   {
@@ -179,6 +187,58 @@ const scrollToSelector = () => {
       'cta_location': 'hero'
     })
   }
+}
+
+// 3D Product Viewer Methods
+const startDrag = (event: MouseEvent | TouchEvent) => {
+  isDragging.value = true
+  
+  if (event instanceof MouseEvent) {
+    lastMouseX.value = event.clientX
+    lastMouseY.value = event.clientY
+  } else if (event.touches && event.touches.length > 0) {
+    lastMouseX.value = event.touches[0].clientX
+    lastMouseY.value = event.touches[0].clientY
+  }
+  
+  event.preventDefault()
+}
+
+const onDrag = (event: MouseEvent | TouchEvent) => {
+  if (!isDragging.value) return
+  
+  let currentX: number, currentY: number
+  
+  if (event instanceof MouseEvent) {
+    currentX = event.clientX
+    currentY = event.clientY
+  } else if (event.touches && event.touches.length > 0) {
+    currentX = event.touches[0].clientX
+    currentY = event.touches[0].clientY
+  } else {
+    return
+  }
+  
+  const deltaX = currentX - lastMouseX.value
+  const deltaY = currentY - lastMouseY.value
+  
+  // Sensitivity factor for rotation
+  const sensitivity = 0.5
+  
+  rotationY.value += deltaX * sensitivity
+  rotationX.value -= deltaY * sensitivity
+  
+  // Limit X rotation to prevent flipping
+  rotationX.value = Math.max(-45, Math.min(45, rotationX.value))
+  
+  lastMouseX.value = currentX
+  lastMouseY.value = currentY
+  
+  event.preventDefault()
+}
+
+const endDrag = () => {
+  isDragging.value = false
 }
 
 const addToCart = () => {
@@ -359,11 +419,38 @@ onUnmounted(() => {
         <!-- Hero Image -->
         <div class="relative">
           <div class="relative z-10">
-            <img 
-              src="/sandalia-branca.png" 
-              alt="Sandália Majestad" 
-              class="w-full max-w-2xl mx-auto transform hover:scale-105 transition-transform duration-500 filter drop-shadow-2xl"
-            />
+            <!-- 3D Interactive Container -->
+            <div 
+              ref="productViewer"
+              class="w-full max-w-2xl mx-auto perspective-1000 cursor-grab active:cursor-grabbing"
+              @mousedown="startDrag"
+              @mousemove="onDrag"
+              @mouseup="endDrag"
+              @mouseleave="endDrag"
+              @touchstart="startDrag"
+              @touchmove="onDrag"
+              @touchend="endDrag"
+            >
+              <div 
+                class="transform-gpu transition-transform duration-75 ease-out preserve-3d"
+                :style="{
+                  transform: `rotateY(${rotationY}deg) rotateX(${rotationX}deg)`
+                }"
+              >
+                <img 
+                  src="/sandalia-branca.png" 
+                  alt="Sandália Majestad" 
+                  class="w-full filter drop-shadow-2xl select-none"
+                  draggable="false"
+                />
+              </div>
+            </div>
+            <!-- Instruction Text -->
+            <div class="text-center mt-4">
+              <p class="text-xs text-[#C8AE7D]/70 font-medium">
+                🖱️ Arraste para girar em 360°
+              </p>
+            </div>
           </div>
           
           <!-- Floating Elements -->
@@ -2096,5 +2183,34 @@ onUnmounted(() => {
 
 .btn-primary {
   @apply bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] text-[#0B0B0C];
+}
+
+/* 3D Product Viewer Styles */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.transform-gpu {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.cursor-grab {
+  cursor: grab;
+}
+
+.cursor-grabbing {
+  cursor: grabbing;
+}
+
+.select-none {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 </style>

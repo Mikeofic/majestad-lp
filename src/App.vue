@@ -267,6 +267,7 @@ onUnmounted(() => {
       class="fixed top-0 left-0 right-0 bg-[#0B0B0C]/95 backdrop-blur-md border-b border-[#C8AE7D]/20 z-50 transition-all duration-300"
     >
       <div class="max-w-6xl mx-auto px-4 py-3">
+
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-2 sm:space-x-4">
             <div class="text-lg font-bold">Majestad</div>
@@ -366,13 +367,13 @@ onUnmounted(() => {
           </div>
           
           <!-- Floating Elements -->
-          <div class="absolute top-1/4 -left-4 bg-[#C8AE7D]/20 backdrop-blur-sm rounded-2xl p-4 animate-float">
-            <div class="text-sm font-semibold text-[#C8AE7D]">Conforto</div>
+          <div class="absolute top-1/4 left-2 sm:-left-4 bg-[#C8AE7D]/20 backdrop-blur-sm rounded-2xl p-3 sm:p-4 animate-float">
+            <div class="text-xs sm:text-sm font-semibold text-[#C8AE7D]">Conforto</div>
             <div class="text-xs text-[#E8E2D6]">Todo dia</div>
           </div>
           
-          <div class="absolute bottom-1/4 -right-4 bg-[#E8E2D6]/20 backdrop-blur-sm rounded-2xl p-4 animate-float delay-1000">
-            <div class="text-sm font-semibold text-[#C8AE7D]">Elegância</div>
+          <div class="absolute bottom-1/4 right-2 sm:-right-4 bg-[#E8E2D6]/20 backdrop-blur-sm rounded-2xl p-3 sm:p-4 animate-float delay-1000">
+            <div class="text-xs sm:text-sm font-semibold text-[#C8AE7D]">Elegância</div>
             <div class="text-xs text-[#E8E2D6]">Atemporal</div>
           </div>
         </div>

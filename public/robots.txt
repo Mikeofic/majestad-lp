@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://majestad.com.br/sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /.git/
+Disallow: /node_modules/
+
+# Allow important resources
+Allow: /assets/
+Allow: /images/
+Allow: /*.css
+Allow: /*.js
+Allow: /*.webp
+Allow: /*.svg
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1

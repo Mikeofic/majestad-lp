@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#C8AE7D">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
     
     <!-- SEO Meta Tags -->
     <title>Majestad — Salto Atemporal de Luxo | Oferta 2 por R$ 397</title>
@@ -91,11 +99,22 @@
     }
     </script>
     
-    <!-- Fonts Preload -->
+    <!-- Performance Optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"></noscript>
+    
+    <!-- Preload critical images -->
+    <link rel="preload" href="/sandalia-hero.webp" as="image" type="image/webp">
+    <link rel="preload" href="/sandalia-branca.webp" as="image" type="image/webp">
+    
+    <!-- DNS Prefetch for external resources -->
+    <link rel="dns-prefetch" href="//images.unsplash.com">
+    
+    <!-- Resource Hints -->
+    <link rel="prefetch" href="/pé-salto-branco.webp">
+    <link rel="prefetch" href="/pe-salto-preto.webp">
   </head>
   <body>
     <div id="app"></div>

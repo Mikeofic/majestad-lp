@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://majestad.com.br/</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://majestad.com.br/sandalia-hero.webp</image:loc>
+      <image:title>Sandália Majestad - Salto Alto Premium</image:title>
+      <image:caption>Sofisticação atemporal com conforto real. Salto alto Majestad em Preto Ônix e Branco Pérola.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://majestad.com.br/sandalia-branca.webp</image:loc>
+      <image:title>Sandália Majestad Branco Pérola</image:title>
+      <image:caption>Elegância em branco pérola com design atemporal e conforto excepcional.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://majestad.com.br/DSC03084.webp</image:loc>
+      <image:title>Detalhe Sapato Majestad</image:title>
+      <image:caption>Detalhes de acabamento premium do salto alto Majestad.</image:caption>
+    </image:image>
+  </url>
+</urlset>

@@ -15,4 +15,32 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  build: {
+    // Optimize build for performance
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['vue'],
+        },
+      },
+    },
+    // Enable gzip compression
+    reportCompressedSize: true,
+    chunkSizeWarningLimit: 1000,
+  },
+  server: {
+    // Optimize dev server
+    hmr: {
+      overlay: false,
+    },
+  },
+  // Optimize assets
+  assetsInclude: ['**/*.webp'],
 })

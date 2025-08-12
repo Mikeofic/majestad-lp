@@ -82,6 +82,10 @@
               src="/sandalia-hero.webp" 
               alt="Sandália Majestad" 
               class="w-80 h-80 object-contain drop-shadow-2xl transform hover:scale-105 transition-transform duration-500"
+              loading="eager"
+              fetchpriority="high"
+              width="320"
+              height="320"
             />
           </div>
           

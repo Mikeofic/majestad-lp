@@ -416,10 +416,14 @@ onUnmounted(() => {
         <div class="relative">
           <div class="relative z-10">
             <img 
-              src="/sandalia-branca.webp" 
-              alt="Sandália Majestad" 
-              class="w-full max-w-2xl mx-auto transform hover:scale-105 transition-transform duration-500 filter drop-shadow-2xl"
-            />
+                src="/sandalia-branca.webp" 
+                alt="Sandália Majestad" 
+                class="w-full max-w-2xl mx-auto transform hover:scale-105 transition-transform duration-500 filter drop-shadow-2xl"
+                loading="eager"
+                fetchpriority="high"
+                width="800"
+                height="600"
+              />
           </div>
           
           <!-- Floating Elements -->
@@ -837,6 +841,8 @@ onUnmounted(() => {
                 alt="Sapato Majestad Preto Ônix - Vista Principal"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
+                width="640"
+                height="400"
               >
               <div class="absolute inset-0 bg-gradient-to-t from-[#0B0B0C]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -854,6 +860,8 @@ onUnmounted(() => {
                 alt="Sapato Majestad Branco Pérola"
                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 loading="lazy"
+                width="320"
+                height="400"
               >
               <div class="absolute inset-0 bg-gradient-to-t from-[#0B0B0C]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -873,6 +881,8 @@ onUnmounted(() => {
                 alt="Detalhe do acabamento"
                 class="w-full h-full object-cover object-bottom group-hover:scale-110 transition-transform duration-500"
                 loading="lazy"
+                width="300"
+                height="300"
               >
               <div class="absolute inset-0 bg-[#0B0B0C]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
@@ -885,6 +895,8 @@ onUnmounted(() => {
                 alt="Vista lateral"
                 class="w-full h-full object-cover object-bottom group-hover:scale-110 transition-transform duration-500"
                 loading="lazy"
+                width="300"
+                height="300"
               >
               <div class="absolute inset-0 bg-[#0B0B0C]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
@@ -897,6 +909,8 @@ onUnmounted(() => {
                 alt="Detalhe da palmilha"
                 class="w-full h-full object-cover object-bottom group-hover:scale-110 transition-transform duration-500"
                 loading="lazy"
+                width="300"
+                height="300"
               >
               <div class="absolute inset-0 bg-[#0B0B0C]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
@@ -1334,6 +1348,8 @@ onUnmounted(() => {
                   alt="Embalagem Premium Majestad"
                   class="w-full h-80 object-cover object-center rounded-2xl mb-6"
                   loading="lazy"
+                  width="600"
+                  height="320"
                 >
                 <div class="text-center">
                   <h3 class="text-xl font-bold mb-2 text-[#C8AE7D]">Embalagem Sofisticada</h3>
@@ -1689,6 +1705,8 @@ onUnmounted(() => {
                 alt="Look Casual Elegante"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
+                width="300"
+                height="400"
               >
               <div class="absolute inset-0 bg-gradient-to-t from-[#0B0B0C]/60 to-transparent"></div>
               <div class="absolute bottom-6 left-6 right-6">
@@ -1711,6 +1729,8 @@ onUnmounted(() => {
                 alt="Look Noite Formal"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
+                width="300"
+                height="400"
               >
               <div class="absolute inset-0 bg-gradient-to-t from-[#0B0B0C]/60 to-transparent"></div>
               <div class="absolute bottom-6 left-6 right-6">
@@ -1733,6 +1753,8 @@ onUnmounted(() => {
                 alt="Look Evento de Dia"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
+                width="300"
+                height="400"
               >
               <div class="absolute inset-0 bg-gradient-to-t from-[#0B0B0C]/60 to-transparent"></div>
               <div class="absolute bottom-6 left-6 right-6">

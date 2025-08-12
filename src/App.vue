@@ -2358,6 +2358,7 @@ onUnmounted(() => {
 }
 
 .btn-primary {
-  @apply bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] text-[#0B0B0C];
+  background: linear-gradient(to right, #C8AE7D, #E8E2D6);
+  color: #0B0B0C;
 }
 </style>

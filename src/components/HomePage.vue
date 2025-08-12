@@ -671,7 +671,7 @@ onUnmounted(() => {
                 <div class="mb-6">
                   <div :class="[
                     'bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 rounded-xl border border-[#C8AE7D]/20 overflow-hidden',
-                    quantityMode === 'single' ? 'aspect-[4/3]' : 'aspect-square'
+                    quantityMode === 'single' ? 'aspect-[4/4]' : 'aspect-square'
                   ]">
                     <img 
                       v-if="selectedPairs.first.color"

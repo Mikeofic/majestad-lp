@@ -265,11 +265,11 @@ const handlePurchase = () => {
     }
     window.open(`https://wa.me/5511999999999?text=${encodeURIComponent(message)}`, '_blank')
   } else {
-    // Show validation message - could be replaced with a toast notification
+    // Show validation message
     const warningMessage = quantityMode.value === 'single' 
       ? 'Seleção incompleta: Por favor, selecione cor e tamanho para seu par.'
       : 'Seleção incompleta: Por favor, selecione cor e tamanho para ambos os pares.'
-    console.warn(warningMessage)
+    alert(warningMessage)
   }
 }
 

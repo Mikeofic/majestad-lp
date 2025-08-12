@@ -79,7 +79,7 @@
           <div class="aspect-w-4 aspect-h-3 rounded-2xl overflow-hidden bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 flex items-center justify-center">
             <!-- Imagem da sandália -->
             <img 
-              src="/sandalia-hero.svg" 
+              src="/sandalia-hero.webp" 
               alt="Sandália Majestad" 
               class="w-80 h-80 object-contain drop-shadow-2xl transform hover:scale-105 transition-transform duration-500"
             />

@@ -48,13 +48,13 @@ const colors = [
     id: 'white',
     name: 'Branco Pérola',
     hex: '#FFFFFF',
-    image: '/pé-salto-branco.png'
+    image: '/pé-salto-branco.webp'
   },
   {
     id: 'black',
     name: 'Preto Ônix',
     hex: '#000000',
-    image: '/pe-salto-preto.png'
+    image: '/pe-salto-preto.webp'
   }
 ]
 
@@ -71,7 +71,7 @@ const sizes = [
 ]
 
 const galleryImages = [
-  '/pé-salto-branco.png',
+  '/pé-salto-branco.webp',
   'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800',
   'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800',
   'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=800'
@@ -416,7 +416,7 @@ onUnmounted(() => {
         <div class="relative">
           <div class="relative z-10">
             <img 
-              src="/sandalia-branca.png" 
+              src="/sandalia-branca.webp" 
               alt="Sandália Majestad" 
               class="w-full max-w-2xl mx-auto transform hover:scale-105 transition-transform duration-500 filter drop-shadow-2xl"
             />
@@ -833,7 +833,7 @@ onUnmounted(() => {
           <div class="md:col-span-2 lg:col-span-2 group cursor-pointer">
             <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-[16/10]">
               <img 
-                src="/pé-salto-branco.png"
+                src="/pé-salto-branco.webp"
                 alt="Sapato Majestad Preto Ônix - Vista Principal"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
@@ -850,7 +850,7 @@ onUnmounted(() => {
           <div class="group cursor-pointer">
             <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-[4/5]">
               <img 
-                src="/DSC03084.jpg"
+                src="/DSC03084.webp"
                 alt="Sapato Majestad Branco Pérola"
                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 loading="lazy"
@@ -869,7 +869,7 @@ onUnmounted(() => {
           <div class="group cursor-pointer">
             <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-square">
               <img 
-                src="/pe-salto-preto.png"
+                src="/pe-salto-preto.webp"
                 alt="Detalhe do acabamento"
                 class="w-full h-full object-cover object-bottom group-hover:scale-110 transition-transform duration-500"
                 loading="lazy"
@@ -881,7 +881,7 @@ onUnmounted(() => {
           <div class="group cursor-pointer">
             <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-square">
               <img 
-                src="/DSC02989.png"
+                src="/DSC02989.webp"
                 alt="Vista lateral"
                 class="w-full h-full object-cover object-bottom group-hover:scale-110 transition-transform duration-500"
                 loading="lazy"
@@ -893,7 +893,7 @@ onUnmounted(() => {
           <div class="group cursor-pointer">
             <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-square">
               <img 
-                src="/DSC03116.png"
+                src="/DSC03116.webp"
                 alt="Detalhe da palmilha"
                 class="w-full h-full object-cover object-bottom group-hover:scale-110 transition-transform duration-500"
                 loading="lazy"
@@ -1330,7 +1330,7 @@ onUnmounted(() => {
               <div class="absolute inset-0 bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] rounded-3xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-500"></div>
               <div class="relative bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 rounded-3xl p-8 border border-[#C8AE7D]/20">
                 <img 
-                  src="/DSC03095.jpg?w=600&h=400&fit=crop"
+                  src="/DSC03095.webp"
                   alt="Embalagem Premium Majestad"
                   class="w-full h-80 object-cover object-center rounded-2xl mb-6"
                   loading="lazy"
@@ -1685,7 +1685,7 @@ onUnmounted(() => {
           <div class="group">
             <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-[3/4] mb-6">
               <img 
-                src="/casual.png"
+                src="/casual.webp"
                 alt="Look Casual Elegante"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
@@ -1707,7 +1707,7 @@ onUnmounted(() => {
           <div class="group">
             <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-[3/4] mb-6">
               <img 
-                src="/noite.png"
+                src="/noite.webp"
                 alt="Look Noite Formal"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
@@ -1729,7 +1729,7 @@ onUnmounted(() => {
           <div class="group">
             <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-[3/4] mb-6">
               <img 
-                src="/1.png"
+                src="/1.webp"
                 alt="Look Evento de Dia"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"

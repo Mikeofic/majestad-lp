@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
+import YampiProducts from './components/YampiProducts.vue'
 
 // Tipos
 interface Color {
@@ -58,16 +59,32 @@ const colors = [
   }
 ]
 
+// Estoque por variação (cor + tamanho) - Dados reais da API Yampi
+const stockByVariation = {
+  'black-34': 1,
+  'black-35': 3,
+  'black-36': 9,
+  'black-37': 10,
+  'black-38': 8,
+  'black-39': 3,
+  'black-40': 2,
+  'white-34': 1,
+  'white-35': 2,
+  'white-36': 6,
+  'white-37': 6,
+  'white-38': 6,
+  'white-39': 2,
+  'white-40': 1
+}
+
 const sizes = [
-  { size: 34, stock: 8 },
-  { size: 35, stock: 12 },
-  { size: 36, stock: 15 },
-  { size: 37, stock: 10 },
-  { size: 38, stock: 7 },
-  { size: 39, stock: 9 },
-  { size: 40, stock: 6 },
-  { size: 41, stock: 4 },
-  { size: 42, stock: 3 }
+  { size: 34 },
+  { size: 35 },
+  { size: 36 },
+  { size: 37 },
+  { size: 38 },
+  { size: 39 },
+  { size: 40 }
 ]
 
 const galleryImages = [
@@ -151,9 +168,21 @@ const selectColor = (pairNumber: number, color: Color) => {
   if (pairNumber === 1) {
     selectedPairs.first.color = color
     selectedPair1.value.color = color
+    
+    // Verificar se o tamanho selecionado ainda está disponível na nova cor
+    if (selectedPairs.first.size && !isVariationAvailable(color.id, selectedPairs.first.size)) {
+      selectedPairs.first.size = null
+      selectedPair1.value.size = null
+    }
   } else {
     selectedPairs.second.color = color
     selectedPair2.value.color = color
+    
+    // Verificar se o tamanho selecionado ainda está disponível na nova cor
+    if (selectedPairs.second.size && !isVariationAvailable(color.id, selectedPairs.second.size)) {
+      selectedPairs.second.size = null
+      selectedPair2.value.size = null
+    }
   }
   
   // Analytics tracking
@@ -166,6 +195,19 @@ const selectColor = (pairNumber: number, color: Color) => {
 }
 
 const selectSize = (pairNumber: number, size: number) => {
+  // Verificar se há cor selecionada e se a variação tem estoque
+  const selectedColor = pairNumber === 1 ? selectedPairs.first.color : selectedPairs.second.color
+  
+  if (!selectedColor) {
+    alert('Por favor, selecione uma cor primeiro.')
+    return
+  }
+  
+  if (!isVariationAvailable(selectedColor.id, size)) {
+    alert(`Tamanho ${size} não está disponível na cor ${selectedColor.name}.`)
+    return
+  }
+  
   if (pairNumber === 1) {
     selectedPairs.first.size = size
     selectedPair1.value.size = size
@@ -178,7 +220,9 @@ const selectSize = (pairNumber: number, size: number) => {
   if (typeof gtag !== 'undefined') {
     gtag('event', 'select_size', {
       'pair_index': pairNumber,
-      'size': size
+      'size': size,
+      'color': selectedColor.id,
+      'stock_available': getVariationStock(selectedColor.id, size)
     })
   }
 }
@@ -238,12 +282,22 @@ const toggleFaq = (index: number) => {
   openFaq.value = openFaq.value === index ? null : index
 }
 
-const getSizeStock = (size: number) => {
-  return sizes.find(s => s.size === size)?.stock || 0
+const getVariationStock = (colorId: string, size: number) => {
+  const key = `${colorId}-${size}`
+  return stockByVariation[key] || 0
 }
 
-const isLowStock = (size: number) => {
-  return getSizeStock(size) <= 3
+const isVariationAvailable = (colorId: string, size: number) => {
+  return getVariationStock(colorId, size) > 0
+}
+
+const isLowStock = (colorId: string, size: number) => {
+  return getVariationStock(colorId, size) <= 3 && getVariationStock(colorId, size) > 0
+}
+
+const getSizeStock = (size: number) => {
+  // Para compatibilidade, retorna o estoque total do tamanho em todas as cores
+  return colors.reduce((total, color) => total + getVariationStock(color.id, size), 0)
 }
 
 const handlePurchase = () => {
@@ -607,20 +661,34 @@ onUnmounted(() => {
                 <div>
                   <h4 :class="quantityMode === 'single' ? 'text-base font-semibold mb-4 text-[#E8E2D6] uppercase tracking-wide' : 'text-sm font-semibold mb-3 text-[#E8E2D6] uppercase tracking-wide'">Numeração</h4>
                   <div :class="quantityMode === 'single' ? 'grid grid-cols-3 sm:grid-cols-4 gap-2' : 'grid grid-cols-2 sm:grid-cols-3 gap-2'">
-                    <button 
-                      v-for="size in sizes" 
-                      :key="'pair1-' + size.size"
-                      @click="selectSize(1, size.size)"
-                      :class="[
-                        'rounded-lg border font-medium transition-all duration-300 hover:scale-105',
-                        quantityMode === 'single' ? 'py-2 px-2 text-sm' : 'py-2 px-2 sm:px-3 text-xs sm:text-sm',
-                        selectedPairs.first.size === size.size 
-                          ? 'border-[#C8AE7D] bg-[#C8AE7D] text-[#0B0B0C]' 
-                          : 'border-[#E8E2D6]/30 text-[#E8E2D6] hover:border-[#C8AE7D]/50'
-                      ]"
-                    >
-                      {{ size.size }}
-                    </button>
+                    <div v-for="size in sizes" :key="'pair1-container-' + size.size" class="flex flex-col items-center">
+                      <button 
+                        @click="selectSize(1, size.size)"
+                        :disabled="!selectedPairs.first.color || !isVariationAvailable(selectedPairs.first.color.id, size.size)"
+                        :class="[
+                          'rounded-lg border font-medium transition-all duration-300 relative w-full',
+                          quantityMode === 'single' ? 'py-2 px-2 text-sm' : 'py-2 px-2 sm:px-3 text-xs sm:text-sm',
+                          !selectedPairs.first.color || !isVariationAvailable(selectedPairs.first.color.id, size.size)
+                            ? 'border-gray-600 bg-gray-800 text-gray-500 cursor-not-allowed opacity-50'
+                            : selectedPairs.first.size === size.size 
+                              ? 'border-[#C8AE7D] bg-[#C8AE7D] text-[#0B0B0C]' 
+                              : 'border-[#E8E2D6]/30 text-[#E8E2D6] hover:border-[#C8AE7D]/50 hover:scale-105'
+                        ]"
+                      >
+                        {{ size.size }}
+                        <span v-if="selectedPairs.first.color && !isVariationAvailable(selectedPairs.first.color.id, size.size)" 
+                              class="absolute inset-0 flex items-center justify-center text-red-400 font-bold">
+                          ✕
+                        </span>
+                      </button>
+                      <div v-if="selectedPairs.first.color" class="text-xs mt-1 text-center">
+                        <span v-if="isVariationAvailable(selectedPairs.first.color.id, size.size)" 
+                              :class="isLowStock(selectedPairs.first.color.id, size.size) ? 'text-orange-400' : 'text-green-400'">
+                          {{ getVariationStock(selectedPairs.first.color.id, size.size) }} disp.
+                        </span>
+                        <span v-else class="text-red-400">Esgotado</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -689,19 +757,33 @@ onUnmounted(() => {
                 <div>
                   <h4 class="text-sm font-semibold mb-3 text-[#E8E2D6] uppercase tracking-wide">Numeração</h4>
                   <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                    <button 
-                      v-for="size in sizes" 
-                      :key="'pair2-' + size.size"
-                      @click="selectSize(2, size.size)"
-                      :class="[
-                        'py-2 px-2 sm:px-3 rounded-lg border text-xs sm:text-sm font-medium transition-all duration-300 hover:scale-105',
-                        selectedPairs.second.size === size.size 
-                          ? 'border-[#C8AE7D] bg-[#C8AE7D] text-[#0B0B0C]' 
-                          : 'border-[#E8E2D6]/30 text-[#E8E2D6] hover:border-[#C8AE7D]/50'
-                      ]"
-                    >
-                      {{ size.size }}
-                    </button>
+                    <div v-for="size in sizes" :key="'pair2-container-' + size.size" class="flex flex-col items-center">
+                      <button 
+                        @click="selectSize(2, size.size)"
+                        :disabled="!selectedPairs.second.color || !isVariationAvailable(selectedPairs.second.color.id, size.size)"
+                        :class="[
+                          'py-2 px-2 sm:px-3 rounded-lg border text-xs sm:text-sm font-medium transition-all duration-300 relative w-full',
+                          !selectedPairs.second.color || !isVariationAvailable(selectedPairs.second.color.id, size.size)
+                            ? 'border-gray-600 bg-gray-800 text-gray-500 cursor-not-allowed opacity-50'
+                            : selectedPairs.second.size === size.size 
+                              ? 'border-[#C8AE7D] bg-[#C8AE7D] text-[#0B0B0C]' 
+                              : 'border-[#E8E2D6]/30 text-[#E8E2D6] hover:border-[#C8AE7D]/50 hover:scale-105'
+                        ]"
+                      >
+                        {{ size.size }}
+                        <span v-if="selectedPairs.second.color && !isVariationAvailable(selectedPairs.second.color.id, size.size)" 
+                              class="absolute inset-0 flex items-center justify-center text-red-400 font-bold">
+                          ✕
+                        </span>
+                      </button>
+                      <div v-if="selectedPairs.second.color" class="text-xs mt-1 text-center">
+                        <span v-if="isVariationAvailable(selectedPairs.second.color.id, size.size)" 
+                              :class="isLowStock(selectedPairs.second.color.id, size.size) ? 'text-orange-400' : 'text-green-400'">
+                          {{ getVariationStock(selectedPairs.second.color.id, size.size) }} disp.
+                        </span>
+                        <span v-else class="text-red-400">Esgotado</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -2037,7 +2119,7 @@ onUnmounted(() => {
               <span class="text-red-400 font-semibold text-sm">Lote atual com frete promocional termina hoje às 23:59</span>
             </div>
             <div class="text-sm text-yellow-400 font-medium">
-              ⚠️ Tamanhos 37 e 38 com estoque reduzido
+              ⚠️ Tamanhos 34, 35, 39 e 40 com estoque muito reduzido
             </div>
           </div>
           
@@ -2112,6 +2194,23 @@ onUnmounted(() => {
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Seção de Integração Yampi -->
+    <section class="py-20 px-4 bg-gradient-to-b from-[#0B0B0C] to-[#1a1a1a]">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">
+            Integração <span class="text-[#C8AE7D]">Yampi</span>
+          </h2>
+          <p class="text-xl text-[#E8E2D6] max-w-3xl mx-auto">
+            Demonstração da integração com a API da Yampi para verificação de produtos em estoque
+          </p>
+        </div>
+        
+        <!-- Componente YampiProducts -->
+        <YampiProducts />
       </div>
     </section>
 

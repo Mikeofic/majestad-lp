@@ -246,6 +246,34 @@ const scrollToSelector = () => {
   }
 }
 
+// Mapeamento de produtos para tokens da Yampi
+// Baseado na estrutura: cor_tamanho -> token
+const productTokens = {
+  // Sandália Branca
+  'white_34': 'H6W70L06YQ',
+  'white_35': 'KTRWNW6VET', 
+  'white_36': 'BRB4C2ZKIL',
+  'white_37': 'H24Z9U9HUT',
+  'white_38': '56U2A2E7YI',
+  'white_39': 'A96VXNXQ8T',
+  'white_40': 'OKI27J2T4B',
+  
+  // Sandália Preta
+  'black_34': 'NXMP6TOBYR',
+  'black_35': '2EHP8RLH8B',
+  'black_36': 'RCQ3F2NJQI', 
+  'black_37': '4H0DLOTL7F',
+  'black_38': 'KNRX8S2MRF',
+  'black_39': 'P6HUMFY8DN',
+  'black_40': 'JO0T0LSYEZ',
+}
+
+// Função para obter token do produto
+const getProductToken = (color: string, size: number) => {
+  const key = `${color}_${size}`
+  return productTokens[key] || null
+}
+
 const addToCart = () => {
   if (isSelectionComplete.value) {
     // Analytics tracking
@@ -265,16 +293,30 @@ const addToCart = () => {
       })
     }
     
-    // Cart data prepared for checkout
+    // Preparar tokens para checkout da Yampi
+    const tokens = []
     
-    // Redirect to WhatsApp
-    let message = ''
-    if (quantityMode.value === 'single') {
-      message = `Olá! Quero garantir 1 par por ${priceText.value}:\nPar: ${selectedPairs.first.color?.name} - Tamanho ${selectedPairs.first.size}`
-    } else {
-      message = `Olá! Quero garantir meu combo 2 pares por ${priceText.value}:\nPar 1: ${selectedPairs.first.color?.name} - Tamanho ${selectedPairs.first.size}\nPar 2: ${selectedPairs.second.color?.name} - Tamanho ${selectedPairs.second.size}`
+    // Primeiro par (sempre presente)
+    if (selectedPairs.first.color && selectedPairs.first.size) {
+      const token1 = getProductToken(selectedPairs.first.color.id, selectedPairs.first.size)
+      if (token1) tokens.push(token1)
     }
-    window.open(`https://wa.me/5511999999999?text=${encodeURIComponent(message)}`, '_blank')
+    
+    // Segundo par (apenas no modo combo)
+    if (quantityMode.value === 'combo' && selectedPairs.second.color && selectedPairs.second.size) {
+      const token2 = getProductToken(selectedPairs.second.color.id, selectedPairs.second.size)
+      if (token2) tokens.push(token2)
+    }
+    
+    if (tokens.length === 0) {
+      alert('Erro ao processar produtos. Tente novamente.')
+      return
+    }
+    
+    // Redirecionar para checkout da Yampi
+    // Formato: majestad.pay.yampi.com.br/r/TOKEN1,TOKEN2
+    const checkoutUrl = `https://majestad.pay.yampi.com.br/r/${tokens.join(',')}`
+    window.open(checkoutUrl, '_blank')
   }
 }
 
@@ -310,14 +352,29 @@ const handlePurchase = () => {
       })
     }
     
-    // Redirect to WhatsApp with selection details
-    let message = ''
-    if (quantityMode.value === 'single') {
-      message = `Olá! Quero garantir 1 par por ${priceText.value}:\nPar: ${selectedPairs.first.color?.name} - Tamanho ${selectedPairs.first.size}`
-    } else {
-      message = `Olá! Quero garantir meu combo 2 pares por ${priceText.value}:\nPar 1: ${selectedPairs.first.color?.name} - Tamanho ${selectedPairs.first.size}\nPar 2: ${selectedPairs.second.color?.name} - Tamanho ${selectedPairs.second.size}`
+    // Preparar tokens para checkout da Yampi
+    const tokens = []
+    
+    // Primeiro par (sempre presente)
+    if (selectedPairs.first.color && selectedPairs.first.size) {
+      const token1 = getProductToken(selectedPairs.first.color.id, selectedPairs.first.size)
+      if (token1) tokens.push(token1)
     }
-    window.open(`https://wa.me/5511999999999?text=${encodeURIComponent(message)}`, '_blank')
+    
+    // Segundo par (apenas no modo combo)
+    if (quantityMode.value === 'combo' && selectedPairs.second.color && selectedPairs.second.size) {
+      const token2 = getProductToken(selectedPairs.second.color.id, selectedPairs.second.size)
+      if (token2) tokens.push(token2)
+    }
+    
+    if (tokens.length === 0) {
+      alert('Erro ao processar produtos. Tente novamente.')
+      return
+    }
+    
+    // Redirecionar para checkout da Yampi
+    const checkoutUrl = `https://majestad.pay.yampi.com.br/r/${tokens.join(',')}`
+    window.open(checkoutUrl, '_blank')
   } else {
     // Show validation message
     const warningMessage = quantityMode.value === 'single' 

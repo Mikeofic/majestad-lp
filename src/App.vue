@@ -104,7 +104,7 @@ const testimonials = [
 const faqs = [
   {
     question: 'Qual é o prazo de entrega?',
-    answer: 'Entregamos em todo o Brasil. Para o combo 2 pares, o frete é GRÁTIS e o prazo varia de 3 a 7 dias úteis dependendo da sua região.'
+    answer: 'Entregamos em todo o Brasil. Para o combo 2 pares, o frete é GRÁTIS e o prazo varia de 2 a 8 dias úteis dependendo da sua região.'
   },
   {
     question: 'Posso trocar se não servir?',
@@ -134,7 +134,7 @@ const currentPrice = computed(() => {
 })
 
 const priceText = computed(() => {
-  return quantityMode.value === 'single' ? 'R$ 297,00' : 'R$ 397,00'
+  return quantityMode.value === 'single' ? 'R$ 297' : 'R$ 397'
 })
 
 const savings = computed(() => {
@@ -369,7 +369,7 @@ onUnmounted(() => {
         <div class="text-center lg:text-left">
           <!-- Selo de Oferta -->
           <div class="inline-flex items-center bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] text-[#0B0B0C] px-4 py-2 rounded-full text-sm font-semibold mb-6">
-            🔥 OFERTA LIMITADA • 60% OFF
+            🔥 OFERTA LIMITADA • 33% OFF
           </div>
           
           <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight">
@@ -393,9 +393,9 @@ onUnmounted(() => {
           <!-- Ancoragem de Valor -->
           <div class="mb-8 p-4 bg-[#C8AE7D]/10 rounded-2xl border border-[#C8AE7D]/20">
             <div class="text-center lg:text-left">
-              <div class="text-sm text-[#E8E2D6] mb-1">Preço unitário: <span class="line-through">R$ 437,90</span></div>
-              <div class="text-2xl font-bold text-[#C8AE7D]">Combo 2 pares: R$ 349,90</div>
-              <div class="text-sm text-green-400 font-medium">Economia de 60% • R$ 525,80 de desconto</div>
+              <div class="text-sm text-[#E8E2D6] mb-1">Preço unitário: <span class="line-through">R$ 297</span></div>
+          <div class="text-2xl font-bold text-[#C8AE7D]">Combo 2 pares: R$ 397</div>
+          <div class="text-sm text-green-400 font-medium">Economia de 33% • R$ 197 de desconto</div>
             </div>
           </div>
           
@@ -444,14 +444,14 @@ onUnmounted(() => {
             Escolha seus <span class="text-[#C8AE7D]">2 pares</span>
           </h2>
           <p class="text-lg sm:text-xl text-[#E8E2D6] max-w-2xl mx-auto mb-8">
-            Monte sua combinação perfeita e economize 60%
+            Monte sua combinação perfeita e economize 33%
           </p>
           
           <!-- Ancoragem de Preço -->
           <div class="bg-[#C8AE7D]/10 border border-[#C8AE7D]/20 rounded-2xl p-6 max-w-md mx-auto mb-12">
-            <div v-if="quantityMode === 'combo'" class="text-sm text-[#E8E2D6] mb-2">Preço unitário: <span class="line-through text-red-400">R$ 297,00 cada</span></div>
+            <div v-if="quantityMode === 'combo'" class="text-sm text-[#E8E2D6] mb-2">Preço unitário: <span class="line-through text-red-400">R$ 297 cada</span></div>
             <div class="text-3xl font-bold text-[#C8AE7D] mb-2">{{ quantityMode === 'single' ? 'Preço: ' + priceText : 'Combo: ' + priceText }}</div>
-            <div v-if="quantityMode === 'combo'" class="text-green-400 font-semibold">Economia de R$ {{ savings }},00 (33%)</div>
+            <div v-if="quantityMode === 'combo'" class="text-green-400 font-semibold">Economia de R$ {{ savings }} (33%)</div>
           </div>
         </div>
         
@@ -475,7 +475,7 @@ onUnmounted(() => {
             >
               <div class="text-center">
                 <div class="text-lg font-bold text-[#E8E2D6] mb-1">1 Par</div>
-                <div class="text-2xl font-bold text-[#C8AE7D] mb-2">R$ 297,00</div>
+                <div class="text-2xl font-bold text-[#C8AE7D] mb-2">R$ 297</div>
                 <div class="text-sm text-[#E8E2D6]/70">Preço unitário</div>
               </div>
               <div v-if="quantityMode === 'single'" class="absolute top-3 right-3">
@@ -502,8 +502,8 @@ onUnmounted(() => {
               </div>
               <div class="text-center mt-2">
                 <div class="text-lg font-bold text-[#E8E2D6] mb-1">2 Pares (Combo)</div>
-                <div class="text-2xl font-bold text-[#C8AE7D] mb-1">R$ 397,00</div>
-                <div class="text-sm text-green-400 font-semibold mb-1">Economize R$ 197,00</div>
+                <div class="text-2xl font-bold text-[#C8AE7D] mb-1">R$ 397</div>
+                <div class="text-sm text-green-400 font-semibold mb-1">Economize R$ 197</div>
                 <div class="text-xs text-[#E8E2D6]/70">33% de desconto</div>
               </div>
               <div v-if="quantityMode === 'combo'" class="absolute top-3 right-3">
@@ -760,7 +760,7 @@ onUnmounted(() => {
 
                 <!-- Preço -->
                 <div class="text-center mb-6">
-                  <div v-if="quantityMode === 'combo'" class="text-sm text-[#E8E2D6]/60 line-through mb-1">De R$ 594,00</div>
+                  <div v-if="quantityMode === 'combo'" class="text-sm text-[#E8E2D6]/60 line-through mb-1">De R$ 594</div>
                   <div class="text-3xl font-bold text-[#C8AE7D] mb-2">{{ priceText }}</div>
                   <div v-if="quantityMode === 'combo'" class="text-sm text-green-400 font-medium">Economia de 33%</div>
                 </div>
@@ -826,7 +826,7 @@ onUnmounted(() => {
                 </div>
               </div>
               <div class="text-3xl font-bold text-[#C8AE7D] mb-2">{{ priceText }}</div>
-              <div v-if="quantityMode === 'combo'" class="text-sm text-[#E8E2D6] line-through mb-4">De R$ 594,00</div>
+              <div v-if="quantityMode === 'combo'" class="text-sm text-[#E8E2D6] line-through mb-4">De R$ 594</div>
               
               <button 
                 :disabled="!isSelectionComplete"
@@ -1178,99 +1178,7 @@ onUnmounted(() => {
       </div>
     </section>
 
-    <!-- Política de Troca & Devolução -->
-    <section class="py-20 px-4">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">
-            Troca e <span class="text-[#C8AE7D]">Devolução</span> sem dor
-          </h2>
-          <p class="text-xl text-[#E8E2D6] max-w-3xl mx-auto">
-            Sua satisfação é nossa prioridade. Processo simples e humanizado
-          </p>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-8 mb-12">
-          <div class="text-center">
-            <div class="w-20 h-20 bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg class="w-10 h-10 text-[#0B0B0C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold mb-4">1ª Troca Grátis</h3>
-            <p class="text-[#E8E2D6] leading-relaxed">
-              Primeira troca por tamanho ou cor sem custo adicional. Você só paga se quiser trocar novamente.
-            </p>
-          </div>
-          
-          <div class="text-center">
-            <div class="w-20 h-20 bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg class="w-10 h-10 text-[#0B0B0C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold mb-4">30 Dias Corridos</h3>
-            <p class="text-[#E8E2D6] leading-relaxed">
-              Prazo generoso para você testar e ter certeza. Conte a partir do recebimento do produto.
-            </p>
-          </div>
-          
-          <div class="text-center">
-            <div class="w-20 h-20 bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg class="w-10 h-10 text-[#0B0B0C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold mb-4">Atendimento Humano</h3>
-            <p class="text-[#E8E2D6] leading-relaxed">
-              Fale direto com nossa equipe via WhatsApp. Sem robôs, sem complicação.
-            </p>
-          </div>
-        </div>
-        
-        <!-- Processo Simplificado -->
-        <div class="bg-[#C8AE7D]/10 border border-[#C8AE7D]/20 rounded-3xl p-8 mb-8">
-          <h3 class="text-2xl font-bold mb-8 text-center text-[#C8AE7D]">Como solicitar troca ou devolução</h3>
-          
-          <div class="grid md:grid-cols-4 gap-6">
-            <div class="text-center">
-              <div class="bg-[#C8AE7D] text-[#0B0B0C] rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 font-bold text-lg">1</div>
-              <h4 class="font-bold mb-2">Entre em contato</h4>
-              <p class="text-sm text-[#E8E2D6]">WhatsApp ou e-mail com seu pedido</p>
-            </div>
-            
-            <div class="text-center">
-              <div class="bg-[#C8AE7D] text-[#0B0B0C] rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 font-bold text-lg">2</div>
-              <h4 class="font-bold mb-2">Receba a etiqueta</h4>
-              <p class="text-sm text-[#E8E2D6]">Enviamos etiqueta de postagem gratuita</p>
-            </div>
-            
-            <div class="text-center">
-              <div class="bg-[#C8AE7D] text-[#0B0B0C] rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 font-bold text-lg">3</div>
-              <h4 class="font-bold mb-2">Envie o produto</h4>
-              <p class="text-sm text-[#E8E2D6]">Na embalagem original, pelos Correios</p>
-            </div>
-            
-            <div class="text-center">
-              <div class="bg-[#C8AE7D] text-[#0B0B0C] rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 font-bold text-lg">4</div>
-              <h4 class="font-bold mb-2">Receba o novo</h4>
-              <p class="text-sm text-[#E8E2D6]">Produto novo ou reembolso em até 7 dias</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- CTA Troca -->
-        <div class="text-center">
-          <button class="bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] text-[#0B0B0C] px-8 py-4 rounded-full font-bold text-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 mx-auto">
-            Solicitar Troca no WhatsApp
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-          </button>
-          <p class="text-sm text-[#E8E2D6] mt-4">Resposta em até 2 horas úteis</p>
-        </div>
-      </div>
-    </section>
+
 
     <!-- Entrega, Prazos e Frete -->
     <section class="py-20 px-4 bg-gradient-to-b from-[#1a1a1a] to-[#0B0B0C]">
@@ -1316,7 +1224,7 @@ onUnmounted(() => {
               </svg>
             </div>
             <h3 class="text-xl font-bold mb-4 text-[#C8AE7D]">Demais Regiões</h3>
-            <p class="text-3xl font-bold mb-2">5-10 dias</p>
+            <p class="text-3xl font-bold mb-2">5-8 dias</p>
             <p class="text-[#E8E2D6] text-sm">Norte, Nordeste, Centro-Oeste</p>
           </div>
         </div>
@@ -1370,11 +1278,11 @@ onUnmounted(() => {
               </div>
               <div class="flex justify-between items-center py-3 border-b border-[#C8AE7D]/20">
                 <span class="text-[#E8E2D6]">1 par avulso</span>
-                <span class="text-[#E8E2D6]">R$ 19,90</span>
+                <span class="text-[#E8E2D6]">R$ 20</span>
               </div>
               <div class="flex justify-between items-center py-3">
                 <span class="text-[#E8E2D6]">Entrega expressa</span>
-                <span class="text-[#E8E2D6]">R$ 39,90</span>
+                <span class="text-[#E8E2D6]">R$ 40</span>
               </div>
             </div>
             
@@ -1683,6 +1591,100 @@ onUnmounted(() => {
           <button class="bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] text-[#0B0B0C] px-8 py-4 rounded-full font-bold text-lg hover:shadow-lg transition-all duration-300">
             Escolher Majestad Agora
           </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Política de Troca & Devolução -->
+    <section class="py-20 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">
+            Troca e <span class="text-[#C8AE7D]">Devolução</span> sem dor
+          </h2>
+          <p class="text-xl text-[#E8E2D6] max-w-3xl mx-auto">
+            Sua satisfação é nossa prioridade. Processo simples e humanizado
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8 mb-12">
+          <div class="text-center">
+            <div class="w-20 h-20 bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-[#0B0B0C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-4">1ª Troca Grátis</h3>
+            <p class="text-[#E8E2D6] leading-relaxed">
+              Primeira troca por tamanho ou cor sem custo adicional. Você só paga se quiser trocar novamente.
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-20 h-20 bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-[#0B0B0C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-4">30 Dias Corridos</h3>
+            <p class="text-[#E8E2D6] leading-relaxed">
+              Prazo generoso para você testar e ter certeza. Conte a partir do recebimento do produto.
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-20 h-20 bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-[#0B0B0C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Atendimento Humano</h3>
+            <p class="text-[#E8E2D6] leading-relaxed">
+              Fale direto com nossa equipe via WhatsApp. Sem robôs, sem complicação.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Processo Simplificado -->
+        <div class="bg-[#C8AE7D]/10 border border-[#C8AE7D]/20 rounded-3xl p-8 mb-8">
+          <h3 class="text-2xl font-bold mb-8 text-center text-[#C8AE7D]">Como solicitar troca ou devolução</h3>
+          
+          <div class="grid md:grid-cols-4 gap-6">
+            <div class="text-center">
+              <div class="bg-[#C8AE7D] text-[#0B0B0C] rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 font-bold text-lg">1</div>
+              <h4 class="font-bold mb-2">Entre em contato</h4>
+              <p class="text-sm text-[#E8E2D6]">WhatsApp ou e-mail com seu pedido</p>
+            </div>
+            
+            <div class="text-center">
+              <div class="bg-[#C8AE7D] text-[#0B0B0C] rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 font-bold text-lg">2</div>
+              <h4 class="font-bold mb-2">Receba a etiqueta</h4>
+              <p class="text-sm text-[#E8E2D6]">Enviamos etiqueta de postagem gratuita</p>
+            </div>
+            
+            <div class="text-center">
+              <div class="bg-[#C8AE7D] text-[#0B0B0C] rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 font-bold text-lg">3</div>
+              <h4 class="font-bold mb-2">Envie o produto</h4>
+              <p class="text-sm text-[#E8E2D6]">Na embalagem original, pelos Correios</p>
+            </div>
+            
+            <div class="text-center">
+              <div class="bg-[#C8AE7D] text-[#0B0B0C] rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 font-bold text-lg">4</div>
+              <h4 class="font-bold mb-2">Receba o novo</h4>
+              <p class="text-sm text-[#E8E2D6]">Produto novo ou reembolso em até 7 dias</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- CTA Troca -->
+        <div class="text-center">
+          <button class="bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] text-[#0B0B0C] px-8 py-4 rounded-full font-bold text-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 mx-auto">
+            Solicitar Troca no WhatsApp
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </button>
+          <p class="text-sm text-[#E8E2D6] mt-4">Resposta em até 2 horas úteis</p>
         </div>
       </div>
     </section>
@@ -2060,12 +2062,12 @@ onUnmounted(() => {
           
           <!-- Preço Final com Ancoragem -->
           <div class="mb-8">
-            <div v-if="quantityMode === 'combo'" class="text-sm text-gray-400 line-through mb-2">Preço unitário: R$ 297,00 cada</div>
-            <div v-if="quantityMode === 'combo'" class="text-lg text-gray-400 line-through mb-2">Total: R$ 594,00 (2 pares)</div>
+            <div v-if="quantityMode === 'combo'" class="text-sm text-gray-400 line-through mb-2">Preço unitário: R$ 297 cada</div>
+              <div v-if="quantityMode === 'combo'" class="text-lg text-gray-400 line-through mb-2">Total: R$ 594 (2 pares)</div>
             <div class="text-5xl font-bold text-[#C8AE7D] mb-2">{{ priceText }}</div>
             <div class="text-lg text-[#E8E2D6] mb-2">{{ quantityMode === 'single' ? '1 par completo' : '2 pares completos' }}</div>
             <div v-if="quantityMode === 'combo'" class="inline-flex items-center bg-green-500/20 border border-green-500/30 rounded-full px-4 py-2">
-              <span class="text-green-400 font-bold text-lg">Economia de 33% • R$ {{ savings }},00 menos</span>
+              <span class="text-green-400 font-bold text-lg">Economia de 33% • R$ {{ savings }} menos</span>
             </div>
           </div>
           

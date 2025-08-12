@@ -40,15 +40,16 @@ img {
   display: block;
 }
 
-/* Prevent layout shift for images */
-img[width][height] {
-  aspect-ratio: attr(width) / attr(height);
-}
-
 /* Optimize for Core Web Vitals */
 .hero-image {
   content-visibility: auto;
   contain-intrinsic-size: 800px 600px;
+  width: auto;
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  min-height: 500px;
 }
 
 /* Reduce motion for users who prefer it */

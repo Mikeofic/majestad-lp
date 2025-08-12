@@ -364,7 +364,7 @@ onUnmounted(() => {
         <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#E8E2D6]/3 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
       
-      <div class="relative z-10 max-w-7xl mx-auto px-4 pt-8 sm:pt-12 grid lg:grid-cols-2 gap-4 lg:gap-6 items-center">
+      <div class="relative z-10 max-w-7xl mx-auto px-4 pt-8 sm:pt-12 grid lg:grid-cols-2 gap-4 lg:gap-6 items-stretch">
         <!-- Content -->
         <div class="text-center lg:text-left">
           <!-- Selo de Oferta -->
@@ -413,10 +413,10 @@ onUnmounted(() => {
         </div>
         
         <!-- Hero Image -->
-        <div class="relative">
+        <div class="relative flex items-center">
           <div class="relative z-10">
             <img 
-                src="/sandalia-branca.webp" 
+                src="/salto 3.png" 
                 alt="Sandália Majestad" 
                 class="hero-image w-full max-w-2xl mx-auto transform hover:scale-105 transition-transform duration-500 filter drop-shadow-2xl"
                 loading="eager"

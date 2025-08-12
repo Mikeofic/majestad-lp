@@ -149,8 +149,11 @@
               placeholder="Seu e-mail"
               class="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
-            <button class="btn-primary px-6 py-2">
+            <button class="btn-primary px-6 py-2 flex items-center justify-center gap-2">
               Inscrever
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
             </button>
           </div>
         </div>

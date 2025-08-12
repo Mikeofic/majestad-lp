@@ -20,11 +20,17 @@
           </div>
           
           <div class="flex flex-col sm:flex-row gap-4">
-            <button class="btn-primary text-lg px-8 py-3">
+            <button class="btn-primary text-lg px-8 py-3 flex items-center justify-center gap-2">
               Explorar Produtos
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
             </button>
-            <button class="btn-secondary text-lg px-8 py-3">
+            <button class="btn-secondary text-lg px-8 py-3 flex items-center justify-center gap-2">
               Ver Ofertas
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
             </button>
           </div>
           

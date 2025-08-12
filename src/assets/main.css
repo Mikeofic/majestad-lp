@@ -11,16 +11,22 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Custom button styles */
 .btn-primary {
-  background-color: #f2750a;
-  color: white;
-  font-weight: 500;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: #C8AE7D;
+  font-weight: 600;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  transition: background-color 0.2s;
+  border: 2px solid #C8AE7D;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(200, 174, 125, 0.2);
 }
 
 .btn-primary:hover {
-  background-color: #e35a00;
+  background: linear-gradient(135deg, #C8AE7D 0%, #E8E2D6 100%);
+  color: #0B0B0C;
+  border-color: #E8E2D6;
+  box-shadow: 0 6px 20px rgba(200, 174, 125, 0.4);
+  transform: translateY(-2px);
 }
 
 .btn-secondary {

@@ -289,13 +289,16 @@ onUnmounted(() => {
               :disabled="!isSelectionComplete"
               @click="addToCart"
               :class="[
-                'px-4 sm:px-6 py-2 rounded-full font-semibold transition-all duration-300 text-sm sm:text-base',
+                'px-4 sm:px-6 py-2 rounded-full font-semibold transition-all duration-300 text-sm sm:text-base flex items-center justify-center gap-2',
                 isSelectionComplete 
                   ? 'bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] text-[#0B0B0C] hover:shadow-lg' 
                   : 'bg-gray-600 text-gray-400 cursor-not-allowed'
               ]"
             >
               {{ isSelectionComplete ? 'Garantir' : 'Selecionar' }}
+              <svg v-if="isSelectionComplete" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
             </button>
           </div>
         </div>
@@ -348,12 +351,17 @@ onUnmounted(() => {
             </div>
           </div>
           
-          <button 
-            @click="scrollToSelector" 
-            class="btn-primary text-lg px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 shadow-xl"
-          >
-            Escolher meus pares
-          </button>
+          <div class="flex justify-center lg:justify-start">
+            <button 
+              @click="scrollToSelector" 
+              class="btn-primary text-lg px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 shadow-xl flex items-center justify-center gap-2"
+            >
+              Escolher meus pares
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
         </div>
         
         <!-- Hero Image -->
@@ -674,6 +682,9 @@ onUnmounted(() => {
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
                   </svg>
                   {{ isSelectionComplete ? 'Garantir meu Combo' : 'Selecione os 2 pares' }}
+                  <svg v-if="isSelectionComplete" class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
                 </button>
 
                 <!-- Benefícios -->
@@ -723,13 +734,16 @@ onUnmounted(() => {
                 :disabled="!isSelectionComplete"
                 @click="addToCart"
                 :class="[
-                  'w-full py-4 rounded-full text-xl font-semibold transition-all duration-300',
+                  'w-full py-4 rounded-full text-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2',
                   isSelectionComplete 
                     ? 'bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] text-[#0B0B0C] hover:shadow-2xl hover:scale-105' 
                     : 'bg-gray-600 text-gray-400 cursor-not-allowed'
                 ]"
               >
                 {{ isSelectionComplete ? 'Garantir meu Majestad' : 'Selecione cor e tamanho dos 2 pares' }}
+                <svg v-if="isSelectionComplete" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
               </button>
             </div>
           </div>
@@ -1149,8 +1163,11 @@ onUnmounted(() => {
         
         <!-- CTA Troca -->
         <div class="text-center">
-          <button class="bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] text-[#0B0B0C] px-8 py-4 rounded-full font-bold text-lg hover:shadow-lg transition-all duration-300">
+          <button class="bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] text-[#0B0B0C] px-8 py-4 rounded-full font-bold text-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 mx-auto">
             Solicitar Troca no WhatsApp
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
           </button>
           <p class="text-sm text-[#E8E2D6] mt-4">Resposta em até 2 horas úteis</p>
         </div>
@@ -1958,13 +1975,16 @@ onUnmounted(() => {
             @click="scrollToSelector"
             :disabled="!isSelectionComplete"
             :class="[
-              'w-full max-w-md mx-auto px-8 py-6 rounded-full font-bold text-xl transition-all duration-300 mb-4',
+              'w-full max-w-md mx-auto px-8 py-6 rounded-full font-bold text-xl transition-all duration-300 mb-4 flex items-center justify-center gap-2',
               isSelectionComplete 
                 ? 'bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] text-[#0B0B0C] hover:shadow-2xl hover:scale-105 animate-pulse' 
                 : 'bg-gray-600 text-gray-400 cursor-not-allowed'
             ]"
           >
             {{ isSelectionComplete ? 'Garantir 2 Pares por R$ 349,90' : 'Selecione seus Pares Acima' }}
+            <svg v-if="isSelectionComplete" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
           </button>
           
           <!-- Selos de Pagamento -->

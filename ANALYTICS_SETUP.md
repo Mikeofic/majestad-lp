@@ -2,7 +2,12 @@
 
 ## Visão Geral
 
-Este projeto foi configurado com Google Tag Manager (GTM) e Google Analytics 4 (GA4) para tracking completo de eventos e conversões.
+Este projeto implementa um sistema completo de analytics usando Google Tag Manager (GTM) e Google Analytics 4 (GA4) com conformidade LGPD.
+
+### IDs de Configuração
+- **GTM Container ID**: `GTM-MPFRSZPG`
+- **GA4 Property ID**: `G-EV7BGCE3B9` (configurado diretamente via gtag.js)
+- **Implementação**: Dual setup com GTM + GA4 direto para máxima compatibilidade
 
 ## Configuração do Google Tag Manager
 

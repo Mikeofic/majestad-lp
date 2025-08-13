@@ -45,10 +45,31 @@ class AnalyticsService {
     }
   }
 
+  // Verifica consentimento LGPD
+  private hasAnalyticsConsent(): boolean {
+    if (typeof window === 'undefined') return false
+    
+    try {
+      const consent = localStorage.getItem('lgpd-consent')
+      if (!consent) return false
+      
+      const consentData = JSON.parse(consent)
+      return consentData.type === 'all'
+    } catch {
+      return false
+    }
+  }
+
   // Método genérico para enviar eventos
   private sendEvent(eventData: AnalyticsEvent) {
     if (!this.isInitialized || typeof window === 'undefined') {
       console.warn('Analytics não inicializado')
+      return
+    }
+
+    // Verifica consentimento LGPD antes de enviar
+    if (!this.hasAnalyticsConsent()) {
+      console.log('Evento bloqueado - sem consentimento LGPD:', eventData.event)
       return
     }
 

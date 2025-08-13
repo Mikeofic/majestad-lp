@@ -41,6 +41,79 @@ const selectedPair2 = ref<{ color: Color | null; size: number | null }>({ color:
 const openFaq = ref<number | null>(null)
 const showStickyBar = ref(false)
 const currentImageIndex = ref(0)
+const currentSlide = ref(0)
+
+// Dados do slider
+const galleryImages = [
+  {
+    src: '/pé-salto-branco.webp',
+    alt: 'Sapato Majestad Branco Pérola - Vista Principal',
+    title: 'Branco Pérola',
+    subtitle: 'Elegância atemporal'
+  },
+  {
+    src: '/DSC03084.webp',
+    alt: 'Sapato Majestad Preto Ônix',
+    title: 'Preto Ônix',
+    subtitle: 'Sofisticação pura'
+  },
+  {
+    src: '/pe-salto-preto.webp',
+    alt: 'Detalhe do acabamento',
+    title: 'Acabamento Premium',
+    subtitle: 'Qualidade superior'
+  },
+  {
+    src: '/DSC02989.webp',
+    alt: 'Vista lateral',
+    title: 'Design Exclusivo',
+    subtitle: 'Linhas perfeitas'
+  },
+  {
+    src: '/DSC03116.webp',
+    alt: 'Detalhe da palmilha',
+    title: 'Conforto Real',
+    subtitle: 'Palmilha anatômica'
+  }
+]
+
+// Variável reativa para detectar tamanho da tela
+const isDesktop = ref(false)
+
+// Função para atualizar o tamanho da tela
+const updateScreenSize = () => {
+  isDesktop.value = window.innerWidth >= 768
+}
+
+// Funções do slider
+const getVisibleSlides = () => isDesktop.value ? 2 : 1
+const getMaxSlide = () => Math.max(0, galleryImages.length - getVisibleSlides())
+const getIndicatorCount = () => getMaxSlide() + 1
+
+const nextSlide = () => {
+  const maxSlide = getMaxSlide()
+  currentSlide.value = currentSlide.value >= maxSlide ? 0 : currentSlide.value + 1
+}
+
+const prevSlide = () => {
+  const maxSlide = getMaxSlide()
+  currentSlide.value = currentSlide.value <= 0 ? maxSlide : currentSlide.value - 1
+}
+
+const goToSlide = (index: number) => {
+  const maxSlide = getMaxSlide()
+  currentSlide.value = Math.min(index, maxSlide)
+}
+
+// Inicializar detecção de tamanho da tela
+onMounted(() => {
+  updateScreenSize()
+  window.addEventListener('resize', updateScreenSize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateScreenSize)
+})
 
 // Dados
 const colors = [
@@ -48,13 +121,13 @@ const colors = [
     id: 'white',
     name: 'Branco Pérola',
     hex: '#FFFFFF',
-    image: '/pé-salto-branco.webp'
+    image: '/26.png'
   },
   {
     id: 'black',
     name: 'Preto Ônix',
     hex: '#000000',
-    image: '/pe-salto-preto.webp'
+    image: '/24.png'
   }
 ]
 
@@ -84,13 +157,6 @@ const sizes = [
   { size: 38 },
   { size: 39 },
   { size: 40 }
-]
-
-const galleryImages = [
-  '/pé-salto-branco.webp',
-  'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800',
-  'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800',
-  'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=800'
 ]
 
 const testimonials = [
@@ -479,7 +545,7 @@ onUnmounted(() => {
         <div class="text-center lg:text-left">
           <!-- Logo do Site -->
           <div class="mb-6">
-            <img src="/site-logo.png" alt="Majestad Logo" class="h-16 mx-auto lg:mx-0">
+            <img src="/12.png" alt="Majestad Logo" class="h-16 mx-auto lg:mx-0">
           </div>
           
           <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight">
@@ -488,7 +554,7 @@ onUnmounted(() => {
            </h1>
            
            <p class="text-lg sm:text-xl md:text-2xl text-[#E8E2D6] mb-8 leading-relaxed font-light">
-             Atemporal. Sofisticado. <span class="text-[#C8AE7D] font-semibold">Feito para você.</span>
+             Salto Atemporal. Sofisticado. <span class="text-[#C8AE7D] font-semibold">Feito para você.</span>
            </p>
           
           <!-- Rating Component -->
@@ -992,88 +1058,67 @@ onUnmounted(() => {
           </p>
         </div>
         
-        <!-- Galeria Principal -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-12">
-          <!-- Imagem Principal Grande -->
-          <div class="md:col-span-2 lg:col-span-2 group cursor-pointer">
-            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-[16/10]">
+        <!-- Galeria de Imagens -->
+        <div class="max-w-6xl mx-auto">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Imagem 1 -->
+            <div class="relative group overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10">
               <img 
                 src="/pé-salto-branco.webp"
-                alt="Sapato Majestad Preto Ônix - Vista Principal"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                alt="Sapato Majestad Branco Pérola - Vista Principal"
+                class="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
-                width="640"
-                height="400"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0B0B0C]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <h3 class="text-2xl font-bold mb-2">Branco Pérola</h3>
+                <p class="text-sm text-[#E8E2D6]">Elegância atemporal</p>
+              </div>
+            </div>
+            
+            <!-- Imagem 2 -->
+            <div class="relative group overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10">
+              <img 
+                src="/DSC03084.webp"
+                alt="Sapato Majestad - Detalhe do acabamento"
+                class="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700"
+                loading="lazy"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0B0B0C]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <h3 class="text-2xl font-bold mb-2">Acabamento Premium</h3>
+                <p class="text-sm text-[#E8E2D6]">Qualidade superior</p>
+              </div>
+            </div>
+            
+            <!-- Imagem 3 -->
+            <div class="relative group overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10">
+              <img 
+                src="/DSC03116.png"
+                alt="Sapato Majestad Preto Ônix - Detalhe do salto"
+                class="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700"
+                loading="lazy"
               >
               <div class="absolute inset-0 bg-gradient-to-t from-[#0B0B0C]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <h3 class="text-2xl font-bold mb-2">Preto Ônix</h3>
-                <p class="text-sm text-[#E8E2D6]">Elegância atemporal</p>
+                <p class="text-sm text-[#E8E2D6]">Sofisticação pura</p>
               </div>
             </div>
-          </div>
-          
-          <!-- Imagem Lateral -->
-          <div class="group cursor-pointer">
-            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-[4/5]">
-              <img 
-                src="/DSC03084.webp"
-                alt="Sapato Majestad Branco Pérola"
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                loading="lazy"
-                width="320"
-                height="400"
-              >
-              <div class="absolute inset-0 bg-gradient-to-t from-[#0B0B0C]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div class="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <h3 class="text-lg font-bold mb-1">Branco Pérola</h3>
-                <p class="text-xs text-[#E8E2D6]">Sofisticação pura</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Galeria Secundária -->
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-          <div class="group cursor-pointer">
-            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-square">
-              <img 
-                src="/pe-salto-preto.webp"
-                alt="Detalhe do acabamento"
-                class="w-full h-full object-cover object-bottom group-hover:scale-110 transition-transform duration-500"
-                loading="lazy"
-                width="300"
-                height="300"
-              >
-              <div class="absolute inset-0 bg-[#0B0B0C]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-          </div>
-          
-          <div class="group cursor-pointer">
-            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-square">
+            
+            <!-- Imagem 4 -->
+            <div class="relative group overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10">
               <img 
                 src="/DSC02989.webp"
-                alt="Vista lateral"
-                class="w-full h-full object-cover object-bottom group-hover:scale-110 transition-transform duration-500"
+                alt="Sapato Majestad - Vista lateral completa"
+                class="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
-                width="300"
-                height="300"
               >
-              <div class="absolute inset-0 bg-[#0B0B0C]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-          </div>
-          
-          <div class="group cursor-pointer">
-            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10 aspect-square">
-              <img 
-                src="/DSC03116.webp"
-                alt="Detalhe da palmilha"
-                class="w-full h-full object-cover object-bottom group-hover:scale-110 transition-transform duration-500"
-                loading="lazy"
-                width="300"
-                height="300"
-              >
-              <div class="absolute inset-0 bg-[#0B0B0C]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0B0B0C]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <h3 class="text-2xl font-bold mb-2">Design Exclusivo</h3>
+                <p class="text-sm text-[#E8E2D6]">Linhas perfeitas</p>
+              </div>
             </div>
           </div>
         </div>

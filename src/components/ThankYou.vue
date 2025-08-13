@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-[#0B0B0C] via-[#1a1a1a] to-[#0B0B0C] flex items-center justify-center px-4">
+  <div class="min-h-screen bg-gradient-to-br from-[#0B0B0C] via-[#1a1a1a] to-[#0B0B0C] flex items-center justify-center px-4 py-8">
     <div class="max-w-2xl mx-auto text-center">
       <!-- Ícone de Sucesso -->
       <div class="mb-8">

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
+import { analytics } from '../services/analytics'
 
 // Tipos
 interface Color {
@@ -34,86 +35,11 @@ const selectedPairs = reactive({
   second: { color: null, size: null } as SelectedPair
 })
 
-const selectedColor = ref<Color | null>(null)
-const selectedSize = ref<number | null>(null)
-const selectedPair1 = ref<{ color: Color | null; size: number | null }>({ color: null, size: null })
-const selectedPair2 = ref<{ color: Color | null; size: number | null }>({ color: null, size: null })
+
 const openFaq = ref<number | null>(null)
 const showStickyBar = ref(false)
 const currentImageIndex = ref(0)
-const currentSlide = ref(0)
 
-// Dados do slider
-const galleryImages = [
-  {
-    src: '/pé-salto-branco.webp',
-    alt: 'Sapato Majestad Branco Pérola - Vista Principal',
-    title: 'Branco Pérola',
-    subtitle: 'Elegância atemporal'
-  },
-  {
-    src: '/DSC03084.webp',
-    alt: 'Sapato Majestad Preto Ônix',
-    title: 'Preto Ônix',
-    subtitle: 'Sofisticação pura'
-  },
-  {
-    src: '/pe-salto-preto.webp',
-    alt: 'Detalhe do acabamento',
-    title: 'Acabamento Premium',
-    subtitle: 'Qualidade superior'
-  },
-  {
-    src: '/DSC02989.webp',
-    alt: 'Vista lateral',
-    title: 'Design Exclusivo',
-    subtitle: 'Linhas perfeitas'
-  },
-  {
-    src: '/DSC03116.webp',
-    alt: 'Detalhe da palmilha',
-    title: 'Conforto Real',
-    subtitle: 'Palmilha anatômica'
-  }
-]
-
-// Variável reativa para detectar tamanho da tela
-const isDesktop = ref(false)
-
-// Função para atualizar o tamanho da tela
-const updateScreenSize = () => {
-  isDesktop.value = window.innerWidth >= 768
-}
-
-// Funções do slider
-const getVisibleSlides = () => isDesktop.value ? 2 : 1
-const getMaxSlide = () => Math.max(0, galleryImages.length - getVisibleSlides())
-const getIndicatorCount = () => getMaxSlide() + 1
-
-const nextSlide = () => {
-  const maxSlide = getMaxSlide()
-  currentSlide.value = currentSlide.value >= maxSlide ? 0 : currentSlide.value + 1
-}
-
-const prevSlide = () => {
-  const maxSlide = getMaxSlide()
-  currentSlide.value = currentSlide.value <= 0 ? maxSlide : currentSlide.value - 1
-}
-
-const goToSlide = (index: number) => {
-  const maxSlide = getMaxSlide()
-  currentSlide.value = Math.min(index, maxSlide)
-}
-
-// Inicializar detecção de tamanho da tela
-onMounted(() => {
-  updateScreenSize()
-  window.addEventListener('resize', updateScreenSize)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', updateScreenSize)
-})
 
 // Dados
 const colors = [
@@ -232,31 +158,22 @@ const savings = computed(() => {
 const selectColor = (pairNumber: number, color: Color) => {
   if (pairNumber === 1) {
     selectedPairs.first.color = color
-    selectedPair1.value.color = color
     
     // Verificar se o tamanho selecionado ainda está disponível na nova cor
     if (selectedPairs.first.size && !isVariationAvailable(color.id, selectedPairs.first.size)) {
       selectedPairs.first.size = null
-      selectedPair1.value.size = null
     }
   } else {
     selectedPairs.second.color = color
-    selectedPair2.value.color = color
     
     // Verificar se o tamanho selecionado ainda está disponível na nova cor
     if (selectedPairs.second.size && !isVariationAvailable(color.id, selectedPairs.second.size)) {
       selectedPairs.second.size = null
-      selectedPair2.value.size = null
     }
   }
   
   // Analytics tracking
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'select_color', {
-      'pair_index': pairNumber,
-      'color': color.id
-    })
-  }
+  analytics.trackColorSelection(pairNumber, color.id, color.name)
 }
 
 const selectSize = (pairNumber: number, size: number) => {
@@ -275,27 +192,27 @@ const selectSize = (pairNumber: number, size: number) => {
   
   if (pairNumber === 1) {
     selectedPairs.first.size = size
-    selectedPair1.value.size = size
   } else {
     selectedPairs.second.size = size
-    selectedPair2.value.size = size
   }
   
   // Analytics tracking
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'select_size', {
-      'pair_index': pairNumber,
-      'size': size,
-      'color': selectedColor.id,
-      'stock_available': getVariationStock(selectedColor.id, size)
-    })
-  }
+  analytics.trackSizeSelection(pairNumber, size, selectedColor.id)
 }
 
 const selectColorPair1 = (color: Color) => selectColor(1, color)
 const selectSizePair1 = (size: SizeOption) => selectSize(1, size.size)
 const selectColorPair2 = (color: Color) => selectColor(2, color)
 const selectSizePair2 = (size: SizeOption) => selectSize(2, size.size)
+
+// Funções para mudança de modo de compra com tracking
+const setQuantityMode = (mode: 'single' | 'combo') => {
+  const previousMode = quantityMode.value
+  quantityMode.value = mode
+  
+  // Analytics tracking
+  analytics.trackModeChange(mode, previousMode)
+}
 
 const scrollToSelector = () => {
   const element = document.getElementById('selector')
@@ -304,11 +221,7 @@ const scrollToSelector = () => {
   }
   
   // Analytics tracking
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'click_cta', {
-      'cta_location': 'hero'
-    })
-  }
+  analytics.trackCTAClick('hero', 'scroll_to_selector')
 }
 
 // Mapeamento de produtos para tokens da Yampi
@@ -342,21 +255,31 @@ const getProductToken = (color: string, size: number): string | null => {
 const addToCart = () => {
   if (isSelectionComplete.value) {
     // Analytics tracking
-    if (typeof gtag !== 'undefined') {
-      const itemId = quantityMode.value === 'single' ? 'single-par' : 'combo-2-pares'
-      const itemName = quantityMode.value === 'single' ? '1 Par Majestad' : 'Combo 2 Pares Majestad'
-      
-      gtag('event', 'begin_checkout', {
-        'value': currentPrice.value,
-        'currency': 'BRL',
-        'items': [{
-          'item_id': itemId,
-          'item_name': itemName,
-          'quantity': 1,
-          'price': currentPrice.value
-        }]
+    const items = []
+    
+    // Primeiro par
+    if (selectedPairs.first.color && selectedPairs.first.size) {
+      items.push({
+        item_id: `majestad_${selectedPairs.first.color.id}_${selectedPairs.first.size}`,
+        item_name: `Sandália Majestad ${selectedPairs.first.color.name}`,
+        item_category: 'sandalia',
+        quantity: 1,
+        price: quantityMode.value === 'single' ? 297 : 198.5
       })
     }
+    
+    // Segundo par (se combo)
+    if (quantityMode.value === 'combo' && selectedPairs.second.color && selectedPairs.second.size) {
+      items.push({
+        item_id: `majestad_${selectedPairs.second.color.id}_${selectedPairs.second.size}`,
+        item_name: `Sandália Majestad ${selectedPairs.second.color.name}`,
+        item_category: 'sandalia',
+        quantity: 1,
+        price: 198.5
+      })
+    }
+    
+    analytics.trackAddToCart(items, currentPrice.value, quantityMode.value)
     
     // Preparar tokens para checkout da Yampi
     const tokens = []
@@ -386,7 +309,20 @@ const addToCart = () => {
 }
 
 const toggleFaq = (index: number) => {
+  const wasOpen = openFaq.value === index
   openFaq.value = openFaq.value === index ? null : index
+  
+  // Analytics tracking
+  const faqQuestions = [
+    'É realmente confortável para usar o dia todo?',
+    'Como escolher o tamanho correto?',
+    'Qual o prazo de entrega?',
+    'Posso trocar se não servir?',
+    'Como cuidar do meu Majestad?'
+  ]
+  
+  const action = wasOpen ? 'close' : 'open'
+  analytics.trackFAQInteraction(faqQuestions[index], action)
 }
 
 const getVariationStock = (colorId: string, size: number) => {
@@ -450,16 +386,49 @@ const handlePurchase = () => {
 }
 
 // Sticky bar visibility
+// Variáveis para tracking de scroll
+let scrollTracked25 = false
+let scrollTracked50 = false
+let scrollTracked75 = false
+let scrollTracked100 = false
+let pageStartTime = 0
+
 const handleScroll = () => {
   const heroSection = document.querySelector('section')
   if (heroSection) {
     const heroBottom = heroSection.offsetTop + heroSection.offsetHeight
     showStickyBar.value = window.scrollY > heroBottom
   }
+  
+  // Tracking de scroll depth
+  const scrollPercent = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100)
+  
+  if (scrollPercent >= 25 && !scrollTracked25) {
+    scrollTracked25 = true
+    analytics.trackScrollDepth(25)
+  } else if (scrollPercent >= 50 && !scrollTracked50) {
+    scrollTracked50 = true
+    analytics.trackScrollDepth(50)
+  } else if (scrollPercent >= 75 && !scrollTracked75) {
+    scrollTracked75 = true
+    analytics.trackScrollDepth(75)
+  } else if (scrollPercent >= 100 && !scrollTracked100) {
+    scrollTracked100 = true
+    analytics.trackScrollDepth(100)
+  }
 }
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
+  
+  // Iniciar tracking de tempo na página
+  pageStartTime = Date.now()
+  
+  // Tracking de tempo na página a cada 30 segundos
+  const timeTrackingInterval = setInterval(() => {
+    const timeOnPage = Math.round((Date.now() - pageStartTime) / 1000)
+    analytics.trackTimeOnPage(timeOnPage)
+  }, 30000)
   
   // Seleções padrão
   const whiteColor = colors.find(c => c.id === 'white')
@@ -471,6 +440,11 @@ onMounted(() => {
   if (blackColor) {
     selectedPairs.second.color = blackColor
   }
+  
+  // Limpar interval quando componente for desmontado
+  onUnmounted(() => {
+    clearInterval(timeTrackingInterval)
+  })
 })
 
 onUnmounted(() => {
@@ -645,7 +619,7 @@ onUnmounted(() => {
           <div class="grid md:grid-cols-2 gap-4">
             <!-- Opção 1 Par -->
             <div 
-              @click="quantityMode = 'single'"
+              @click="setQuantityMode('single')"
               :class="[
                 'relative cursor-pointer rounded-2xl border-2 p-6 transition-all duration-300',
                 quantityMode === 'single' 
@@ -667,7 +641,7 @@ onUnmounted(() => {
             
             <!-- Opção 2 Pares (Combo) -->
             <div 
-              @click="quantityMode = 'combo'"
+              @click="setQuantityMode('combo')"
               :class="[
                 'relative cursor-pointer rounded-2xl border-2 p-6 transition-all duration-300',
                 quantityMode === 'combo' 

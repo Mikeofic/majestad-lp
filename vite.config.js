@@ -36,9 +36,11 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000,
   },
   server: {
+    port: 5174,
     // Optimize dev server
-    hmr: {
-      overlay: false,
+    hmr: false,
+    watch: {
+      usePolling: true,
     },
   },
   // Optimize assets

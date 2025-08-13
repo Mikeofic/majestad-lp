@@ -1212,7 +1212,7 @@ onUnmounted(() => {
     </section>
 
     <!-- Guia de Tamanhos -->
-    <section class="py-20 px-4 bg-gradient-to-b from-[#1a1a1a] to-[#0B0B0C]">
+    <section id="size-guide" class="py-20 px-4 bg-gradient-to-b from-[#1a1a1a] to-[#0B0B0C]">
       <div class="max-w-4xl mx-auto">
         <div class="text-center mb-16">
           <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">
@@ -1322,7 +1322,7 @@ onUnmounted(() => {
 
 
     <!-- Entrega, Prazos e Frete -->
-    <section class="py-20 px-4 bg-gradient-to-b from-[#1a1a1a] to-[#0B0B0C]">
+    <section id="delivery" class="py-20 px-4 bg-gradient-to-b from-[#1a1a1a] to-[#0B0B0C]">
       <div class="max-w-6xl mx-auto">
         <div class="text-center mb-16">
           <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">
@@ -1739,7 +1739,7 @@ onUnmounted(() => {
     </section>
 
     <!-- Política de Troca & Devolução -->
-    <section class="py-20 px-4">
+    <section id="return-policy" class="py-20 px-4">
       <div class="max-w-6xl mx-auto">
         <div class="text-center mb-16">
           <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">
@@ -2050,7 +2050,7 @@ onUnmounted(() => {
     </section>
 
     <!-- FAQ Enxuto -->
-    <section class="py-20 px-4 bg-gradient-to-b from-[#1a1a1a] to-[#0B0B0C]">
+    <section id="faq" class="py-20 px-4 bg-gradient-to-b from-[#1a1a1a] to-[#0B0B0C]">
       <div class="max-w-4xl mx-auto">
         <div class="text-center mb-16">
           <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">

@@ -477,9 +477,9 @@ onUnmounted(() => {
       <div class="relative z-10 max-w-7xl mx-auto px-4 pt-8 sm:pt-12 grid lg:grid-cols-2 gap-4 lg:gap-6 items-stretch">
         <!-- Content -->
         <div class="text-center lg:text-left">
-          <!-- Selo de Oferta -->
-          <div class="inline-flex items-center bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] text-[#0B0B0C] px-4 py-2 rounded-full text-sm font-semibold mb-6">
-            🔥 OFERTA LIMITADA • 33% OFF
+          <!-- Logo do Site -->
+          <div class="mb-6">
+            <img src="/site-logo.png" alt="Majestad Logo" class="h-16 mx-auto lg:mx-0">
           </div>
           
           <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight">

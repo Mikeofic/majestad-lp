@@ -138,17 +138,17 @@ const isSelectionComplete = computed(() => {
 })
 
 const currentPrice = computed(() => {
-  return quantityMode.value === 'single' ? 297 : 397
+  return quantityMode.value === 'single' ? 537 : 897
 })
 
 const priceText = computed(() => {
-  return quantityMode.value === 'single' ? 'R$ 297' : 'R$ 397'
+  return quantityMode.value === 'single' ? 'R$ 537' : 'R$ 897'
 })
 
 const savings = computed(() => {
   if (quantityMode.value === 'combo') {
-    const singlePrice = 297 * 2
-    const comboPrice = 397
+    const singlePrice = 537 * 2
+    const comboPrice = 897
     return singlePrice - comboPrice
   }
   return 0
@@ -264,7 +264,7 @@ const addToCart = () => {
         item_name: `Sandália Majestad ${selectedPairs.first.color.name}`,
         item_category: 'sandalia',
         quantity: 1,
-        price: quantityMode.value === 'single' ? 297 : 198.5
+        price: quantityMode.value === 'single' ? 537 : 198.5
       })
     }
     
@@ -543,8 +543,8 @@ onUnmounted(() => {
           <!-- Ancoragem de Valor -->
           <div class="mb-8 p-4 bg-[#C8AE7D]/10 rounded-2xl border border-[#C8AE7D]/20">
             <div class="text-center lg:text-left">
-              <div class="text-sm text-[#E8E2D6] mb-1">Preço unitário: <span class="line-through">R$ 297</span></div>
-          <div class="text-2xl font-bold text-[#C8AE7D]">Combo 2 pares: R$ 397</div>
+              <div class="text-sm text-[#E8E2D6] mb-1">Preço unitário: <span class="line-through">R$ 537</span></div>
+          <div class="text-2xl font-bold text-[#C8AE7D]">Combo 2 pares: R$ 897</div>
           <div class="text-sm text-green-400 font-medium">Economia de 33% • R$ 197 de desconto</div>
             </div>
           </div>
@@ -603,7 +603,7 @@ onUnmounted(() => {
           
           <!-- Ancoragem de Preço -->
           <div class="bg-[#C8AE7D]/10 border border-[#C8AE7D]/20 rounded-2xl p-6 max-w-md mx-auto mb-12">
-            <div v-if="quantityMode === 'combo'" class="text-sm text-[#E8E2D6] mb-2">Preço unitário: <span class="line-through text-red-400">R$ 297 cada</span></div>
+            <div v-if="quantityMode === 'combo'" class="text-sm text-[#E8E2D6] mb-2">Preço unitário: <span class="line-through text-red-400">R$ 537 cada</span></div>
             <div class="text-3xl font-bold text-[#C8AE7D] mb-2">{{ quantityMode === 'single' ? 'Preço: ' + priceText : 'Combo: ' + priceText }}</div>
             <div v-if="quantityMode === 'combo'" class="text-green-400 font-semibold">Economia de R$ {{ savings }} (33%)</div>
           </div>
@@ -629,7 +629,7 @@ onUnmounted(() => {
             >
               <div class="text-center">
                 <div class="text-lg font-bold text-[#E8E2D6] mb-1">1 Par</div>
-                <div class="text-2xl font-bold text-[#C8AE7D] mb-2">R$ 297</div>
+                <div class="text-2xl font-bold text-[#C8AE7D] mb-2">R$ 537</div>
                 <div class="text-sm text-[#E8E2D6]/70">Preço unitário</div>
               </div>
               <div v-if="quantityMode === 'single'" class="absolute top-3 right-3">
@@ -656,7 +656,7 @@ onUnmounted(() => {
               </div>
               <div class="text-center mt-2">
                 <div class="text-lg font-bold text-[#E8E2D6] mb-1">2 Pares (Combo)</div>
-                <div class="text-2xl font-bold text-[#C8AE7D] mb-1">R$ 397</div>
+                <div class="text-2xl font-bold text-[#C8AE7D] mb-1">R$ 897</div>
                 <div class="text-sm text-green-400 font-semibold mb-1">Economize R$ 197</div>
                 <div class="text-xs text-[#E8E2D6]/70">33% de desconto</div>
               </div>
@@ -986,7 +986,7 @@ onUnmounted(() => {
                 <div class="mt-auto">
                   <!-- Preço -->
                   <div class="text-center mb-4">
-                    <div v-if="quantityMode === 'combo'" class="text-sm text-[#E8E2D6]/60 line-through mb-1">De R$ 594</div>
+                    <div v-if="quantityMode === 'combo'" class="text-sm text-[#E8E2D6]/60 line-through mb-1">De R$ 1.075,8</div>
                     <div class="text-3xl font-bold text-[#C8AE7D] mb-2">{{ priceText }}</div>
                     <div v-if="quantityMode === 'combo'" class="text-sm text-green-400 font-medium">Economia de 33%</div>
                   </div>
@@ -2230,8 +2230,8 @@ onUnmounted(() => {
           
           <!-- Preço Final com Ancoragem -->
           <div class="mb-8">
-            <div v-if="quantityMode === 'combo'" class="text-sm text-gray-400 line-through mb-2">Preço unitário: R$ 297 cada</div>
-              <div v-if="quantityMode === 'combo'" class="text-lg text-gray-400 line-through mb-2">Total: R$ 594 (2 pares)</div>
+            <div v-if="quantityMode === 'combo'" class="text-sm text-gray-400 line-through mb-2">Preço unitário: R$ 537 cada</div>
+              <div v-if="quantityMode === 'combo'" class="text-lg text-gray-400 line-through mb-2">Total: R$ 1.075,8 (2 pares)</div>
             <div class="text-5xl font-bold text-[#C8AE7D] mb-2">{{ priceText }}</div>
             <div class="text-lg text-[#E8E2D6] mb-2">{{ quantityMode === 'single' ? '1 par completo' : '2 pares completos' }}</div>
             <div v-if="quantityMode === 'combo'" class="inline-flex items-center bg-green-500/20 border border-green-500/30 rounded-full px-4 py-2">

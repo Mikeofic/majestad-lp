@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
 import { analytics } from '../services/analytics'
+import ExitIntentPopup from './ExitIntentPopup.vue'
 
 // Tipos
 interface Color {
@@ -2395,6 +2396,9 @@ onUnmounted(() => {
 
 
   </div>
+  
+  <!-- Exit Intent Popup -->
+  <ExitIntentPopup :enabled="true" />
 </template>
 
 <style>

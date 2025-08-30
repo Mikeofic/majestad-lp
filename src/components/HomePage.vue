@@ -29,7 +29,7 @@ interface Testimonial {
 }
 
 // Estado reativo
-const quantityMode = ref<'single' | 'combo'>('combo')
+const quantityMode = ref<'single' | 'combo'>('single')
 const selectedPairs = reactive({
   first: { color: null, size: null } as SelectedPair,
   second: { color: null, size: null } as SelectedPair
@@ -519,7 +519,7 @@ onUnmounted(() => {
         <div class="text-center lg:text-left">
           <!-- Logo do Site -->
           <div class="mb-6">
-            <img src="/12.png" alt="Majestad Logo" class="h-16 mx-auto lg:mx-0">
+            <img src="/12.png" alt="Majestad Logo" class="h-16 mx-auto lg:mx-0" loading="lazy">
           </div>
           
           <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight">
@@ -1042,6 +1042,7 @@ onUnmounted(() => {
                 alt="Sapato Majestad Branco Pérola - Vista Principal"
                 class="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
+                decoding="async"
               >
               <div class="absolute inset-0 bg-gradient-to-t from-[#0B0B0C]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -1057,6 +1058,7 @@ onUnmounted(() => {
                 alt="Sapato Majestad - Detalhe do acabamento"
                 class="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
+                decoding="async"
               >
               <div class="absolute inset-0 bg-gradient-to-t from-[#0B0B0C]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -1072,6 +1074,7 @@ onUnmounted(() => {
                 alt="Sapato Majestad Preto Ônix - Detalhe do salto"
                 class="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
+                decoding="async"
               >
               <div class="absolute inset-0 bg-gradient-to-t from-[#0B0B0C]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -1087,6 +1090,7 @@ onUnmounted(() => {
                 alt="Sapato Majestad - Vista lateral completa"
                 class="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
+                decoding="async"
               >
               <div class="absolute inset-0 bg-gradient-to-t from-[#0B0B0C]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -1528,6 +1532,7 @@ onUnmounted(() => {
                   alt="Embalagem Premium Majestad"
                   class="w-full h-80 object-cover object-center rounded-2xl mb-6"
                   loading="lazy"
+                  decoding="async"
                   width="600"
                   height="320"
                 >
@@ -1885,6 +1890,7 @@ onUnmounted(() => {
                 alt="Look Casual Elegante"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
+                decoding="async"
                 width="300"
                 height="400"
               >
@@ -1909,6 +1915,7 @@ onUnmounted(() => {
                 alt="Look Noite Formal"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
+                decoding="async"
                 width="300"
                 height="400"
               >
@@ -1933,6 +1940,7 @@ onUnmounted(() => {
                 alt="Look Evento de Dia"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
+                decoding="async"
                 width="300"
                 height="400"
               >

@@ -20,6 +20,11 @@
       })(window, document, "clarity", "script", "t1whqp0iy8");
     </script>
     
+    <!-- Performance Optimization - Preload Critical Resources -->
+    <link rel="preload" as="image" href="/sandalia-hero.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="/DSC03016.webp" fetchpriority="high">
+    <link rel="preload" as="font" href="/fonts/main.woff2" type="font/woff2" crossorigin>
+    
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json">
 
@@ -203,5 +208,20 @@
 
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
   </body>
 </html>

@@ -157,6 +157,8 @@
               :src="product.images[0].url"
               :alt="product.name"
               class="h-full w-full object-cover"
+              loading="lazy"
+              decoding="async"
             >
             <div v-else class="text-gray-500">Sem imagem</div>
           </div>

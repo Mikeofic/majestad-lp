@@ -67,16 +67,29 @@ export default defineConfig({
         }
       }
     },
-    assetsInlineLimit: 4096,
+    assetsInlineLimit: 8192,
     cssCodeSplit: true,
     sourcemap: false,
     reportCompressedSize: false,
-    chunkSizeWarningLimit: 1000
+    chunkSizeWarningLimit: 1000,
+    target: 'es2015',
+    cssTarget: 'chrome80'
   },
   server: {
     port: 3000,
     open: true,
-    cors: true
+    cors: true,
+    headers: {
+      'Cache-Control': 'public, max-age=31536000'
+    }
+  },
+  preview: {
+    headers: {
+      'Cache-Control': 'public, max-age=31536000',
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'DENY',
+      'X-XSS-Protection': '1; mode=block'
+    }
   },
   assetsInclude: ['**/*.webp'],
   esbuild: {

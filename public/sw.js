@@ -1,7 +1,7 @@
 // Service Worker para cache de recursos estáticos
-const CACHE_NAME = 'majestad-v3';
-const STATIC_CACHE = 'majestad-static-v3';
-const DYNAMIC_CACHE = 'majestad-dynamic-v3';
+const CACHE_NAME = 'majestad-v4';
+const STATIC_CACHE = 'majestad-static-v4';
+const DYNAMIC_CACHE = 'majestad-dynamic-v4';
 
 // Recursos para cache imediato
 const STATIC_ASSETS = [
@@ -11,7 +11,12 @@ const STATIC_ASSETS = [
   '/12.png',
   '/sandalia-hero.webp',
   '/DSC03016.webp',
-  '/main.woff2'
+  '/26.png',
+  '/1.webp',
+  '/DSC02989.webp',
+  '/DSC03084.webp',
+  '/DSC03095.webp',
+  '/DSC03116.webp'
 ];
 
 // Recursos para cache dinâmico
@@ -19,8 +24,8 @@ const CACHE_STRATEGIES = {
   images: {
     extensions: ['.webp', '.png', '.jpg', '.jpeg', '.svg'],
     strategy: 'cache-first',
-    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 dias
-    maxEntries: 100
+    maxAge: 365 * 24 * 60 * 60 * 1000, // 1 ano
+    maxEntries: 150
   },
   assets: {
     extensions: ['.js', '.css', '.woff2', '.woff'],

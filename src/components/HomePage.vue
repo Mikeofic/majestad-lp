@@ -520,7 +520,10 @@ onUnmounted(() => {
         <div class="text-center lg:text-left">
           <!-- Logo do Site -->
           <div class="mb-6">
-            <img src="/12.png" alt="Majestad Logo" class="h-16 mx-auto lg:mx-0" loading="lazy">
+            <picture>
+              <source srcset="/12.png" type="image/png">
+              <img src="/12.png" alt="Majestad Logo" class="h-16 mx-auto lg:mx-0" loading="lazy" width="200" height="64">
+            </picture>
           </div>
           
           <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight">
@@ -567,14 +570,14 @@ onUnmounted(() => {
         <div class="relative flex items-center">
           <div class="relative z-10">
             <img 
-                src="/salto 3.png" 
-                alt="Sandália Majestad" 
-                class="hero-image w-full max-w-2xl mx-auto transform hover:scale-105 transition-transform duration-500 filter drop-shadow-2xl"
-                loading="eager"
-                fetchpriority="high"
-                width="800"
-                height="600"
-              />
+              src="/salto 3.webp" 
+              alt="Sandália Majestad" 
+              class="hero-image w-full max-w-2xl mx-auto transform hover:scale-105 transition-transform duration-500 filter drop-shadow-2xl"
+              loading="eager"
+              fetchpriority="high"
+              width="800"
+              height="600"
+            />
           </div>
           
           <!-- Floating Elements -->

@@ -21,11 +21,14 @@
     <link rel="preconnect" href="https://scripts.clarity.ms" crossorigin>
     
     <script type="text/javascript">
-      (function(c,l,a,r,i,t,y){
-          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window, document, "clarity", "script", "t1whqp0iy8");
+      // Only load Clarity in production
+      if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "t1whqp0iy8");
+      }
     </script>
     
     <!-- Performance Optimization - Preload Critical Resources -->
@@ -38,16 +41,22 @@
 
     <!-- Meta Pixel Code -->
     <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '566357459745780');
-      fbq('track', 'PageView');
+      // Only load Facebook Pixel in production
+      if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '566357459745780');
+        fbq('track', 'PageView');
+      } else {
+        // Mock fbq for development
+        window.fbq = function() { console.log('FB Pixel (dev):', arguments); };
+      }
       </script>
 <!-- End Meta Pixel Code -->
     
@@ -138,40 +147,60 @@
     </script>
     
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EV7BGCE3B9"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      
-      // LGPD Compliance - Configuração padrão de consentimento (negado até o usuário aceitar)
-      gtag('consent', 'default', {
-        'analytics_storage': 'denied',
-        'ad_storage': 'denied',
-        'wait_for_update': 500
-      });
-      
-      // Inicializa Google Analytics
-      gtag('js', new Date());
-      gtag('config', 'G-EV7BGCE3B9');
-      
-      // Escuta evento de consentimento do banner LGPD
-      window.addEventListener('lgpd-consent', function(event) {
-        if (event.detail.type === 'all') {
-          gtag('consent', 'update', {
-            'analytics_storage': 'granted',
-            'ad_storage': 'granted'
-          });
-        }
-      });
+      // Only load Google Analytics in production
+      if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+        // Load gtag script
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-EV7BGCE3B9';
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        
+        // LGPD Compliance - Configuração padrão de consentimento (negado até o usuário aceitar)
+        gtag('consent', 'default', {
+          'analytics_storage': 'denied',
+          'ad_storage': 'denied',
+          'wait_for_update': 500
+        });
+        
+        // Inicializa Google Analytics
+        gtag('js', new Date());
+        gtag('config', 'G-EV7BGCE3B9');
+        
+        // Escuta evento de consentimento do banner LGPD
+        window.addEventListener('lgpd-consent', function(event) {
+          if (event.detail.type === 'all') {
+            gtag('consent', 'update', {
+              'analytics_storage': 'granted',
+              'ad_storage': 'granted'
+            });
+          }
+        });
+      } else {
+        // Mock gtag for development
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function() { console.log('GA (dev):', arguments); };
+      }
     </script>
     
     
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-MPFRSZPG');</script>
+    <script>
+      // Only load GTM in production
+      if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MPFRSZPG');
+      } else {
+        // Mock dataLayer for development
+        window.dataLayer = window.dataLayer || [];
+      }
+    </script>
     <!-- End Google Tag Manager -->
     
     <!-- Performance Optimizations -->
@@ -206,13 +235,20 @@
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MPFRSZPG"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>
+      // Only show GTM noscript in production
+      if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+        document.write('<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MPFRSZPG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>');
+      }
+    </script>
     <!-- End Google Tag Manager (noscript) -->
     
-    <noscript><img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=566357459745780&ev=PageView&noscript=1"
-    /></noscript>
+    <script>
+      // Only show Facebook noscript in production
+      if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+        document.write('<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=566357459745780&ev=PageView&noscript=1" /></noscript>');
+      }
+    </script>
 
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>

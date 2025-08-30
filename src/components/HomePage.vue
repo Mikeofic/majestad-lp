@@ -570,7 +570,7 @@ onUnmounted(() => {
         <div class="relative flex items-center">
           <div class="relative z-10">
             <img 
-              src="/salto 3.webp" 
+              src="/salto-3.webp" 
               alt="Sandália Majestad" 
               class="hero-image w-full max-w-2xl mx-auto transform hover:scale-105 transition-transform duration-500 filter drop-shadow-2xl"
               loading="eager"

@@ -1,3 +1,76 @@
+<script setup lang="ts">
+import { onMounted } from 'vue'
+import { facebookPixel } from '../services/facebookPixel'
+
+// Props para dados da compra (opcional)
+interface Props {
+  orderId?: string
+  orderValue?: number
+  items?: Array<{
+    id: string
+    name: string
+    category: string
+    price: number
+    quantity: number
+  }>
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  orderId: '',
+  orderValue: 897,
+  items: () => [{
+    id: 'majestad-combo',
+    name: 'Combo 2 Pares Salto Majestad',
+    category: 'calçados',
+    price: 897,
+    quantity: 1
+  }]
+})
+
+// Track da conversão quando o componente é montado
+onMounted(() => {
+  // Track Purchase event
+  facebookPixel.trackPurchase({
+    value: props.orderValue,
+    currency: 'BRL',
+    content_ids: props.items.map(item => item.id),
+    content_type: 'product',
+    num_items: props.items.reduce((total, item) => total + item.quantity, 0)
+  })
+  
+  // Track Lead event (conversão)
+  facebookPixel.trackLead({
+    content_name: 'Compra Finalizada',
+    content_category: 'purchase',
+    value: props.orderValue,
+    currency: 'BRL'
+  })
+  
+  // Track custom conversion event
+  facebookPixel.trackCustomEvent('PurchaseComplete', {
+    order_id: props.orderId,
+    order_value: props.orderValue,
+    currency: 'BRL',
+    items_count: props.items.length
+  })
+})
+
+// Função para tracking de cliques em botões da página de agradecimento
+const handleSocialShare = (platform: string) => {
+  facebookPixel.trackCustomEvent('SocialShare', {
+    platform: platform,
+    content_type: 'purchase_success',
+    location: 'thank_you_page'
+  })
+}
+
+const handleBackToHome = () => {
+  facebookPixel.trackButtonClick('Voltar ao Início', 'thank_you_page')
+  // Aqui você pode adicionar a navegação
+  window.location.href = '/'
+}
+</script>
+
 <template>
   <div class="min-h-screen bg-gradient-to-br from-[#0B0B0C] via-[#1a1a1a] to-[#0B0B0C] flex items-center justify-center px-4 py-8">
     <div class="max-w-2xl mx-auto text-center">

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { facebookPixel } from '../services/facebookPixel'
 
 // Emits
 const emit = defineEmits<{
@@ -103,8 +104,39 @@ const filteredProducts = computed(() => {
   return products.value.filter(product => product.category === selectedCategory.value)
 })
 
+// Funções para tracking e interações
+const handleProductView = (product: Product) => {
+  facebookPixel.trackViewContent({
+    content_ids: [product.id.toString()],
+    content_name: product.name,
+    content_category: product.category,
+    content_type: 'product',
+    value: product.price,
+    currency: 'BRL'
+  })
+}
+
+const handleCategoryChange = (category: string) => {
+  selectedCategory.value = category
+  facebookPixel.trackCustomEvent('CategoryFilter', {
+    category: category,
+    location: 'product_grid'
+  })
+}
+
 // Função para adicionar ao carrinho
 const handleAddToCart = (product: Product) => {
+  // Track do Facebook Pixel
+  facebookPixel.trackAddToCart({
+    content_ids: [product.id.toString()],
+    content_name: product.name,
+    content_category: product.category,
+    content_type: 'product',
+    value: product.price,
+    currency: 'BRL',
+    num_items: 1
+  })
+  
   emit('addToCart', {
     id: product.id,
     name: product.name,

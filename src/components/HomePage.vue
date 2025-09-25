@@ -504,6 +504,9 @@ onMounted(() => {
   if (blackColor) {
     selectedPairs.second.color = blackColor
   }
+
+  // Carregar estoque da Yampi
+  fetchStockFromYampi()
   
   // Limpar interval quando componente for desmontado
   onUnmounted(() => {

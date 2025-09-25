@@ -48,13 +48,13 @@ const colors = [
     id: 'white',
     name: 'Branco Pérola',
     hex: '#FFFFFF',
-    image: '/26.png'
+    image: '/26.webp'
   },
   {
     id: 'black',
     name: 'Preto Ônix',
     hex: '#000000',
-    image: '/24.png'
+    image: '/24.webp'
   }
 ]
 
@@ -521,8 +521,8 @@ onUnmounted(() => {
           <!-- Logo do Site -->
           <div class="mb-6">
             <picture>
-              <source srcset="/12.png" type="image/png">
-              <img src="/12.png" alt="Majestad Logo" class="h-16 mx-auto lg:mx-0" loading="lazy" width="200" height="64">
+              <source srcset="/12.webp" type="image/png">
+              <img src="/12.webp" alt="Majestad Logo" class="h-16 mx-auto lg:mx-0" loading="lazy" width="200" height="64">
             </picture>
           </div>
           
@@ -1074,7 +1074,7 @@ onUnmounted(() => {
             <!-- Imagem 3 -->
             <div class="relative group overflow-hidden rounded-3xl bg-gradient-to-br from-[#C8AE7D]/10 to-[#E8E2D6]/10">
               <img 
-                src="/DSC03116.png"
+                src="/DSC03116.webp"
                 alt="Sapato Majestad Preto Ônix - Detalhe do salto"
                 class="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"

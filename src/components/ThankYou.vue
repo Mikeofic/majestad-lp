@@ -53,6 +53,15 @@ onMounted(() => {
     currency: 'BRL',
     items_count: props.items.length
   })
+  
+  // Google Analytics - Purchase event
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'purchase', {
+      event_category: 'ecommerce',
+      transaction_id: new Date().getTime().toString(),
+      currency: 'BRL'
+    })
+  }
 })
 
 // Função para tracking de cliques em botões da página de agradecimento
@@ -217,38 +226,6 @@ const handleBackToHome = () => {
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { onMounted } from 'vue'
-
-// Declarações para Google Analytics e Facebook Pixel
-declare global {
-  interface Window {
-    gtag: (...args: any[]) => void
-    fbq: (...args: any[]) => void
-  }
-}
-
-// Declaração para Facebook Pixel global
-declare const fbq: (...args: any[]) => void
-
-// Analytics tracking para página de obrigado
-onMounted(() => {
-  // Google Analytics - Purchase event
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'purchase', {
-      event_category: 'ecommerce',
-      transaction_id: new Date().getTime().toString(),
-      currency: 'BRL'
-    })
-  }
-  
-  // Facebook Pixel - Purchase event
-  if (typeof fbq !== 'undefined') {
-    fbq('track', 'Purchase')
-  }
-})
-</script>
 
 <style scoped>
 @keyframes pulse {

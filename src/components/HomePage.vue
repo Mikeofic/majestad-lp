@@ -556,7 +556,7 @@ onUnmounted(() => {
               :class="[
                 'px-4 sm:px-6 py-2 rounded-full font-semibold transition-all duration-300 text-sm sm:text-base flex items-center justify-center gap-2',
                 isSelectionComplete 
-                  ? 'bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] text-[#0B0B0C] hover:shadow-lg' 
+                  ? 'bg-green-600 text-white hover:bg-green-500 hover:shadow-lg' 
                   : 'bg-gray-600 text-gray-400 cursor-not-allowed'
               ]"
             >
@@ -567,6 +567,31 @@ onUnmounted(() => {
             </button>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Barra Fixa Mobile (abaixo) -->
+    <div class="fixed bottom-0 left-0 right-0 bg-[#0B0B0C]/95 backdrop-blur-md border-t border-[#C8AE7D]/20 z-50 md:hidden">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <img src="/26.webp" alt="Sandália Majestad" class="w-12 h-12 rounded-lg object-cover border border-[#C8AE7D]/20" loading="lazy"/>
+          <div>
+            <div class="text-xs text-[#E8E2D6]/70">Majestad</div>
+            <div class="text-sm font-bold text-[#C8AE7D]">{{ priceText }}</div>
+          </div>
+        </div>
+        <button 
+          :disabled="!isSelectionComplete"
+          @click="addToCart"
+          :class="[
+            'flex-1 py-3 px-4 rounded-full font-semibold text-sm text-center transition-all duration-300',
+            isSelectionComplete 
+              ? 'bg-green-600 text-white hover:bg-green-500 hover:shadow-lg' 
+              : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+          ]"
+        >
+          Comprar agora
+        </button>
       </div>
     </div>
 
@@ -593,13 +618,12 @@ onUnmounted(() => {
           </div>
           
           <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight">
-             Sofisticação que <br>
-             <span class="text-[#C8AE7D]">transforma</span> seu estilo
-           </h1>
-           
-           <p class="text-lg sm:text-xl md:text-2xl text-[#E8E2D6] mb-8 leading-relaxed font-light">
-             Salto Atemporal. Sofisticado. <span class="text-[#C8AE7D] font-semibold">Feito para você.</span>
-           </p>
+            Salto Alto Feminino de Luxo
+          </h1>
+          
+          <p class="text-lg sm:text-xl md:text-2xl text-[#E8E2D6] mb-8 leading-relaxed font-light">
+            O Salto alto de luxo definitivo! Premium. Atemporal. Sofisticado — <span class="text-[#C8AE7D] font-semibold">Feito para você.</span>
+          </p>
           
           <!-- Rating Component -->
           <div class="flex items-center justify-center lg:justify-start mb-8">
@@ -622,7 +646,7 @@ onUnmounted(() => {
           <div class="flex justify-center lg:justify-start">
             <button 
               @click="scrollToSelector" 
-              class="btn-primary text-lg px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 shadow-xl flex items-center justify-center gap-2"
+              class="bg-green-600 text-white text-lg px-10 py-5 rounded-full font-semibold transition-all duration-300 hover:bg-green-500 hover:scale-105 shadow-xl flex items-center justify-center gap-2"
             >
               Escolher meus pares
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -655,6 +679,33 @@ onUnmounted(() => {
           <div class="absolute bottom-1/4 right-2 sm:-right-4 bg-[#E8E2D6]/20 backdrop-blur-sm rounded-2xl p-3 sm:p-4 animate-float delay-1000">
             <div class="text-xs sm:text-sm font-semibold text-[#C8AE7D]">Elegância</div>
             <div class="text-xs text-[#E8E2D6]">Atemporal</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Depoimentos Reais em Destaque -->
+    <section class="px-4 py-12 bg-[#0B0B0C]">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-8">
+          <h3 class="text-2xl sm:text-3xl font-serif font-bold">O que nossas clientes dizem</h3>
+          <p class="text-[#E8E2D6]/80">Depoimentos reais de quem já usa Majestad todos os dias</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="rounded-2xl border border-[#C8AE7D]/20 bg-[#C8AE7D]/10 p-5">
+            <div class="flex items-center gap-2 text-yellow-400 mb-2"><span v-for="i in 5" :key="'t1-'+i">★</span><span class="text-sm text-[#E8E2D6]/70">5.0</span></div>
+            <p class="italic text-[#E8E2D6] mb-3">“Conforto surreal, uso o dia todo sem dor nos pés.”</p>
+            <div class="text-sm text-[#E8E2D6]/70">— Maria Silva</div>
+          </div>
+          <div class="rounded-2xl border border-[#C8AE7D]/20 bg-[#C8AE7D]/10 p-5">
+            <div class="flex items-center gap-2 text-yellow-400 mb-2"><span v-for="i in 5" :key="'t2-'+i">★</span><span class="text-sm text-[#E8E2D6]/70">5.0</span></div>
+            <p class="italic text-[#E8E2D6] mb-3">“Acabamento impecável e combina com tudo. Vale cada centavo!”</p>
+            <div class="text-sm text-[#E8E2D6]/70">— Ana Costa</div>
+          </div>
+          <div class="rounded-2xl border border-[#C8AE7D]/20 bg-[#C8AE7D]/10 p-5">
+            <div class="flex items-center gap-2 text-yellow-400 mb-2"><span v-for="i in 5" :key="'t3-'+i">★</span><span class="text-sm text-[#E8E2D6]/70">5.0</span></div>
+            <p class="italic text-[#E8E2D6] mb-3">“Elegante, confortável e perfeito para todas as ocasiões.”</p>
+            <div class="text-sm text-[#E8E2D6]/70">— Juliana Santos</div>
           </div>
         </div>
       </div>
@@ -1066,9 +1117,9 @@ onUnmounted(() => {
                     :disabled="!isSelectionComplete"
                     @click="addToCart"
                     :class="[
-                      'w-full py-4 rounded-xl text-lg font-semibold transition-all duration-300 flex items-center justify-center',
+                      'w-full py-5 md:py-4 rounded-xl text-lg font-semibold transition-all duration-300 flex items-center justify-center',
                       isSelectionComplete 
-                        ? 'bg-gradient-to-r from-[#C8AE7D] to-[#E8AE7D] text-[#0B0B0C] hover:shadow-2xl hover:scale-105' 
+                        ? 'bg-green-600 text-white hover:bg-green-500 hover:shadow-2xl hover:scale-105' 
                         : 'bg-[#E8E2D6]/20 text-[#E8E2D6]/50 cursor-not-allowed border border-[#E8E2D6]/20'
                     ]"
                   >
@@ -1080,6 +1131,36 @@ onUnmounted(() => {
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
                   </button>
+
+                  <!-- Selos de Segurança e Pagamento -->
+                  <div class="mt-4 space-y-3">
+                    <!-- Selos superiores: SSL e Bandeiras de Cartões -->
+                    <div class="flex flex-wrap justify-center gap-2">
+                      <span class="inline-flex items-center gap-2 text-xs bg-[#E8E2D6]/10 border border-[#E8E2D6]/20 text-[#E8E2D6] px-3 py-1.5 rounded-full">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.657 0 3-1.343 3-3V6a3 3 0 10-6 0v2c0 1.657 1.343 3 3 3zm0 0v4m-6 2h12a2 2 0 002-2v-4a2 2 0 00-2-2H6a2 2 0 00-2 2v4a2 2 0 002 2z"/></svg>
+                        SSL Seguro
+                      </span>
+                      <span class="inline-flex items-center gap-2 text-xs bg-[#E8E2D6]/10 border border-[#E8E2D6]/20 text-[#E8E2D6] px-3 py-1.5 rounded-full">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 7h20M2 11h20M2 15h12a4 4 0 118 0H2z"/></svg>
+                        Visa • MasterCard • Elo • Amex • Hipercard
+                      </span>
+                    </div>
+
+                    <!-- Métodos de pagamento destacados -->
+                    <div class="flex flex-wrap justify-center gap-3">
+                      <span class="inline-flex items-center gap-2 text-xs bg-blue-500/10 border border-blue-500/30 text-blue-400 px-3 py-1.5 rounded-full">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 7h20M2 11h20M2 15h20"/></svg>
+                        Cartão
+                      </span>
+                    </div>
+
+                    <!-- Mini depoimentos em destaque -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-[#E8E2D6]/80 text-xs">
+                      <div class="italic bg-[#E8E2D6]/5 border border-[#E8E2D6]/10 px-3 py-2 rounded-lg">“Conforto surreal, uso o dia todo!” — Maria</div>
+                      <div class="italic bg-[#E8E2D6]/5 border border-[#E8E2D6]/10 px-3 py-2 rounded-lg">“Acabamento impecável, vale cada centavo.” — Ana</div>
+                      <div class="italic bg-[#E8E2D6]/5 border border-[#E8E2D6]/10 px-3 py-2 rounded-lg">“Elegante e muito confortável.” — Juliana</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1087,6 +1168,45 @@ onUnmounted(() => {
         </div>
         
 
+      </div>
+    </section>
+
+    <!-- Política de Troca / Garantia -->
+    <section class="px-4 py-12 bg-gradient-to-b from-[#0B0B0C] to-[#1a1a1a]">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="md:col-span-2">
+            <div class="rounded-2xl border border-[#C8AE7D]/20 bg-[#C8AE7D]/10 p-6">
+              <h3 class="text-2xl font-serif font-bold mb-2">Política de Troca e Garantia</h3>
+              <p class="text-[#E8E2D6] mb-4">7 dias para troca ou devolução sem custos. Sua satisfação é nossa prioridade — se não ficar perfeito, nós cuidamos de tudo.</p>
+              <ul class="text-[#E8E2D6]/80 space-y-2 text-sm">
+                <li>• Troca gratuita em até 7 dias após o recebimento</li>
+                <li>• Garantia de 6 meses contra defeitos de fabricação</li>
+                <li>• Atendimento humanizado via WhatsApp</li>
+              </ul>
+            </div>
+          </div>
+          <div class="space-y-3">
+            <div class="bg-[#E8E2D6]/10 border border-[#E8E2D6]/20 rounded-2xl p-4">
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-sm text-[#E8E2D6]">Compra segura com SSL</span>
+              </div>
+            </div>
+            <div class="bg-[#E8E2D6]/10 border border-[#E8E2D6]/20 rounded-2xl p-4">
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 7h20M2 11h20M2 15h12a4 4 0 118 0H2z"/></svg>
+                <span class="text-sm text-[#E8E2D6]">Cartões Visa, MasterCard, Elo, Amex e Hipercard</span>
+              </div>
+            </div>
+            <div class="bg-[#E8E2D6]/10 border border-[#E8E2D6]/20 rounded-2xl p-4">
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l4 4-4 4-4-4 4-4zm0 12l4 4-4 4-4-4 4-4z"/></svg>
+                <span class="text-sm text-[#E8E2D6]">Pague com Pix</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1544,7 +1664,7 @@ onUnmounted(() => {
         <!-- CTA Comparativo -->
         <div class="text-center mt-12">
           <p class="text-xl text-[#E8E2D6] mb-6">A diferença está nos detalhes</p>
-          <button class="bg-gradient-to-r from-[#C8AE7D] to-[#E8E2D6] text-[#0B0B0C] px-8 py-4 rounded-full font-bold text-lg hover:shadow-lg transition-all duration-300">
+          <button class="bg-green-600 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-green-500 hover:shadow-lg transition-all duration-300">
             Escolher Majestad Agora
           </button>
         </div>

@@ -7,6 +7,7 @@ export interface YampiSku {
   name?: string;
   title?: string;
   total_in_stock?: number;
+  variations?: Array<{ name?: string; value?: string | number }>;
   [key: string]: any;
 }
 
@@ -73,6 +74,13 @@ export interface ProductStockInfo {
     stock: number;
     inStock: boolean;
   }>;
+}
+
+// Helper para normalizar SKUs vindos da Yampi
+function normalizeSkus(skus: any): YampiSku[] {
+  if (Array.isArray(skus)) return skus as YampiSku[];
+  if (Array.isArray(skus?.data)) return skus.data as YampiSku[];
+  return [];
 }
 
 export class YampiAPI {
@@ -189,10 +197,3 @@ export class YampiAPI {
 const yampiApi = new YampiAPI();
 
 export default yampiApi;
-
-// Helper para normalizar SKUs vindos da Yampi
-function normalizeSkus(skus: any): YampiSku[] {
-  if (Array.isArray(skus)) return skus as YampiSku[];
-  if (Array.isArray(skus?.data)) return skus.data as YampiSku[];
-  return [];
-}

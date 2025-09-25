@@ -6,7 +6,7 @@ import FAQSection from './FAQSection.vue'
 import TestimonialsSection from './TestimonialsSection.vue'
 import SizeGuideSection from './SizeGuideSection.vue'
 import DeliverySection from './DeliverySection.vue'
-import yampiApi from '../services/yampiApi'
+import yampiApi from '@/services/yampiApi'
 
 // Tipos
 interface Color {
@@ -395,14 +395,11 @@ const getVariationStock = (colorId: string, size: number) => {
 }
 
 const isVariationAvailable = (colorId: string, size: number) => {
-  if (!yampiStockLoaded.value) return true
   return getVariationStock(colorId, size) > 0
 }
 
 const isLowStock = (colorId: string, size: number) => {
-  if (!yampiStockLoaded.value) return false
-  const stock = getVariationStock(colorId, size)
-  return stock <= 3 && stock > 0
+  return getVariationStock(colorId, size) <= 3 && getVariationStock(colorId, size) > 0
 }
 
 const getSizeStock = (size: number) => {
@@ -507,9 +504,6 @@ onMounted(() => {
   if (blackColor) {
     selectedPairs.second.color = blackColor
   }
-  
-  // Buscar estoque real da Yampi via Functions (Cloudflare)
-  fetchStockFromYampi()
   
   // Limpar interval quando componente for desmontado
   onUnmounted(() => {

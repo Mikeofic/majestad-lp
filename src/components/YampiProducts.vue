@@ -196,7 +196,7 @@
 </template>
 
 <script>
-import yampiApi from '../services/yampiApi.js';
+import yampiApi from '../services/yampiApi';
 
 export default {
   name: 'YampiProducts',

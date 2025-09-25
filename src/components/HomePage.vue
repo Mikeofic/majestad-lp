@@ -79,7 +79,32 @@ const parseColorFromName = (name: string): 'white' | 'black' | null => {
   return null
 }
 
+// Cor preferencialmente a partir de sku.variations (fallback para o título)
+const parseColorFromSku = (sku: any): 'white' | 'black' | null => {
+  const norm = (s: string) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+  const variations = Array.isArray(sku?.variations) ? sku.variations : []
+  const colorVar = variations.find((v: any) => {
+    const n = norm(v?.name)
+    return n.includes('cor') || n.includes('color')
+  })
+  const colorText = colorVar?.value ? norm(String(colorVar.value)) : norm(`${sku?.title || ''} ${sku?.name || ''}`)
+  if (colorText.includes('branco')) return 'white'
+  if (colorText.includes('preto')) return 'black'
+  return null
+}
+
+// Tamanho preferencialmente a partir de sku.variations (fallback regex)
 const parseSizeFromSku = (sku: any): number | null => {
+  const variations = Array.isArray(sku?.variations) ? sku.variations : []
+  const sizeVar = variations.find((v: any) => {
+    const n = (v?.name || '').toLowerCase()
+    return n.includes('tamanho') || n.includes('size')
+  })
+  if (sizeVar && sizeVar.value) {
+    const m = String(sizeVar.value).match(/\b(34|35|36|37|38|39|40)\b/)
+    const asNum = m ? Number(m[1]) : NaN
+    if (!Number.isNaN(asNum)) return asNum
+  }
   const text = `${(sku?.title || '')} ${(sku?.name || '')}`.toLowerCase()
   const match = text.match(/\b(34|35|36|37|38|39|40)\b/)
   return match ? Number(match[1]) : null
@@ -92,15 +117,16 @@ const fetchStockFromYampi = async () => {
     const map: Record<string, number> = {}
 
     data.forEach((product: any) => {
-      const colorId = parseColorFromName(product?.name)
-      if (!colorId) return
-
-      const skus = Array.isArray(product?.skus) ? product.skus : []
+      const skusRaw = product?.skus
+      const skus = Array.isArray(skusRaw) ? skusRaw : Array.isArray(skusRaw?.data) ? skusRaw.data : []
       skus.forEach((sku: any) => {
+        // Cor preferencialmente pelo SKU (variações), fallback ao nome do produto se não encontrar
+        const colorId = parseColorFromSku(sku) ?? parseColorFromName(product?.name)
+        if (!colorId) return
         const size = parseSizeFromSku(sku)
         if (!size) return
         const key = `${colorId}-${size}`
-        const stock = Number(sku?.total_in_stock || 0)
+        const stock = Number(sku?.total_in_stock ?? 0)
         map[key] = (map[key] || 0) + stock
       })
     })

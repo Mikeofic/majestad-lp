@@ -13,7 +13,7 @@ export interface YampiSku {
 export interface YampiProduct {
   id: string | number;
   name: string;
-  skus?: YampiSku[];
+  skus?: any; // pode ser array ou objeto { data: [] }
   images?: any[];
   [key: string]: any;
 }
@@ -152,7 +152,8 @@ export class YampiAPI {
   async getProductsInStock(): Promise<GetProductsResponse> {
     const products = await this.getProducts({ include: 'skus' });
     const productsInStock = (products.data || []).filter(product => {
-      return product.skus && Array.isArray(product.skus) && product.skus.some(sku => (sku.total_in_stock || 0) > 0);
+      const skusArr = normalizeSkus(product.skus);
+      return skusArr.some(sku => (sku.total_in_stock || 0) > 0);
     });
 
     return {
@@ -165,11 +166,12 @@ export class YampiAPI {
   async checkProductStock(productId: string | number): Promise<ProductStockInfo> {
     const product = await this.getProduct(productId, 'skus');
 
-    if (!product.data?.skus || !Array.isArray(product.data.skus)) {
+    const skusArr = normalizeSkus(product.data?.skus);
+    if (!Array.isArray(skusArr) || skusArr.length === 0) {
       return { inStock: false, totalStock: 0, skus: [] };
     }
 
-    const skusWithStock = product.data.skus.map(sku => ({
+    const skusWithStock = skusArr.map(sku => ({
       id: sku.id,
       name: sku.title || sku.name,
       stock: sku.total_in_stock || 0,
@@ -187,3 +189,10 @@ export class YampiAPI {
 const yampiApi = new YampiAPI();
 
 export default yampiApi;
+
+// Helper para normalizar SKUs vindos da Yampi
+function normalizeSkus(skus: any): YampiSku[] {
+  if (Array.isArray(skus)) return skus as YampiSku[];
+  if (Array.isArray(skus?.data)) return skus.data as YampiSku[];
+  return [];
+}

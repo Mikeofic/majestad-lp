@@ -1,89 +1,13 @@
 // Cliente para Cloudflare Pages Functions que proxy a API da Yampi
 // Assim, nenhum segredo fica exposto no front-end
 
-// Interfaces para tipagem
-export interface YampiSku {
-  id: string | number;
-  name?: string;
-  title?: string;
-  total_in_stock?: number;
-  [key: string]: any;
-}
-
-export interface YampiProduct {
-  id: string | number;
-  name: string;
-  skus?: YampiSku[];
-  images?: any[];
-  [key: string]: any;
-}
-
-export interface GetProductsOptions {
-  include?: string;
-  limit?: number;
-  page?: number;
-  skipCache?: boolean;
-}
-
-export interface GetSKUsOptions {
-  include?: string;
-  limit?: number;
-  page?: number;
-}
-
-export interface GetProductsResponse {
-  data: YampiProduct[];
-  meta?: {
-    pagination?: {
-      total?: number;
-      count?: number;
-      per_page?: number;
-      current_page?: number;
-      total_pages?: number;
-    };
-  };
-  [key: string]: any;
-}
-
-export interface GetProductResponse {
-  data: YampiProduct;
-  [key: string]: any;
-}
-
-export interface GetSKUsResponse {
-  data: YampiSku[];
-  meta?: {
-    pagination?: {
-      total?: number;
-      count?: number;
-      per_page?: number;
-      current_page?: number;
-      total_pages?: number;
-    };
-  };
-  [key: string]: any;
-}
-
-export interface ProductStockInfo {
-  inStock: boolean;
-  totalStock: number;
-  skus: Array<{
-    id: string | number;
-    name?: string;
-    stock: number;
-    inStock: boolean;
-  }>;
-}
-
-export class YampiAPI {
-  private basePath: string;
-
+class YampiAPI {
   constructor(basePath = '/api/yampi') {
     this.basePath = basePath;
   }
 
   // Buscar todos os produtos com informações de estoque
-  async getProducts(options: GetProductsOptions = {}): Promise<GetProductsResponse> {
+  async getProducts(options = {}) {
     const {
       include = 'skus,images',
       limit = 50,
@@ -110,7 +34,7 @@ export class YampiAPI {
   }
 
   // Buscar um produto específico por ID
-  async getProduct(productId: string | number, include = 'skus,images'): Promise<GetProductResponse> {
+  async getProduct(productId, include = 'skus,images') {
     const params = new URLSearchParams({ productId: String(productId), include });
     const response = await fetch(`${this.basePath}/product?${params}`, {
       method: 'GET',
@@ -124,7 +48,7 @@ export class YampiAPI {
   }
 
   // Buscar SKUs com informações de estoque
-  async getSKUs(options: GetSKUsOptions = {}): Promise<GetSKUsResponse> {
+  async getSKUs(options = {}) {
     const {
       include = 'prices,stocks',
       limit = 50,
@@ -149,7 +73,7 @@ export class YampiAPI {
   }
 
   // Verificar produtos em estoque (com quantidade > 0)
-  async getProductsInStock(): Promise<GetProductsResponse> {
+  async getProductsInStock() {
     const products = await this.getProducts({ include: 'skus' });
     const productsInStock = (products.data || []).filter(product => {
       return product.skus && Array.isArray(product.skus) && product.skus.some(sku => (sku.total_in_stock || 0) > 0);
@@ -162,7 +86,7 @@ export class YampiAPI {
   }
 
   // Verificar estoque de um produto específico
-  async checkProductStock(productId: string | number): Promise<ProductStockInfo> {
+  async checkProductStock(productId) {
     const product = await this.getProduct(productId, 'skus');
 
     if (!product.data?.skus || !Array.isArray(product.data.skus)) {
@@ -187,3 +111,4 @@ export class YampiAPI {
 const yampiApi = new YampiAPI();
 
 export default yampiApi;
+export { YampiAPI };

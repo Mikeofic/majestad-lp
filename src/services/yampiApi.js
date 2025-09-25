@@ -1,170 +1,114 @@
-// Serviço para integração com a API da Yampi
-// Documentação: https://docs.yampi.com.br
+// Cliente para Cloudflare Pages Functions que proxy a API da Yampi
+// Assim, nenhum segredo fica exposto no front-end
 
 class YampiAPI {
-  constructor(alias, userToken, userSecretKey) {
-    this.baseURL = `https://api.dooki.com.br/v2/${alias}`;
-    this.headers = {
-      'Content-Type': 'application/json',
-      'User-Token': userToken,
-      'User-Secret-Key': userSecretKey
-    };
+  constructor(basePath = '/api/yampi') {
+    this.basePath = basePath;
   }
 
   // Buscar todos os produtos com informações de estoque
   async getProducts(options = {}) {
-    try {
-      const {
-        include = 'skus,images',
-        limit = 50,
-        page = 1,
-        skipCache = false
-      } = options;
+    const {
+      include = 'skus,images',
+      limit = 50,
+      page = 1,
+      skipCache = false
+    } = options;
 
-      const params = new URLSearchParams({
-        include,
-        limit: limit.toString(),
-        page: page.toString()
-      });
+    const params = new URLSearchParams({
+      include,
+      limit: String(limit),
+      page: String(page)
+    });
+    if (skipCache) params.append('skipCache', 'true');
 
-      if (skipCache) {
-        params.append('skipCache', 'true');
-      }
+    const response = await fetch(`${this.basePath}/products?${params}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    });
 
-      const response = await fetch(`${this.baseURL}/catalog/products?${params}`, {
-        method: 'GET',
-        headers: this.headers
-      });
-
-      if (!response.ok) {
-        throw new Error(`Erro na API: ${response.status} - ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Erro ao buscar produtos:', error);
-      throw error;
+    if (!response.ok) {
+      throw new Error(`Erro na API: ${response.status} - ${response.statusText}`);
     }
+    return await response.json();
   }
 
   // Buscar um produto específico por ID
   async getProduct(productId, include = 'skus,images') {
-    try {
-      const response = await fetch(`${this.baseURL}/catalog/products/${productId}?include=${include}`, {
-        method: 'GET',
-        headers: this.headers
-      });
+    const params = new URLSearchParams({ productId: String(productId), include });
+    const response = await fetch(`${this.basePath}/product?${params}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    });
 
-      if (!response.ok) {
-        throw new Error(`Erro na API: ${response.status} - ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Erro ao buscar produto:', error);
-      throw error;
+    if (!response.ok) {
+      throw new Error(`Erro na API: ${response.status} - ${response.statusText}`);
     }
+    return await response.json();
   }
 
   // Buscar SKUs com informações de estoque
   async getSKUs(options = {}) {
-    try {
-      const {
-        include = 'prices,stocks',
-        limit = 50,
-        page = 1
-      } = options;
+    const {
+      include = 'prices,stocks',
+      limit = 50,
+      page = 1
+    } = options;
 
-      const params = new URLSearchParams({
-        include,
-        limit: limit.toString(),
-        page: page.toString()
-      });
+    const params = new URLSearchParams({
+      include,
+      limit: String(limit),
+      page: String(page)
+    });
 
-      const response = await fetch(`${this.baseURL}/catalog/skus?${params}`, {
-        method: 'GET',
-        headers: this.headers
-      });
+    const response = await fetch(`${this.basePath}/skus?${params}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    });
 
-      if (!response.ok) {
-        throw new Error(`Erro na API: ${response.status} - ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Erro ao buscar SKUs:', error);
-      throw error;
+    if (!response.ok) {
+      throw new Error(`Erro na API: ${response.status} - ${response.statusText}`);
     }
+    return await response.json();
   }
 
   // Verificar produtos em estoque (com quantidade > 0)
   async getProductsInStock() {
-    try {
-      const products = await this.getProducts({ include: 'skus' });
-      
-      // Filtrar produtos que têm pelo menos um SKU em estoque
-      const productsInStock = products.data.filter(product => {
-        return product.skus && Array.isArray(product.skus) && product.skus.some(sku => sku.total_in_stock > 0);
-      });
+    const products = await this.getProducts({ include: 'skus' });
+    const productsInStock = (products.data || []).filter(product => {
+      return product.skus && Array.isArray(product.skus) && product.skus.some(sku => (sku.total_in_stock || 0) > 0);
+    });
 
-      return {
-        ...products,
-        data: productsInStock
-      };
-    } catch (error) {
-      console.error('Erro ao verificar produtos em estoque:', error);
-      throw error;
-    }
+    return {
+      ...products,
+      data: productsInStock
+    };
   }
 
   // Verificar estoque de um produto específico
   async checkProductStock(productId) {
-    try {
-      const product = await this.getProduct(productId, 'skus');
-      
-      if (!product.data.skus || !Array.isArray(product.data.skus)) {
-        return { inStock: false, totalStock: 0, skus: [] };
-      }
+    const product = await this.getProduct(productId, 'skus');
 
-      const skusWithStock = product.data.skus.map(sku => ({
-        id: sku.id,
-        name: sku.title || sku.name,
-        stock: sku.total_in_stock || 0,
-        inStock: (sku.total_in_stock || 0) > 0
-      }));
-
-      const totalStock = skusWithStock.reduce((total, sku) => total + sku.stock, 0);
-      const inStock = totalStock > 0;
-
-      return {
-        inStock,
-        totalStock,
-        skus: skusWithStock
-      };
-    } catch (error) {
-      console.error('Erro ao verificar estoque do produto:', error);
+    if (!product.data?.skus || !Array.isArray(product.data.skus)) {
       return { inStock: false, totalStock: 0, skus: [] };
     }
+
+    const skusWithStock = product.data.skus.map(sku => ({
+      id: sku.id,
+      name: sku.title || sku.name,
+      stock: sku.total_in_stock || 0,
+      inStock: (sku.total_in_stock || 0) > 0
+    }));
+
+    const totalStock = skusWithStock.reduce((total, sku) => total + (sku.stock || 0), 0);
+    const inStock = totalStock > 0;
+
+    return { inStock, totalStock, skus: skusWithStock };
   }
 }
 
-// Configuração da instância da API
-// IMPORTANTE: Substitua pelos seus dados reais da Yampi
-const YAMPI_CONFIG = {
-  alias: 'majestad', // Encontre em: Perfil > Credenciais de API
-  userToken: '8xFx87f5Nx8J2yokYoHMeyuIa6TDQ58Nw7sAq3DS', // Encontre em: Perfil > Credenciais de API
-  userSecretKey: 'sk_mQPnAwsGrNebfffoSecVpEsbCG1miRVevxNEY' // Encontre em: Perfil > Credenciais de API
-};
-
-// Instância da API
-const yampiApi = new YampiAPI(
-  YAMPI_CONFIG.alias,
-  YAMPI_CONFIG.userToken,
-  YAMPI_CONFIG.userSecretKey
-);
+// Instância única exportada
+const yampiApi = new YampiAPI();
 
 export default yampiApi;
 export { YampiAPI };

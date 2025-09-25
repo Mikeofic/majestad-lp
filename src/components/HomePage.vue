@@ -6,6 +6,7 @@ import FAQSection from './FAQSection.vue'
 import TestimonialsSection from './TestimonialsSection.vue'
 import SizeGuideSection from './SizeGuideSection.vue'
 import DeliverySection from './DeliverySection.vue'
+import yampiApi from '@/services/yampiApi'
 
 // Tipos
 interface Color {
@@ -67,21 +68,75 @@ const colors = [
 ]
 
 // Estoque por variação (cor + tamanho) - Dados reais da API Yampi
-const stockByVariation: Record<string, number> = {
-  'black-34': 1,
-  'black-35': 3,
-  'black-36': 9,
-  'black-37': 10,
-  'black-38': 8,
-  'black-39': 3,
-  'black-40': 2,
-  'white-34': 1,
-  'white-35': 2,
-  'white-36': 6,
-  'white-37': 6,
-  'white-38': 6,
-  'white-39': 2,
-  'white-40': 1
+const stockByVariation = reactive<Record<string, number>>({})
+const yampiStockLoaded = ref(false)
+
+// Utilitários para mapear cor e tamanho a partir dos dados da Yampi
+const parseColorFromName = (name: string): 'white' | 'black' | null => {
+  const lower = (name || '').toLowerCase()
+  if (lower.includes('branco') || lower.includes('white')) return 'white'
+  if (lower.includes('preto') || lower.includes('black')) return 'black'
+  return null
+}
+
+// Cor preferencialmente a partir de sku.variations (fallback para o título)
+const parseColorFromSku = (sku: any): 'white' | 'black' | null => {
+  const norm = (s: string) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+  const variations = Array.isArray(sku?.variations) ? sku.variations : []
+  const colorVar = variations.find((v: any) => {
+    const n = norm(v?.name)
+    return n.includes('cor') || n.includes('color')
+  })
+  const colorText = colorVar?.value ? norm(String(colorVar.value)) : norm(`${sku?.title || ''} ${sku?.name || ''}`)
+  if (colorText.includes('branco')) return 'white'
+  if (colorText.includes('preto')) return 'black'
+  return null
+}
+
+// Tamanho preferencialmente a partir de sku.variations (fallback regex)
+const parseSizeFromSku = (sku: any): number | null => {
+  const variations = Array.isArray(sku?.variations) ? sku.variations : []
+  const sizeVar = variations.find((v: any) => {
+    const n = (v?.name || '').toLowerCase()
+    return n.includes('tamanho') || n.includes('size')
+  })
+  if (sizeVar && sizeVar.value) {
+    const m = String(sizeVar.value).match(/\b(34|35|36|37|38|39|40)\b/)
+    const asNum = m ? Number(m[1]) : NaN
+    if (!Number.isNaN(asNum)) return asNum
+  }
+  const text = `${(sku?.title || '')} ${(sku?.name || '')}`.toLowerCase()
+  const match = text.match(/\b(34|35|36|37|38|39|40)\b/)
+  return match ? Number(match[1]) : null
+}
+
+const fetchStockFromYampi = async () => {
+  try {
+    const resp = await yampiApi.getProducts({ include: 'skus', limit: 100, skipCache: true })
+    const data = resp.data || []
+    const map: Record<string, number> = {}
+
+    data.forEach((product: any) => {
+      const skusRaw = product?.skus
+      const skus = Array.isArray(skusRaw) ? skusRaw : Array.isArray(skusRaw?.data) ? skusRaw.data : []
+      skus.forEach((sku: any) => {
+        // Cor preferencialmente pelo SKU (variações), fallback ao nome do produto se não encontrar
+        const colorId = parseColorFromSku(sku) ?? parseColorFromName(product?.name)
+        if (!colorId) return
+        const size = parseSizeFromSku(sku)
+        if (!size) return
+        const key = `${colorId}-${size}`
+        const stock = Number(sku?.total_in_stock ?? 0)
+        map[key] = (map[key] || 0) + stock
+      })
+    })
+
+    // Atualizar estado reativo com o estoque carregado
+    Object.assign(stockByVariation, map)
+    yampiStockLoaded.value = true
+  } catch (err) {
+    console.error('Falha ao carregar estoque da Yampi:', err)
+  }
 }
 
 const sizes = [

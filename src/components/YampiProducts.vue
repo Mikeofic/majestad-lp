@@ -196,7 +196,7 @@
 </template>
 
 <script>
-import yampiApi from '../services/yampiApi.js';
+import yampiApi from '@/services/yampiApi';
 
 export default {
   name: 'YampiProducts',
@@ -223,7 +223,11 @@ export default {
           page,
           skipCache: true
         });
-        this.products = response.data || [];
+        // Normaliza skus quando vierem como { data: [] }
+        this.products = (response.data || []).map(p => ({
+          ...p,
+          skus: Array.isArray(p.skus) ? p.skus : (Array.isArray(p.skus?.data) ? p.skus.data : [])
+        }));
         this.pagination = response.meta?.pagination || null;
       } catch (error) {
         this.error = `Erro ao carregar produtos: ${error.message}`;
@@ -238,7 +242,11 @@ export default {
       this.specificProductStock = null;
       try {
         const response = await yampiApi.getProductsInStock();
-        this.products = response.data || [];
+        // Também normaliza para exibição consistente
+        this.products = (response.data || []).map(p => ({
+          ...p,
+          skus: Array.isArray(p.skus) ? p.skus : (Array.isArray(p.skus?.data) ? p.skus.data : [])
+        }));
         this.pagination = response.meta?.pagination || null;
       } catch (error) {
         this.error = `Erro ao carregar produtos em estoque: ${error.message}`;

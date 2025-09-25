@@ -1,51 +1,8 @@
 <template>
   <div class="yampi-products p-6">
     <h2 class="text-2xl font-bold mb-6">Produtos Yampi - Verificação de Estoque</h2>
+    <p class="text-sm text-gray-400 mb-4">Integração via Cloudflare Pages API (segura)</p>
     
-    <!-- Configuração da API -->
-    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
-      <h3 class="text-lg font-semibold mb-3 text-yellow-800">⚙️ Configuração da API</h3>
-      <p class="text-sm text-yellow-700 mb-3">
-        Para usar este componente, configure suas credenciais da Yampi no arquivo 
-        <code class="bg-yellow-100 px-1 rounded">src/services/yampiApi.js</code>
-      </p>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div>
-          <label class="block text-sm font-medium text-yellow-700 mb-1">Alias:</label>
-          <input 
-            v-model="config.alias" 
-            type="text" 
-            placeholder="seu-alias"
-            class="w-full px-3 py-2 border border-yellow-300 rounded-md text-sm"
-          >
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-yellow-700 mb-1">User Token:</label>
-          <input 
-            v-model="config.userToken" 
-            type="password" 
-            placeholder="seu-user-token"
-            class="w-full px-3 py-2 border border-yellow-300 rounded-md text-sm"
-          >
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-yellow-700 mb-1">Secret Key:</label>
-          <input 
-            v-model="config.userSecretKey" 
-            type="password" 
-            placeholder="sua-secret-key"
-            class="w-full px-3 py-2 border border-yellow-300 rounded-md text-sm"
-          >
-        </div>
-      </div>
-      <button 
-        @click="updateApiConfig" 
-        class="mt-3 bg-yellow-600 text-white px-4 py-2 rounded-md hover:bg-yellow-700 transition-colors"
-      >
-        Atualizar Configuração
-      </button>
-    </div>
-
     <!-- Controles -->
     <div class="flex flex-wrap gap-4 mb-6">
       <button 
@@ -239,7 +196,7 @@
 </template>
 
 <script>
-import { YampiAPI } from '../services/yampiApi.js';
+import yampiApi from '../services/yampiApi.js';
 
 export default {
   name: 'YampiProducts',
@@ -250,50 +207,22 @@ export default {
       error: null,
       pagination: null,
       productIdToCheck: '',
-      specificProductStock: null,
-      config: {
-        alias: '',
-        userToken: '',
-        userSecretKey: ''
-      },
-      yampiApi: null
+      specificProductStock: null
     };
   },
   methods: {
-    updateApiConfig() {
-      if (!this.config.alias || !this.config.userToken || !this.config.userSecretKey) {
-        this.error = 'Por favor, preencha todas as credenciais da API';
-        return;
-      }
-      
-      this.yampiApi = new YampiAPI(
-        this.config.alias,
-        this.config.userToken,
-        this.config.userSecretKey
-      );
-      
-      this.error = null;
-      alert('Configuração da API atualizada com sucesso!');
-    },
-    
+    // Removido: updateApiConfig (credenciais agora ficam no servidor)
     async loadProducts(page = 1) {
-      if (!this.yampiApi) {
-        this.error = 'Configure as credenciais da API primeiro';
-        return;
-      }
-      
       this.loading = true;
       this.error = null;
       this.specificProductStock = null;
-      
       try {
-        const response = await this.yampiApi.getProducts({
+        const response = await yampiApi.getProducts({
           include: 'skus,images',
           limit: 12,
           page,
           skipCache: true
         });
-        
         this.products = response.data || [];
         this.pagination = response.meta?.pagination || null;
       } catch (error) {
@@ -303,19 +232,12 @@ export default {
         this.loading = false;
       }
     },
-    
     async loadProductsInStock() {
-      if (!this.yampiApi) {
-        this.error = 'Configure as credenciais da API primeiro';
-        return;
-      }
-      
       this.loading = true;
       this.error = null;
       this.specificProductStock = null;
-      
       try {
-        const response = await this.yampiApi.getProductsInStock();
+        const response = await yampiApi.getProductsInStock();
         this.products = response.data || [];
         this.pagination = response.meta?.pagination || null;
       } catch (error) {
@@ -325,23 +247,15 @@ export default {
         this.loading = false;
       }
     },
-    
     async checkSpecificProduct() {
-      if (!this.yampiApi) {
-        this.error = 'Configure as credenciais da API primeiro';
-        return;
-      }
-      
       if (!this.productIdToCheck) {
         this.error = 'Digite o ID do produto';
         return;
       }
-      
       this.loading = true;
       this.error = null;
-      
       try {
-        this.specificProductStock = await this.yampiApi.checkProductStock(this.productIdToCheck);
+        this.specificProductStock = await yampiApi.checkProductStock(this.productIdToCheck);
       } catch (error) {
         this.error = `Erro ao verificar estoque do produto: ${error.message}`;
         this.specificProductStock = null;
@@ -349,11 +263,9 @@ export default {
         this.loading = false;
       }
     },
-    
     loadPage(page) {
       this.loadProducts(page);
     },
-    
     getProductStockInfo(product) {
       if (!product.skus || !Array.isArray(product.skus)) {
         return { inStock: false, totalStock: 0 };

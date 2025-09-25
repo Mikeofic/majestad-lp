@@ -2307,23 +2307,6 @@ onUnmounted(() => {
       </div>
     </section>
 
-    <!-- Seção de Integração Yampi -->
-    <section class="py-20 px-4 bg-gradient-to-b from-[#0B0B0C] to-[#1a1a1a]">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-12">
-          <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">
-            Integração <span class="text-[#C8AE7D]">Yampi</span>
-          </h2>
-          <p class="text-xl text-[#E8E2D6] max-w-3xl mx-auto">
-            Demonstração da integração com a API da Yampi para verificação de produtos em estoque
-          </p>
-        </div>
-        
-        <!-- Componente YampiProducts -->
-        <YampiProducts />
-      </div>
-    </section>
-
     <!-- Footer Minimalista de Confiança -->
     <footer class="bg-[#0B0B0C] py-12 px-4 border-t border-[#C8AE7D]/20">
       <div class="max-w-4xl mx-auto">
@@ -2392,7 +2375,7 @@ onUnmounted(() => {
         
         <!-- Copyright -->
         <div class="border-t border-[#C8AE7D]/20 pt-6 text-center text-xs text-[#E8E2D6]">
-          <p>&copy; 2024 Majestad. Todos os direitos reservados. | CNPJ: 00.000.000/0001-00</p>
+          <p>&copy; 2025 Majestad. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>

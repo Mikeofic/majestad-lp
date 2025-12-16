@@ -17,12 +17,12 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   orderId: '',
-  orderValue: 897,
+  orderValue: 494,
   items: () => [{
     id: 'majestad-combo',
     name: 'Combo 2 Pares Salto Majestad',
     category: 'calçados',
-    price: 897,
+    price: 494,
     quantity: 1
   }]
 })

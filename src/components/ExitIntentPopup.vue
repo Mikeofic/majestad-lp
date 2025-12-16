@@ -77,7 +77,7 @@
               </div>
               <div class="flex items-center justify-between mb-2">
                 <span class="text-green-400 font-bold text-lg">Preço Especial:</span>
-                <span class="text-[#C8AE7D] font-bold text-2xl">R$ 897</span>
+                <span class="text-[#C8AE7D] font-bold text-2xl">R$ 494</span>
               </div>
               <div class="text-center">
                 <span class="bg-green-500 text-white px-2 py-1 rounded text-xs font-bold">ECONOMIZE R$ 177</span>

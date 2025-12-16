@@ -152,7 +152,7 @@ const handlePurchase = (orderData) => {
 ```typescript
 // Botão CTA principal
 const handleCTAClick = () => {
-  facebookPixel.trackCTAClick('Comprar Agora', 'hero_section', 897)
+  facebookPixel.trackCTAClick('Comprar Agora', 'hero_section', 494)
 }
 
 // Botão genérico
@@ -185,7 +185,7 @@ const handleFormStart = () => {
 
 // Formulário completo
 const handleFormComplete = () => {
-  facebookPixel.trackFormComplete('checkout_form', 897)
+  facebookPixel.trackFormComplete('checkout_form', 494)
 }
 ```
 
